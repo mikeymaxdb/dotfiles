@@ -1,0 +1,82 @@
+# Create own window instead of using desktop (required in nautilus).
+own_window yes
+own_window_type override
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+own_window_class conky
+
+# Graphics settings.
+double_buffer yes	# Use double buffering
+use_spacer right	# Add space around certain objects.
+use_xft yes		# Use anti-aliased font.
+
+draw_shades no
+
+alignment top_right
+
+update_interval 1	# Update interval in seconds.
+
+minimum_size 290 600
+maximum_width 290
+
+# Text settings.
+draw_outline no
+draw_borders no
+uppercase no
+
+# Border settings.
+stippled_borders 3
+border_margin 9
+border_width 10
+gap_x 12
+gap_y 22
+
+# Color settings.
+default_color ffffff
+own_window_colour brown
+
+#font
+xftfont Open Sans Light:size=10
+
+lua_load ~/.config/conky/rings/rings-v1.2.lua
+lua_draw_hook_pre ring_stats
+
+# Lines after 'TEXT' will be formatted on screen
+
+TEXT
+${voffset 135}${goto 127}${font Open Sans:size=23}${time %I:%M}$font
+${voffset 5}${goto 157}${font Open Sans:size=10}${time %S}$font
+${voffset 27}${goto 65} ${font Open Sans:size=10}${cpu}%
+${goto 220} $memperc%$font
+${voffset 30}
+$color
+${font Open Sans:size=17}${alignc}$nodename$font
+${font Open Sans:size=9}${alignc}$kernel
+${alignc}${uptime}$font
+#
+#NAME ${alignr} PID      CPU
+#
+
+#${hr 1}
+${top name 1} ${alignr}${top pid 1}  ${top cpu 1}
+${top name 2} ${alignr}${top pid 2}  ${top cpu 2}
+${top name 3} ${alignr}${top pid 3}  ${top cpu 3}
+${top name 4} ${alignr}${top pid 4}  ${top cpu 4}
+${top name 5} ${alignr}${top pid 5}  ${top cpu 5}
+
+#${hr 1}
+#---------------Network----------------------#
+${font Open Sans light:size=13}
+${if_existing /proc/net/route eth0}
+${alignr}${wireless_essid eth0}
+${alignr}${addr eth0}
+${alignr}Down ${downspeedf eth0}kbps
+${alignr}Up ${upspeedf eth0}kbps
+$else
+${if_existing /proc/net/route wlan0}
+${alignc}${wireless_essid wlan0}
+${alignc}${addr wlan0}
+${alignc}Down ${downspeedf wlan0}kbps
+${alignc}Up ${upspeedf wlan0}kbps
+$endif
+

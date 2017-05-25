@@ -1,6 +1,6 @@
 set nocompatible
 "set shell=/usr/local/bin/bash
-
+"set directory=~/.vim/tmp
 filetype off
 
 augroup reload_vimrc
@@ -8,22 +8,25 @@ augroup reload_vimrc
   autocmd BufWritePost $MYVIMRC source $MYVIMRC
 augroup END
 
-set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#begin()
 
 " Vundle manages itself
 Plugin 'gmarik/vundle'
-
 Plugin 'bling/vim-airline'
 Plugin 'scrooloose/nerdtree.git'
-" Plugin 'bronson/vim-trailing-whitespace'
-Plugin 'ntpeters/vim-better-whitespace'
+Plugin 'bronson/vim-trailing-whitespace'
 Plugin 'flazz/vim-colorschemes'
-" Plugin 'valloric/YouCompleteMe'
+Plugin 'valloric/YouCompleteMe'
 Plugin 'scrooloose/syntastic'
-Plugin 'leafgarland/typescript-vim'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'tpope/vim-fugitive'
 
 call vundle#end()
+
+" Enable mouse
+set mouse=a
 
 " Retain buffers until quit
 set hidden
@@ -86,10 +89,11 @@ set ffs=unix,dos,mac
 set autoindent
 set smarttab
 
-" 1 tab == 2 spaces
+" 1 tab == 4 spaces
 set shiftwidth=4
 set tabstop=4
 
+" Show 80th column
 " Search shows all results
 set incsearch
 set showmatch
@@ -127,9 +131,6 @@ let g:syntastic_check_on_wq = 0
 noremap j gj
 noremap k gk
 
-noremap th :tabprev<CR>
-noremap tl :tabnext<CR>
-noremap tn :tabnew<CR>
 
 let mapleader = ","
 let g:mapleader = ","
