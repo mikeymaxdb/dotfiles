@@ -22,6 +22,9 @@ Plugin 'flazz/vim-colorschemes'
 " Plugin 'valloric/YouCompleteMe'
 Plugin 'scrooloose/syntastic'
 Plugin 'leafgarland/typescript-vim'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'tpope/vim-fugitive'
 
 call vundle#end()
 
