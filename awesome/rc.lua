@@ -4,6 +4,7 @@ require("awful.autofocus")
 require("awful.rules")
 -- Theme handling library
 require("beautiful")
+--require("gears")
 -- Notification library
 require("naughty")
 
@@ -41,7 +42,9 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
 beautiful.init(awful.util.getdir("config") .. "/themes/darkTheme/theme.lua")
-
+--for s = 1, screen.count() do
+--		gears.wallpaper.maximized(beautiful.wallpaper, s, true)
+--end
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt"
 editor = os.getenv("EDITOR") or "editor"
@@ -63,11 +66,11 @@ layouts =
     awful.layout.suit.tile.top,
     awful.layout.suit.fair,
     awful.layout.suit.fair.horizontal,
-    awful.layout.suit.spiral,
-    awful.layout.suit.spiral.dwindle,
-    awful.layout.suit.max,
-    awful.layout.suit.max.fullscreen,
-    awful.layout.suit.magnifier,
+    --awful.layout.suit.spiral,
+    --awful.layout.suit.spiral.dwindle,
+    --awful.layout.suit.max,
+    --awful.layout.suit.max.fullscreen,
+    --awful.layout.suit.magnifier,
     awful.layout.suit.floating
 }
 -- }}}
