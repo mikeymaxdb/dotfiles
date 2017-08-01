@@ -13,10 +13,8 @@ call vundle#begin()
 
 " Vundle manages itself
 Plugin 'gmarik/vundle'
-
 Plugin 'bling/vim-airline'
 Plugin 'scrooloose/nerdtree.git'
-" Plugin 'bronson/vim-trailing-whitespace'
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'flazz/vim-colorschemes'
 " Plugin 'valloric/YouCompleteMe'
@@ -27,6 +25,9 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-fugitive'
 
 call vundle#end()
+
+" Enable mouse
+set mouse=a
 
 " Retain buffers until quit
 set hidden
@@ -53,8 +54,8 @@ set backspace=indent,eol,start
 set laststatus=2
 
 " Brace face
-"set showmatch
-"set matchtime=3
+set showmatch
+set matchtime=3
 
 " Split down and right
 "set splitbelow
