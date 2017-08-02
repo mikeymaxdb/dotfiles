@@ -90,7 +90,8 @@ alias gpp='git push'
 alias gb='git branch'
 alias gm='git merge'
 alias checkout='git checkout'
-alias gl='git log --pretty=format:"%C(green)%h %ad%Cred%d %Creset%s%Cblue [%cn]" --decorate --date=relative'
+alias glo='git log --pretty=format:"%C(green)%h %Cred%d %Creset%s %n%C(yellow)%ad%Cblue %cn%n" --decorate --date=relative --graph'
+alias gl='glo -10'
 alias gll='gl --numstat'
 
 
