@@ -44,10 +44,10 @@ fi
 
 
 
-alias __git_ps1="git branch 2>/dev/null | grep '*' | sed 's/* \(.*\)/[\1]/'"
+alias __git_ps1="git branch 2>/dev/null | grep '*' | sed 's/* \(.*\)/ [\1]/'"
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;34m\]\w\[\033[00;32m\] $(__git_ps1)\[\033[00m\] \$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;34m\]\w\[\033[00;32m\]$(__git_ps1)\[\033[00m\] \$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u:\w\$ '
 fi
@@ -68,9 +68,9 @@ export LS_COLORS='no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40
 
 # aliases
 alias ls='ls -G'
-alias ll='ls -l'
+alias ll='ls -lpFh'
 alias sudo='sudo '
-alias la='ls -la'
+alias la='ls -lapFh'
 alias ..='cd ..'
 alias update='sudo apt-get update && sudo apt-get upgrade'
 alias install='sudo apt-get install'
@@ -81,7 +81,15 @@ alias df='df -h'
 alias overdrive='sudo mount /dev/sdc2 ~/Usb'
 alias underdrive='sudo umount ~/Usb'
 
+# Git aliases
 alias gc='git commit -am'
+alias gs='git status -s'
+alias gd='git diff'
+alias gp='git pull'
+alias gpp='git push'
+alias gb='git branch'
+alias gm='git merge'
+alias checkout='git checkout'
 
 
 # enable programmable completion features (you don't need to enable
