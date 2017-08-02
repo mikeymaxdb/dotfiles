@@ -47,7 +47,7 @@ fi
 alias __git_ps1="git branch 2>/dev/null | grep '*' | sed 's/* \(.*\)/ [\1]/'"
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;34m\]\w\[\033[00;32m\]$(__git_ps1)\[\033[00m\] \$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[0;34m\]\w\[\033[00;32m\]$(__git_ps1)\[\033[00m\] \$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u:\w\$ '
 fi
@@ -90,6 +90,8 @@ alias gpp='git push'
 alias gb='git branch'
 alias gm='git merge'
 alias checkout='git checkout'
+alias gl='git log --pretty=format:"%C(green)%h %ad%Cred%d %Creset%s%Cblue [%cn]" --decorate --date=relative'
+alias gll='gl --numstat'
 
 
 # enable programmable completion features (you don't need to enable
