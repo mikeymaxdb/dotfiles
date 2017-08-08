@@ -84,15 +84,22 @@ alias dum='du -h | sort -rh | head -20'
 alias df='df -h'
 alias overdrive='sudo mount /dev/sdc2 ~/Usb'
 alias underdrive='sudo umount ~/Usb'
+alias mkdir='mkdir -pv'
+
+alias mv='mv -i'
+alias cp='cp -i'
+alias ln='ln -i'
 
 # Git aliases
 alias gc='git commit -am'
 alias gs='git status -s'
-alias gd='git diff --color-words=.'
+alias gd='git diff'
 alias gp='git pull'
 alias gpp='git push'
 alias gb='git branch'
 alias gm='git merge'
+alias ga='git add'
+alias gaa='ga .'
 alias checkout='git checkout'
 alias glo='git log --pretty=format:"%C(green)%h %Cred%d %Creset%s %n%C(yellow)%ad%Cblue %cn%n" --decorate --date=relative --graph'
 alias gl='glo -10'
@@ -101,6 +108,10 @@ alias gll='gl --numstat'
 # Work aliases
 alias sshweb='ssh -t test "cd /www/repos/website ; bash"'
 alias sshhub='ssh -t test "cd /www/repos/hub ; bash"'
+
+if [ -f ~/.git-completion.bash ]; then
+  . ~/.git-completion.bash
+fi
 
 
 # Enable programmable completion features (you don't need to enable
