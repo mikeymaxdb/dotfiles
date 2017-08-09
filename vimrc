@@ -1,11 +1,10 @@
 set nocompatible
-"set shell=/usr/local/bin/bash
 
 filetype off
 
 augroup reload_vimrc
-  autocmd!
-  autocmd BufWritePost $MYVIMRC source $MYVIMRC
+	autocmd!
+	autocmd BufWritePost $MYVIMRC source $MYVIMRC
 augroup END
 
 set rtp+=~/.vim/bundle/vundle/
@@ -15,14 +14,14 @@ call vundle#begin()
 Plugin 'gmarik/vundle'
 Plugin 'bling/vim-airline'
 Plugin 'scrooloose/nerdtree.git'
-Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'flazz/vim-colorschemes'
-" Plugin 'valloric/YouCompleteMe'
 Plugin 'scrooloose/syntastic'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'tpope/vim-fugitive'
+" Plugin 'tpope/vim-fugitive'
+" Plugin 'valloric/YouCompleteMe'
+" Plugin 'ntpeters/vim-better-whitespace'
 
 call vundle#end()
 
@@ -35,14 +34,15 @@ set hidden
 " No bells!
 set visualbell
 
-" Fast scrolling
+" Scrolling
 set ttyfast
+set scrolloff=3
 
 " Path/file expansion in colon-mode.
 " set wildmode=longest:full,list:full,list:longest
 " set wildchar=<TAB>
 
-" Line numbers are nice
+" Line numbers
 set ruler
 set relativenumber
 set number
@@ -83,16 +83,14 @@ set encoding=utf8
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
 
-" Use spaces instead of tabs
-" set expandtab
-
-" Be smart when using tabs ;)
+" Tabs
+set expandtab
 set autoindent
 set smarttab
-
-" 1 tab == 2 spaces
 set shiftwidth=4
 set tabstop=4
+set list
+set listchars=tab:\|\ ,trail:·,extends:›,precedes:‹
 
 " Search shows all results
 set incsearch
@@ -116,16 +114,6 @@ set directory=~/.vim/backup/
 syntax enable
 set background=dark
 colorscheme gruvbox
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-" Key commands {{{
 
 " Wrapped lines goes down/up to next row, rather than next line in file.
 noremap j gj
@@ -152,16 +140,25 @@ nmap bb :bw<CR>
 nnoremap <leader><leader> <c-^>
 
 "" Ignore rules
-
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip              " MacOSX/Linux
 set wildignore+=*/node_modules/*,*/bower_components/* " Node.js
 set wildignore+=*/vendor/*,*/dist/*,/target/*         " Meh
 
+" Syntastic
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+
+" Statusline
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+" Airline
 if !exists('g:airline_symbols')
 	let g:airline_symbols = {}
 endif
 
-" Airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 0
 let g:airline_theme="dark"
