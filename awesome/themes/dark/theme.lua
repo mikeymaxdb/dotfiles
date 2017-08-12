@@ -52,7 +52,7 @@ theme.menu_width  = 100
 -- beautiful.variable in your rc.lua
 --theme.bg_widget = "#cc0000"
 
-theme.wallpaper = tl .. "grey.png"
+theme.wallpaper = tl .. "opm.png"
 
 -- You can use your own layout icons like this:
 theme.layout_fairh = "/usr/share/awesome/themes/default/layouts/fairhw.png"
