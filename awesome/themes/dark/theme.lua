@@ -21,7 +21,7 @@ theme.fg_minimize   = "#ffffff"
 
 theme.useless_gap   = 3
 theme.border_width  = 2
-theme.border_normal = "#3c3836"
+theme.border_normal = "#504945"
 theme.border_focus  = "#458588"
 theme.border_marked = "#91231c"
 
