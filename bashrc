@@ -48,6 +48,7 @@ else
   SERV=''
 fi
 
+alias git_branch="git branch 2>/dev/null | grep '*' | sed 's/* \(.*\)/\1/'"
 alias __git_ps1="git branch 2>/dev/null | grep '*' | sed 's/* \(.*\)/ [\1]/'"
 
 if [ "$color_prompt" = yes ]; then
@@ -104,7 +105,10 @@ alias gaa='ga .'
 alias gco='git checkout'
 alias glo='git log --pretty=format:"%C(green)%h %Cred%d %Creset%s %n%C(yellow)%ad%Cblue %cn%n" --decorate --date=relative --graph'
 alias gl='glo -10'
-alias gll='gl --numstat'
+alias gll='gl --numstat -p'
+alias gpu='gpp -u origin "$(git_branch)"'
+alias gpd='LAST_BRANCH=$(git_branch) && gco dev && gp && gmn "$LAST_BRANCH" && gpp && gco "$LAST_BRANCH"'
+alias gfc='gc "$(git_branch)" && gpp'
 
 # Work aliases
 alias sshweb='ssh -t test "cd /www/repos/website ; bash"'
