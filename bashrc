@@ -95,11 +95,10 @@ alias ln='ln -i'
 alias gc='git commit -am'
 alias gs='git status -s'
 alias gd='git diff'
-alias gp='git pull'
+alias gp='git pull --no-edit'
 alias gpp='git push'
-alias gb='git branch'
-alias gm='git merge'
-alias gmn='gm --no-edit'
+alias gb='git branch -vv'
+alias gm='git merge --no-edit'
 alias ga='git add'
 alias gaa='ga .'
 alias gco='git checkout'
@@ -107,12 +106,14 @@ alias glo='git log --pretty=format:"%C(green)%h %Cred%d %Creset%s %n%C(yellow)%a
 alias gl='glo -10'
 alias gll='gl --numstat -p'
 alias gpu='gpp -u origin "$(git_branch)"'
-alias gpd='LAST_BRANCH=$(git_branch) && gco dev && gp && gmn "$LAST_BRANCH" && gpp && gco "$LAST_BRANCH"'
+alias gpd='LAST_BRANCH=$(git_branch) && gpp && gco dev && gp && gm "$LAST_BRANCH" && gpp && gco "$LAST_BRANCH"'
 alias gfc='gc "$(git_branch)" && gpp'
+alias gdrb='LAST_BRANCH=$(git_branch) && gco rc && gb -d "$LAST_BRANCH" && git push origin "$LAST_BRANCH"'
 
 # Work aliases
 alias sshweb='ssh -t test "cd /www/repos/website ; bash"'
 alias sshhub='ssh -t test "cd /www/repos/hub ; bash"'
+alias ssheditor='ssh -t test "cd /www/repos/editor/Editor ; bash"'
 
 if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
