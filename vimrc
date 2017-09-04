@@ -1,16 +1,26 @@
+"------------------
+"  Init
+"------------------
 set nocompatible
-
 filetype off
 
+" Reload vimrc when edited
 augroup reload_vimrc
 	autocmd!
 	autocmd BufWritePost $MYVIMRC source $MYVIMRC
 augroup END
 
+
+
+"------------------
+"  Plugins
+"------------------
+
+" Plugin manager vundle
 set rtp+=~/.vim/bundle/vundle/
 call vundle#begin()
 
-" Vundle manages itself
+" Plugins
 Plugin 'gmarik/vundle'
 Plugin 'bling/vim-airline'
 Plugin 'scrooloose/nerdtree.git'
@@ -25,13 +35,24 @@ Plugin 'airblade/vim-gitgutter'
 
 call vundle#end()
 
+
+
+"------------------
+"  General
+"------------------
+
+" Colors
+syntax enable
+set background=dark
+colorscheme gruvbox
+
 " Enable mouse
 set mouse=a
 
 " Retain buffers until quit
 set hidden
 
-" No bells!
+" No bells
 set visualbell
 
 " Scrolling
@@ -47,7 +68,7 @@ set ruler
 set relativenumber
 set number
 
-" Backspace for normal people
+" Backspace
 set backspace=indent,eol,start
 
 " Always show status
@@ -57,25 +78,30 @@ set laststatus=2
 set showmatch
 set matchtime=3
 
-" Split down and right
-"set splitbelow
-"set splitright
-
-" Read filetype stuff
-filetype plugin on
-filetype indent on
-
 " Time out on key codes but not mappings.
 " Basically this makes terminal Vim work sanely.
 set notimeout
 set ttimeout
 set ttimeoutlen=10
 
-" Make Vim able to edit crontab files again.
-set backupskip=/tmp/*,/private/tmp/*"
-
 " Resize splits when the window is resized
 au VimResized * :wincmd =
+
+let mapleader = ","
+let g:mapleader = ","
+
+
+
+"------------------
+"  Files/types
+"------------------
+
+" Read filetype stuff
+filetype plugin on
+filetype indent on
+
+" Make Vim able to edit crontab files again.
+set backupskip=/tmp/*,/private/tmp/*"
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -92,16 +118,10 @@ set tabstop=4
 set list
 set listchars=tab:\|\ ,trail:·,extends:›,precedes:‹
 
-" Search shows all results
-set incsearch
-set showmatch
-set hlsearch
-
 " Tree style listing on Explore
-let g:netrw_liststyle=3
+" let g:netrw_liststyle=3
 
-" We have computers with pretty big
-" hard drives, so let's keep these
+" Long history
 set history=1000
 set undofile
 set undodir=~/.vim/undo " where to save undo histories
@@ -110,21 +130,39 @@ set undoreload=10000        " number of lines to save for undo
 set backupdir=~/.vim/backup/
 set directory=~/.vim/backup/
 
-" Colors
-syntax enable
-set background=dark
-colorscheme gruvbox
 
-" Wrapped lines goes down/up to next row, rather than next line in file.
+
+"------------------
+"  Search
+"------------------
+
+" Search shows all results
+set incsearch
+set showmatch
+set hlsearch
+
+"" Ignore rules
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+set wildignore+=*/node_modules/*,*/bower_components/*
+
+
+
+"------------------
+"  Navigation
+"------------------
+
+" Move between rows not lines
 noremap j gj
 noremap k gk
 
+"Tabs
 noremap th :tabprev<CR>
 noremap tl :tabnext<CR>
 noremap tn :tabnew<CR>
 
-let mapleader = ","
-let g:mapleader = ","
+" Split down and right
+set splitbelow
+set splitright
 
 " Vertical split
 nnoremap <leader>w <C-w>v<C-w>l
@@ -139,10 +177,11 @@ nmap bb :bw<CR>
 " Switch between files with ,,
 nnoremap <leader><leader> <c-^>
 
-"" Ignore rules
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip              " MacOSX/Linux
-set wildignore+=*/node_modules/*,*/bower_components/* " Node.js
-set wildignore+=*/vendor/*,*/dist/*,/target/*         " Meh
+
+
+"------------------
+"  Plugin Configs
+"------------------
 
 " Syntastic
 let g:syntastic_always_populate_loc_list = 1
