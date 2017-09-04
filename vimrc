@@ -79,7 +79,6 @@ set showmatch
 set matchtime=3
 
 " Time out on key codes but not mappings.
-" Basically this makes terminal Vim work sanely.
 set notimeout
 set ttimeout
 set ttimeoutlen=10
@@ -155,24 +154,30 @@ set wildignore+=*/node_modules/*,*/bower_components/*
 noremap j gj
 noremap k gk
 
-"Tabs
+"-- Tabs --------
 noremap th :tabprev<CR>
 noremap tl :tabnext<CR>
 noremap tn :tabnew<CR>
 
+
+"-- Splits ------
 " Split down and right
 set splitbelow
 set splitright
 
 " Vertical split
 nnoremap <leader>w <C-w>v<C-w>l
+
 " Horizontal split
 nnoremap <leader>h <C-w>s<C-w>l
 
+
+"-- Buffers -----
 " Buffer commands
 nmap <c-b> :bprevious<CR>
 nmap <c-n> :bnext<CR>
 nmap bb :bw<CR>
+
 
 " Switch between files with ,,
 nnoremap <leader><leader> <c-^>
