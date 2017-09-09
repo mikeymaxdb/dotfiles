@@ -49,10 +49,10 @@ else
 fi
 
 alias git_branch="git branch 2>/dev/null | grep '*' | sed 's/* \(.*\)/\1/'"
-alias __git_ps1="git branch 2>/dev/null | grep '*' | sed 's/* \(.*\)/ [\1]/'"
+alias git_ps1="git branch 2>/dev/null | grep '*' | sed 's/* \(.*\)/ [\1]/'"
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[0;34m\]\w\[\033[00;32m\]$(__git_ps1)\[\033[00m\] \$$SERV '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[0;34m\]\w\[\033[00;32m\]$(git_ps1)\[\033[00m\] \$$SERV '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u:\w\$ '
 fi

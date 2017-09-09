@@ -29,6 +29,8 @@ Plugin 'scrooloose/syntastic'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'mileszs/ack.vim'
 " Plugin 'tpope/vim-fugitive'
 " Plugin 'valloric/YouCompleteMe'
 " Plugin 'ntpeters/vim-better-whitespace'
@@ -74,6 +76,8 @@ set backspace=indent,eol,start
 " Always show status
 set laststatus=2
 
+set showcmd
+
 " Brace face
 set showmatch
 set matchtime=3
@@ -88,6 +92,11 @@ au VimResized * :wincmd =
 
 let mapleader = ","
 let g:mapleader = ","
+
+set foldenable " Turn on folding
+set foldmethod=marker " Fold on the marker
+set foldlevel=100 " Don't autofold anything (but I can still fold manually)
+set foldopen=block,hor,mark,percent,quickfix,tag " what movements open folds
 
 
 
@@ -123,9 +132,10 @@ set listchars=tab:\|\ ,trail:·,extends:›,precedes:‹
 " Long history
 set history=1000
 set undofile
-set undodir=~/.vim/undo " where to save undo histories
+set undodir=~/.vim/undo     " where to save undo histories
 set undolevels=1000         " How many undos
 set undoreload=10000        " number of lines to save for undo
+
 set backupdir=~/.vim/backup/
 set directory=~/.vim/backup/
 
@@ -140,9 +150,16 @@ set incsearch
 set showmatch
 set hlsearch
 
+set ignorecase
+set smartcase
+
 "" Ignore rules
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 set wildignore+=*/node_modules/*,*/bower_components/*
+set wildignore+=*/build/*
+
+" bind K to search word under cursor
+nnoremap K :Ack "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 
 
@@ -203,7 +220,7 @@ if !exists('g:airline_symbols')
 	let g:airline_symbols = {}
 endif
 
-let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 0
 let g:airline_theme="dark"
 let g:airline_left_sep = ''
