@@ -62,8 +62,8 @@ set ttyfast
 set scrolloff=3
 
 " Path/file expansion in colon-mode.
-" set wildmode=longest:full,list:full,list:longest
-" set wildchar=<TAB>
+set wildmode=longest:full,list:full,list:longest
+set wildchar=<TAB>
 
 " Line numbers
 set ruler
