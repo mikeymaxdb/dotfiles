@@ -86,6 +86,7 @@ alias df='df -h'
 alias overdrive='sudo mount /dev/sdc2 ~/Usb'
 alias underdrive='sudo umount ~/Usb'
 alias mkdir='mkdir -pv'
+alias batt='pmset -g batt'
 
 alias mv='mv -i'
 alias cp='cp -i'
