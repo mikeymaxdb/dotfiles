@@ -48,6 +48,9 @@ syntax enable
 set background=dark
 colorscheme gruvbox
 
+" Enable clipboard
+"set clipboard=unnamed
+
 " Enable mouse
 set mouse=a
 
@@ -118,7 +121,7 @@ set encoding=utf8
 set ffs=unix,dos,mac
 
 " Tabs
-set expandtab
+"set expandtab
 set autoindent
 set smarttab
 set shiftwidth=4

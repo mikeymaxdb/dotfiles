@@ -1,0 +1,85 @@
+@-moz-document domain("wevideo.atlassian.net") {
+body,
+.aui-page-header, .aui-page-panel, .aui-page-panel-nav,
+#ghx-column-header-group.ghx-fixed,
+#ghx-pool,
+.ghx-swimlane-header.ghx-selected,
+.ghx-swimlane-header .ghx-bandaid{
+ background-color: #282828;   
+}
+
+.adg3 .ghx-column-headers .ghx-column, .adg3 .ghx-columns .ghx-column,
+.aui-lozenge.aui-lozenge-subtle, .aui-lozenge.aui-lozenge-subtle.jira-issue-status-lozenge-blue-gray,
+.aui-lozenge.aui-lozenge-subtle.aui-lozenge-current, .aui-lozenge.aui-lozenge-subtle.jira-issue-status-lozenge-yellow,
+.adg3 .ghx-column .ghx-parent-group{
+ background-color: #504945;   
+}
+
+.ghx-issue{
+ background-color: #ccc;   
+}
+
+.adg3 .ghx-detail-contents,
+.issue-body-content .module>.mod-header>h1, .issue-body-content .module>.mod-header>h2, .issue-body-content .module>.mod-header>h3, .issue-body-content .module>.mod-header>h4, .issue-body-content .module>.mod-header>h5, .issue-body-content .module>.mod-header>h6,
+#issue-content,
+.issue-view>.issue-container .issue-header,
+.issue-header .issue-header-content>.command-bar,
+body.page-issue-navigator,
+.adg3 .tabwrap>ul.tabs>li a, .adg3 .tabwrap>ul.tabs>li a:focus, .adg3 .tabwrap>ul.tabs>li a:hover, .adg3 .tabwrap>ul.tabs>li a:link, .adg3 .tabwrap>ul.tabs>li a:visited,
+.tabwrap>.tabs.horizontal>li.active>a, .tabwrap>.tabs.horizontal>li.active>strong,
+.adg3 #commentmodule .issue-data-block, .adg3 #commentmodule .issue-data-block:hover,
+.adg3 table.aui,
+table.aui>tbody>tr, table.aui>tfoot>tr,
+.adg3 table.aui>tbody>tr, .adg3 table.aui>tfoot>tr,
+.issue-body-content .module>.mod-header .ops{
+ background-color: #ddd;   
+}
+
+.iYJWvo{
+ background-color: #bbb;   
+}
+
+.adg3 .ghx-content-main .ghx-swimlane-header .ghx-heading span, .adg3 .ghx-sprint-meta .time,
+.adg3 .ghx-column h2,
+.adg3 #ghx-operations .aui-button-subtle:not(.aui-dropdown2-active),
+#content .aui-page-panel .subnavigator-title,
+.aui-lozenge.aui-lozenge-subtle, .aui-lozenge.aui-lozenge-subtle.jira-issue-status-lozenge-blue-gray{
+ color: #fbf1c7;   
+}
+
+.ghx-iconfont.aui-icon-small::before, .ghx-iconfont.aui-icon-large::before{
+ color: #8ec07c;   
+}
+
+.adg3 .ghx-has-swimlanes a{
+ color: #458588;   
+}
+
+.ghx-swimlane-header:after,
+.ghx-swimlane-header.ghx-selected:after{
+ box-shadow: none;
+ width: 0px;
+}
+.ghx-swimlane-header .ghx-bandaid{
+ box-shadow: none;   
+}
+
+.blender{
+    background:none;
+}
+
+
+#content{
+ margin: 0 0 0 32px;   
+}
+.adg3 .ghx-column-headers .ghx-column{
+ padding:2px 5px;   
+}
+.adg3 #ghx-pool{
+ padding-top:25px !important;   
+}
+
+#zendesk_for_jira__issue-panel{
+ display: none;   
+}
+}

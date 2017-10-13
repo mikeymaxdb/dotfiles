@@ -12,3 +12,8 @@ javascript:(function(){
     var match = window.location.href.match(regExp);
     window.location.href = "https://youtube.com/embed/"+match[7];
 })();
+
+javascript:(function(){
+    /* New tab homepage */
+    window.open("http://138.68.234.67/homepage/","_blank");
+})();
