@@ -94,6 +94,22 @@ alias mv='mv -i'
 alias cp='cp -i'
 alias ln='ln -i'
 
+gitDeleteLocalBranches(){
+	# Delete local branches that are
+	# deleted in the remote repo
+	git fetch -p
+	for branch in `git branch -vv | grep ": gone]" | awk '{print $1}'`; do
+		git branch -D $branch
+	done
+}
+
+gitNewRemoteBranch(){
+	# Create a new local branch
+	# and publish to remote repo
+	gco -b $1
+	gpu
+}
+
 # Git aliases
 alias gc='git commit -am'
 alias gs='git status -s'
@@ -112,6 +128,8 @@ alias gpu='gpp -u origin "$(git_branch)"'
 alias gpd='LAST_BRANCH=$(git_branch) && gpp && gco dev && gp && gm "$LAST_BRANCH" && gpp && gco "$LAST_BRANCH"'
 alias gfc='gc "$(git_branch)" && gpp'
 alias gdrb='LAST_BRANCH=$(git_branch) && gco rc && gb -d "$LAST_BRANCH" && git push origin "$LAST_BRANCH"'
+alias gdlb='gitDeleteLocalBranches'
+alias gnb='gitNewRemoteBranch'
 
 # Work aliases
 alias sshweb='ssh -t test "cd /www/repos/website ; bash"'
@@ -134,4 +152,4 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export PATH="$PATH:$HOME/bin"

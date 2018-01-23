@@ -111,6 +111,9 @@ set foldopen=block,hor,mark,percent,quickfix,tag " what movements open folds
 filetype plugin on
 filetype indent on
 
+" Add saving with sudo
+command W w !sudo tee % >/dev/null
+
 " Make Vim able to edit crontab files again.
 set backupskip=/tmp/*,/private/tmp/*"
 
@@ -163,6 +166,8 @@ set wildignore+=*/build/*
 
 " bind K to search word under cursor
 nnoremap K :Ack "\b<C-R><C-W>\b"<CR>:cw<CR>
+
+let g:ctrlp_working_path_mode = 0
 
 
 
