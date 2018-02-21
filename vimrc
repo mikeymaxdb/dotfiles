@@ -28,7 +28,9 @@ Plugin 'mxw/vim-jsx'                " Syntax highlighting for React
 Plugin 'tpope/vim-fugitive'         " Fancy git features
 Plugin 'valloric/YouCompleteMe'     " Code completion
 Plugin 'ntpeters/vim-better-whitespace'
-" Plugin 'mattn/emmet-vim'     " quick html
+Plugin 'mattn/emmet-vim'            " Quick html
+Plugin 'hail2u/vim-css3-syntax'
+Plugin 'groenewege/vim-less'
 
 call vundle#end()
 
@@ -76,6 +78,8 @@ filetype plugin on                  " Read filetype stuff
 filetype indent on                  " Match file indents
 " Add saving with sudo
 command! W w !sudo tee % >/dev/null
+" Quick Save
+noremap <Leader>/ :update<CR>
 set encoding=utf8                   " Set utf8 as standard encoding and en_US as the standard language
 set ffs=unix,dos,mac                " Use Unix as the standard file type
 
@@ -95,7 +99,7 @@ set undolevels=1000                 " How many undos
 set undoreload=10000                " Number of lines to save for undo
 set backupdir=~/.vim/backup/        " Backup dir
 set directory=~/.vim/backup/
-set autoread                        " update file when changed outside of vimf
+set autoread                        " update file when changed outside of vim
 
 "  Search
 
@@ -105,34 +109,40 @@ set showmatch
 set hlsearch
 set ignorecase
 set smartcase
-nnoremap <CR> :noh<CR><CR>          " Clear search highlight
+
+" Clear search highlight
+nnoremap <CR> :noh<CR><CR>
 
 " Ignore rules
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 set wildignore+=*/node_modules/*,*/bower_components/*
 set wildignore+=*/build/*
 
-nnoremap K :Ack "\b<C-R><C-W>\b"<CR>:cw<CR>      " bind K to search word under cursor
+" bind K to search word under cursor
+nnoremap K :Ack "\b<C-R><C-W>\b"<CR>:cw<CR>
 nnoremap <leader>f :Ack --smart-case 
-
-let g:ctrlp_working_path_mode = 0
 
 "  Navigation
 
-noremap th :tabprev<CR>             " Tab previous
-noremap tl :tabnext<CR>             " Tab next
-noremap tn :tabnew<CR>              " Tab new
-noremap tc :tabclose<CR>            " Tab close
+noremap th :tabprev<CR>
+noremap tl :tabnext<CR>
+noremap tn :tabnew<CR>
+noremap tc :tabclose<CR>
 
-set splitbelow                      " Split below
-set splitright                      " Split right
-nnoremap <leader>w <C-w>v<C-w>l     " Vertical split
-nnoremap <leader>h <C-w>s<C-w>l     " Horizontal split
+set splitbelow
+set splitright
+" Vertical split
+nnoremap <leader>w <C-w>v<C-w>l
+" Horizontal split
+nnoremap <leader>h <C-w>s<C-w>l
 
-nmap <c-b> :bprevious<CR>           " Buffer previous
-nmap <c-n> :bnext<CR>               " Buffer next
-nmap bb :bw<CR>                     " Buffer close
-nnoremap <leader><leader> <c-^>     " Switch between files with ,,
+" Buffer previous
+nmap <c-b> :bprevious<CR>
+nmap <c-n> :bnext<CR>
+nmap bb :bw<CR>
+map <leader>b :ls<CR>:b
+" Switch between files with ,,
+nnoremap <leader><leader> <c-^>
 
 "  Plugin Configs
 
@@ -145,6 +155,9 @@ let g:syntastic_check_on_open = 1
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+
+" Ctrl+p
+let g:ctrlp_working_path_mode = 0
 
 " Airline
 if !exists('g:airline_symbols')
@@ -165,3 +178,10 @@ let g:airline#extensions#whitespace#enabled = 0
 
 " React
 let g:jsx_ext_required = 0
+
+" Emmet
+let g:user_emmet_settings = {
+\  'javascript' : {
+\      'extends' : 'jsx',
+\  },
+\}
