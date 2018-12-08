@@ -124,9 +124,9 @@ alias glo='git log --pretty=format:"%C(green)%h %Cred%d %Creset%s %n%C(yellow)%a
 alias gl='glo -10'
 alias gll='gl --numstat -p'
 alias gpu='gpp -u origin "$(git_branch)"'
-alias gpd='LAST_BRANCH=$(git_branch) && gpp && gco dev && gp && gm "$LAST_BRANCH" && gpp && gco "$LAST_BRANCH"'
+alias gpd='LAST_BRANCH=$(git_branch) && gpp && gco develop && gp && gm "$LAST_BRANCH" && gpp && gco "$LAST_BRANCH"'
 alias gfc='gc "$(git_branch)" && gpp'
-alias gdrb='LAST_BRANCH=$(git_branch) && gco rc && gb -d "$LAST_BRANCH" && git push origin "$LAST_BRANCH"'
+alias gdrb='LAST_BRANCH=$(git_branch) && gco develop && gb -d "$LAST_BRANCH" && git push origin --delete "$LAST_BRANCH"'
 alias gdlb='gitDeleteLocalBranches'
 alias gnb='gitNewRemoteBranch'
 

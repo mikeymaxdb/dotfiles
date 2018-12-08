@@ -12,17 +12,17 @@ newTriple(){
 }
 
 tmux new-session -d -s work
-newTriple '~/Work/GIT/Hub/'
+newTriple '~/Work/GIT/wallspice-client/'
 tmux send-keys 'npm start' 'C-m'
-tmux rename-window 'hub'
-tmux new-window
-newTriple '~/Work/GIT/Website/'
-tmux send-keys 'npm run build-css-watch' 'C-m'
-tmux rename-window 'website'
-tmux new-window
-newTriple '~/Work/GIT/Editor/'
-tmux send-keys 'npm run build_hub_watch' 'C-m'
-tmux rename-window 'editor'
+tmux rename-window 'wallspice'
+#tmux new-window
+#newTriple '~/Work/GIT/Website/'
+#tmux send-keys 'npm run build-css-watch' 'C-m'
+#tmux rename-window 'website'
+#tmux new-window
+#newTriple '~/Work/GIT/Editor/'
+#tmux send-keys 'npm run build_hub_watch' 'C-m'
+#tmux rename-window 'editor'
 tmux new-window
 newTriple '~/Projects/'
 tmux rename-window 'personal'
