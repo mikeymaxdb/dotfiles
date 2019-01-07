@@ -25,19 +25,22 @@ call plug#begin('~/.vim/plugged')
 " Passive
 Plug 'junegunn/vim-plug'               " Plugin manager
 Plug 'flazz/vim-colorschemes'          " Syntax highlighting colors
+Plug 'tpope/vim-fugitive'              " Git wrapper
 Plug 'airblade/vim-gitgutter'          " Gitgutter
 Plug 'yggdroot/indentline'             " Vertical line for space indents
+Plug 'michaeljsmith/vim-indent-object' " Selecting by indent level vii vai vaI
 Plug 'sheerun/vim-polyglot'            " Many language packs
+Plug 'w0rp/ale'                        " Linting
 
 " Interactive
 Plug 'junegunn/fzf.vim'                " Fast file searching
+Plug 'scrooloose/nerdtree'             " File tree
 Plug 'mattn/emmet-vim'                 " Quick html
-Plug 'w0rp/ale'                        " Linting
-Plug 'terryma/vim-multiple-cursors'    " Edit mutliple locations at once
+Plug 'terryma/vim-multiple-cursors'    " Edit multiple locations at once
 Plug 'tpope/vim-surround'              " Quickly surround with quotes
 Plug 'tpope/vim-commentary'            " Comment/uncomment lines
-Plug 'prettier/vim-prettier'           " Auto format files
-Plug 'michaeljsmith/vim-indent-object' " Selecting by indent level vii vai vaI
+Plug 'Valloric/YouCompleteMe'          " Code autocomplete
+" Plug 'prettier/vim-prettier'           " Auto format files
 
 call plug#end()
 
@@ -72,6 +75,7 @@ set showcmd                         " Show commands
 set showmatch                       " Highlight matching brace
 set incsearch                       " Highlight search as you type
 set hlsearch                        " Highlight search results
+set laststatus=2                    " Always show status
 set list                            " Show invisible characters
 set listchars=tab:\|\ ,trail:·,extends:›,precedes:‹ " Show vertical line for tabs
 
@@ -80,7 +84,6 @@ set mouse=a                         " Enable mouse
 set scrolloff=3                     " Keep cursor away from the top/bottom
 set nowrap                          " No line wrapping
 set backspace=indent,eol,start      " Backspace
-set laststatus=2                    " Always show status
 set matchtime=3                     " Brace highlight time
 set notimeout                       " Time out on key codes but not mappings.
 set ttimeout                        " Terminal keycode timeount
@@ -106,42 +109,72 @@ nmap <space> <leader>
 nmap <space><space> <leader><leader>
 xmap <space> <leader>
 
+" Move using display lines
+nnoremap j gj
+nnoremap k gk
+
 " Add saving with sudo
 command! W w !sudo tee % >/dev/null
+" Quick Save
+nnoremap <Leader><Leader> :update<CR>
 " Clear search highlight on enter
 nnoremap <CR> :noh<CR><CR>
-" Start FZF with ctrl+P
-nnoremap <C-p> :Files<Cr>
-" Search file contents
-nnoremap <C-g> :Rg<Cr>
 
-" Quick Save
-nnoremap <Leader>w :update<CR>
-" Search file contents for word under cursor
+" NerdTree
+nnoremap <Leader>n :NERDTreeFind<CR>
+nnoremap <Leader>N :NERDTreeToggle<CR>
+
+" FZF
+" Search in current buffer or all buffers
+nnoremap <Leader>f :BLines<CR>
+nnoremap <Leader>F :Lines<CR>
+" Search for git files or all files
+nnoremap <Leader>o :GFiles<CR>
+nnoremap <Leader>O :Files<CR>
+" Search file contents for word under cursor or in all files
 nnoremap <Leader>g :Rg <C-R><C-W><CR>
+nnoremap <Leader>G :Rg<Cr>
+" List loaded buffers
+nnoremap <Leader>b :Buffers<CR>
+" List git status
+nnoremap <Leader>us :GitFiles?<CR>
+" List commit log
+nnoremap <Leader>ul :Commits<CR>
 
+" Splits
 " Side to side split
-nnoremap <leader>h <C-w>v<C-w>l
+nnoremap <leader>sh <C-w>v<C-w>l
 " Top/bottom split
-nnoremap <leader>v <C-w>s<C-w>l
+nnoremap <leader>sv <C-w>s<C-w>l
 " Close split
-nnoremap <leader>c <C-w>c
+nnoremap <leader>sc <C-w>c
 " Navigate splits more easily
-nmap <C-h> <C-w>h
-nmap <C-j> <C-w>j
-nmap <C-k> <C-w>k
-nmap <C-l> <C-w>l
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
+
+" Buffers
 " Previous buffer
-nmap <c-b> :bprevious<CR>
+nnoremap <c-p> :bprevious<CR>
 " Next buffer
-nmap <c-n> :bnext<CR>
+nnoremap <c-n> :bnext<CR>
 " Close buffer
-nmap bb :bw<CR>
+nnoremap <leader>q :bw<CR>
 " List buffers for selection
-map <leader>b :ls<CR>:b
+" nnoremap <leader>b :ls<CR>:b
+
+" Comment lines with ctrl + / (vim-commentary)
+nmap <C-_> gcc
+vmap <C-_> gcgv
+
 " Switch between files with backspace
 nnoremap <bs> <c-^>
+
+" Un-undo with shift + u
+nnoremap U :redo<CR>
+
 
 " Indentline
 let g:indentLine_char = '│'
@@ -152,11 +185,11 @@ let g:jsx_ext_required = 0
 let g:user_emmet_settings = {'javascript' : {'extends' : 'jsx'}}
 
 " Prettier
-let g:prettier#config#tab_width = 4
-let g:prettier#config#bracket_spacing = 'true'
-let g:prettier#config#jsx_bracket_same_line = 'false'
-let g:prettier#config#arrow_parens = 'avoid'
-let g:prettier#config#semi = 'false'
+" let g:prettier#config#tab_width = 4
+" let g:prettier#config#bracket_spacing = 'true'
+" let g:prettier#config#jsx_bracket_same_line = 'false'
+" let g:prettier#config#arrow_parens = 'avoid'
+" let g:prettier#config#semi = 'false'
 
 " ALE linting
 let g:ale_fixers = {'javascript' : ['eslint']}
@@ -164,6 +197,9 @@ let g:ale_sign_error = 'X'
 let g:ale_sign_warning = '▲'
 hi ALEWarning ctermfg=011
 hi ALEError ctermfg=009
+
+" Autocomplete
+let g:ycm_key_list_select_completion = ['<TAB>', '<Down>', '<Enter>']
 
 " Signcolumn colors
 hi clear SignColumn
@@ -185,6 +221,8 @@ set statusline+=\
 set statusline+=%#uBuff#
 set statusline+=\ %n
 set statusline+=\ 
+set statusline+=%#uFileT#
+set statusline+=\ %{fugitive#head()}
 set statusline+=%#uDir#
 set statusline+=\ %r
 set statusline+=\ %F
