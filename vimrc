@@ -140,6 +140,8 @@ nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>us :GitFiles?<CR>
 " List commit log
 nnoremap <Leader>ul :Commits<CR>
+" List commit log for current buffer
+nnoremap <Leader>ut :BCommits<CR>
 
 " Splits
 " Side to side split
@@ -218,15 +220,15 @@ set statusline=
 set statusline+=%#uMode#
 set statusline+=\ %{toupper(mode())}
 set statusline+=\ 
-set statusline+=%#uBuff#
-set statusline+=\ %n
-set statusline+=\ 
-set statusline+=%#uFileT#
-set statusline+=\ %{fugitive#head()}
+" set statusline+=%#uBuff#
+" set statusline+=\ %n
+" set statusline+=\ 
 set statusline+=%#uDir#
 set statusline+=\ %r
 set statusline+=\ %F
 set statusline+=\ %M
+set statusline+=%#uFileT#
+set statusline+=\ [%{fugitive#head()}]
 set statusline+=%=
 set statusline+=%#uFileT#
 set statusline+=\ %Y
