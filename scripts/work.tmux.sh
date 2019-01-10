@@ -17,14 +17,16 @@ tmux send-keys 'npm start' 'C-m'
 tmux rename-window 'wallspice'
 
 tmux new-window
-newTriple '~/Projects/'
-tmux rename-window 'personal'
-
-tmux new-window
 newTriple '~/Work/GIT/app-frontend/'
 tmux send-keys 'npm run devstartLocal' 'C-m'
 tmux rename-window 'localServer'
 
+tmux new-window
+newTriple '~/Personal/Projects/'
+tmux rename-window 'personal'
+
 tmux select-window -t 1
+tmux select-pane -t 1
+tmux send-keys 'vim' 'C-m'
 
 tmux -2 attach-session -t work
