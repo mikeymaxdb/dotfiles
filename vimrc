@@ -22,24 +22,22 @@ au VimResized * :wincmd =           " Resize splits when the window is resized
 " Plugin manager vim-plug
 call plug#begin('~/.vim/plugged')
 
-" Passive
-Plug 'junegunn/vim-plug'               " Plugin manager
-Plug 'flazz/vim-colorschemes'          " Syntax highlighting colors
-Plug 'tpope/vim-fugitive'              " Git wrapper
-Plug 'airblade/vim-gitgutter'          " Gitgutter
-Plug 'yggdroot/indentline'             " Vertical line for space indents
-Plug 'michaeljsmith/vim-indent-object' " Selecting by indent level vii vai vaI
-Plug 'sheerun/vim-polyglot'            " Many language packs
-Plug 'w0rp/ale'                        " Linting
-
-" Interactive
-Plug 'junegunn/fzf.vim'                " Fast file searching
-Plug 'scrooloose/nerdtree'             " File tree
-Plug 'mattn/emmet-vim'                 " Quick html
-Plug 'terryma/vim-multiple-cursors'    " Edit multiple locations at once
-Plug 'tpope/vim-surround'              " Quickly surround with quotes
-Plug 'tpope/vim-commentary'            " Comment/uncomment lines
 Plug 'Valloric/YouCompleteMe'          " Code autocomplete
+Plug 'airblade/vim-gitgutter'          " Gitgutter
+Plug 'flazz/vim-colorschemes'          " Syntax highlighting colors
+Plug 'junegunn/fzf.vim'                " Fast file searching
+Plug 'junegunn/vim-plug'               " Plugin manager
+Plug 'mattn/emmet-vim'                 " Quick html
+Plug 'michaeljsmith/vim-indent-object' " Selecting by indent level vii vai vaI
+Plug 'scrooloose/nerdtree'             " File tree
+Plug 'sheerun/vim-polyglot'            " Many language packs
+Plug 'terryma/vim-multiple-cursors'    " Edit multiple locations at once <C-n>
+Plug 'tpope/vim-commentary'            " Comment/uncomment lines
+Plug 'tpope/vim-fugitive'              " Git wrapper
+Plug 'tpope/vim-repeat'                " Enable plugins to repeat with '.'
+Plug 'tpope/vim-surround'              " Quickly surround with quotes
+Plug 'w0rp/ale'                        " Linting
+Plug 'yggdroot/indentline'             " Vertical line for space indents
 " Plug 'prettier/vim-prettier'           " Auto format files
 
 call plug#end()
@@ -78,6 +76,7 @@ set hlsearch                        " Highlight search results
 set laststatus=2                    " Always show status
 set list                            " Show invisible characters
 set listchars=tab:\|\ ,trail:·,extends:›,precedes:‹ " Show vertical line for tabs
+set fillchars+=vert:│
 
 " Behavior Settings
 set mouse=a                         " Enable mouse

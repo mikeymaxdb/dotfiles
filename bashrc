@@ -130,6 +130,17 @@ alias gfc='gc "$(git_branch)" && gpp'
 alias gdrb='LAST_BRANCH=$(git_branch) && gco develop && gb -d "$LAST_BRANCH" && git push origin --delete "$LAST_BRANCH"'
 alias gdlb='gitDeleteLocalBranches'
 alias gnb='gitNewRemoteBranch'
+# curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
+# Git branch bash completion
+if [ -f ~/.git-completion.bash ]; then
+    . ~/.git-completion.bash
+
+    # Add git completion to aliases
+    # __git_complete g __git_main
+    __git_complete gco _git_checkout
+    __git_complete gm _git_merge
+    __git_complete gp _git_pull
+fi
 
 # Work aliases
 alias sshweb='ssh -t test "cd /www/repos/website ; bash"'
