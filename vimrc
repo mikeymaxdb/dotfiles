@@ -14,10 +14,10 @@ if empty(glob('~/.vim/autoload/plug.vim'))
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" FZF location
+" FZF location(homebrew)
 set rtp+=/usr/local/opt/fzf
 
-au VimResized * :wincmd =           " Resize splits when the window is resized
+au VimResized * :wincmd =              " Resize splits when the window is resized
 
 " Plugin manager vim-plug
 call plug#begin('~/.vim/plugged')
@@ -118,6 +118,8 @@ command! W w !sudo tee % >/dev/null
 nnoremap <Leader><Leader> :update<CR>
 " Clear search highlight on enter
 nnoremap <CR> :noh<CR><CR>
+" Reindent the file
+nnoremap <Leader>= mzgg=G`z
 
 " NerdTree
 nnoremap <Leader>n :NERDTreeFind<CR>
@@ -226,11 +228,10 @@ set statusline+=%#uDir#
 set statusline+=\ %r
 set statusline+=\ %F
 set statusline+=\ %M
-set statusline+=%#uFileT#
-set statusline+=\ [%{fugitive#head()}]
 set statusline+=%=
 set statusline+=%#uFileT#
-set statusline+=\ %Y
+set statusline+=%{fugitive#head()}
+" set statusline+=\ %Y
 set statusline+=%#uInfo#
 set statusline+=\ %p%%
 set statusline+=\ %l/%L:%c
