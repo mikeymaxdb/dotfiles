@@ -202,7 +202,7 @@ hi ALEWarning ctermfg=011
 hi ALEError ctermfg=009
 
 " Autocomplete
-let g:ycm_key_list_select_completion = ['<TAB>', '<Down>', '<Enter>']
+let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
 
 " Signcolumn colors
 hi clear SignColumn
