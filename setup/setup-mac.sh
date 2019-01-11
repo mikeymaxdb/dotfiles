@@ -15,5 +15,4 @@ echo 'Running install scripts'
 ./gitCompletion.sh
 ./tmuxPluginManager.sh
 
-source ~/.bash_profile
 echo 'Done'
