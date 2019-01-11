@@ -1,17 +1,17 @@
 # bash
 # vim: set ft=sh :
 
-alias ls='ls -G'
+alias ls='ls -1Fhp'
 alias l='ls'
-alias ll='ls -lpFh'
+alias ll='ls -l'
 alias sudo='sudo '
-alias la='ls -lapFh'
+alias la='ls -lA'
 alias ..='cd ..'
 alias update='sudo apt-get update && sudo apt-get upgrade'
 alias install='sudo apt-get install'
 alias untarbz2='tar xvjf'
 alias dum='du -h | sort -rh | head -20'
-alias df='df -h'
+alias df='df -H'
 alias overdrive='sudo mount /dev/sdc2 ~/Usb'
 alias underdrive='sudo umount ~/Usb'
 alias mkdir='mkdir -pv'
@@ -21,7 +21,6 @@ alias hey='echo yo'
 
 alias mv='mv -i'
 alias cp='cp -i'
-# alias ln='ln -i'
 
 # Git aliases
 alias git_branch="git branch 2>/dev/null | grep '*' | sed 's/* \(.*\)/\1/'"
@@ -54,15 +53,15 @@ gitPatchDev() {
     unset LAST_BRANCH
 }
 
-alias gc='git commit -am'
+alias ga='git add'
+alias gaa='ga .'
+alias gc='gaa && git commit -am'
 alias gs='git status -s'
 alias gd='git diff'
 alias gp='git pull --no-edit'
 alias gpp='git push'
 alias gb='git branch -vv'
 alias gm='git merge --no-edit'
-alias ga='git add'
-alias gaa='ga .'
 alias gco='git checkout'
 alias glo='git log --pretty=format:"%C(green)%h %Cred%d %Creset%s %n%C(yellow)%ad%Cblue %cn%n" --decorate --date=relative --graph'
 alias gl='glo -10'
@@ -75,7 +74,6 @@ alias gdlb='gitDeleteLocalBranches'
 alias gnb='gitNewRemoteBranch'
 
 # Git branch bash completion
-# curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
 if [ -f ~/.git-completion.bash ]; then
     . ~/.git-completion.bash
 

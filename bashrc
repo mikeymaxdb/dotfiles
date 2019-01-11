@@ -4,6 +4,9 @@ case $- in
       *) return;;
 esac
 
+# Enable colors
+export CLICOLOR=1
+
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/configuration/scripts"
 
