@@ -5,9 +5,12 @@ case "${unameOut}" in
     Darwin*)    isMac=true;;
 esac
 
+cd ~/configuration
+
 if [ "$isLinux" = true ]; then
     echo 'Loading Linux setup...'
-    echo 'Linux setup is not suppored at this time, but will be!'
+    chmod +x ./setup/setup-linux.sh
+    ./setup/setup-linux.sh
     exit 1
 fi
 

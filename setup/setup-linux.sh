@@ -2,7 +2,7 @@
 
 cd ~/configuration
 
-ln -sv ./bashrc ~/.bash_profile
+ln -sv ./bashrc ~/.bashrc
 
 cd ./setup
 chmod +x ./*
