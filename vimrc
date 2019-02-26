@@ -76,7 +76,7 @@ set hlsearch                        " Highlight search results
 set laststatus=2                    " Always show status
 set list                            " Show invisible characters
 set listchars=tab:\|\ ,trail:·,extends:›,precedes:‹ " Show vertical line for tabs
-set fillchars+=vert:│
+set fillchars+=vert:│               " Make the split line solid
 
 " Behavior Settings
 set mouse=a                         " Enable mouse
@@ -114,10 +114,12 @@ nnoremap k gk
 
 " Add saving with sudo
 command! W w !sudo tee % >/dev/null
+" Yank till eol with Y
+nmap Y y$
 " Quick Save
 nnoremap <Leader><Leader> :update<CR>
 " Clear search highlight on enter
-nnoremap <CR> :noh<CR><CR>
+nnoremap <silent> <CR> :noh<CR><CR>
 " Reindent the file
 nnoremap <Leader>= mzgg=G`z
 
@@ -137,6 +139,8 @@ nnoremap <Leader>g :Rg <C-R><C-W><CR>
 nnoremap <Leader>G :Rg<Cr>
 " List loaded buffers
 nnoremap <Leader>b :Buffers<CR>
+
+" GIT
 " List git status
 nnoremap <Leader>us :GitFiles?<CR>
 " List commit log
@@ -164,9 +168,7 @@ nnoremap <c-p> :bprevious<CR>
 " Next buffer
 nnoremap <c-n> :bnext<CR>
 " Close buffer
-nnoremap <leader>q :bw<CR>
-" List buffers for selection
-" nnoremap <leader>b :ls<CR>:b
+nnoremap <leader>q :bp<bar>bd#<CR>
 
 " Comment lines with ctrl + / (vim-commentary)
 nmap <C-_> gcc
@@ -177,6 +179,12 @@ nnoremap <bs> <c-^>
 
 " Un-undo with shift + u
 nnoremap U :redo<CR>
+
+" Easier A
+nnoremap <leader>a A
+
+" Trigger Emmet
+nnoremap <leader>e <C-Y>,
 
 
 " Indentline
@@ -213,6 +221,10 @@ hi GitGutterChangeDelete ctermfg=012
 hi ALEErrorSign ctermfg=009
 hi ALEWarningSign ctermfg=011
 
+" Linenumbers color
+hi LineNr ctermfg=239
+" Split color
+hi VertSplit ctermfg=239
 " Column limit color
 hi ColorColumn ctermbg=234
 
@@ -221,12 +233,9 @@ set statusline=
 set statusline+=%#uMode#
 set statusline+=\ %{toupper(mode())}
 set statusline+=\ 
-" set statusline+=%#uBuff#
-" set statusline+=\ %n
-" set statusline+=\ 
 set statusline+=%#uDir#
 set statusline+=\ %r
-set statusline+=\ %F
+set statusline+=\ %f
 set statusline+=\ %M
 set statusline+=%=
 set statusline+=%#uFileT#

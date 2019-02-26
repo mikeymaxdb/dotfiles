@@ -6,6 +6,7 @@ alias l='ls'
 alias ll='ls -l'
 alias sudo='sudo '
 alias la='ls -lA'
+alias bc='bc -l'
 alias ..='cd ..'
 alias update='sudo apt-get update && sudo apt-get upgrade'
 alias install='sudo apt-get install'
@@ -53,6 +54,22 @@ gitPatchDev() {
     unset LAST_BRANCH
 }
 
+# fbr - checkout git branch
+# fbr() {
+#   local branches branch
+#   branches=$(git branch -vv) &&
+#   branch=$(echo "$branches" | fzf +m) &&
+#   git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
+# }
+# fbr - checkout git branch (including remote branches)
+fbr() {
+  local branches branch
+  branches=$(git branch --all | grep -v HEAD) &&
+  branch=$(echo "$branches" |
+           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
+  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+}
+
 alias ga='git add'
 alias gaa='ga .'
 alias gc='gaa && git commit -am'
@@ -63,6 +80,7 @@ alias gpp='git push'
 alias gb='git branch -vv'
 alias gm='git merge --no-edit'
 alias gco='git checkout'
+alias gcoo='fbr'
 alias glo='git log --pretty=format:"%C(green)%h %Cred%d %Creset%s %n%C(yellow)%ad%Cblue %cn%n" --decorate --date=relative --graph'
 alias gl='glo -10'
 alias gll='gl --numstat -p'

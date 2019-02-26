@@ -12,8 +12,11 @@ newTriple(){
 }
 
 tmux new-session -d -s work
+
 newTriple '~/Work/GIT/wallspice-client/'
 tmux send-keys 'npm start' 'C-m'
+tmux split-window -v
+tmux send-keys 'weechat' 'C-m'
 tmux rename-window 'wallspice'
 
 tmux new-window
