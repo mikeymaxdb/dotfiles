@@ -22,11 +22,13 @@ au VimResized * :wincmd =              " Resize splits when the window is resize
 " Plugin manager vim-plug
 call plug#begin('~/.vim/plugged')
 
-Plug 'Valloric/YouCompleteMe'          " Code autocomplete
 Plug 'airblade/vim-gitgutter'          " Gitgutter
+Plug 'chemzqm/vim-jsx-improve'         " JSX indentation
 Plug 'flazz/vim-colorschemes'          " Syntax highlighting colors
 Plug 'junegunn/fzf.vim'                " Fast file searching
 Plug 'junegunn/vim-plug'               " Plugin manager
+Plug 'luochen1990/rainbow'             " Color paren pairs
+Plug 'maralla/completor.vim'           " Autocomplete
 Plug 'mattn/emmet-vim'                 " Quick html
 Plug 'michaeljsmith/vim-indent-object' " Selecting by indent level vii vai vaI
 Plug 'scrooloose/nerdtree'             " File tree
@@ -37,6 +39,7 @@ Plug 'tpope/vim-fugitive'              " Git wrapper
 Plug 'tpope/vim-repeat'                " Enable plugins to repeat with '.'
 Plug 'tpope/vim-surround'              " Quickly surround with quotes
 Plug 'w0rp/ale'                        " Linting
+Plug 'wellle/targets.vim'              " More text objects
 Plug 'yggdroot/indentline'             " Vertical line for space indents
 " Plug 'prettier/vim-prettier'           " Auto format files
 
@@ -52,9 +55,9 @@ set encoding=utf8                   " Set utf8 as standard encoding
 set ffs=unix,dos,mac                " Use Unix as the standard file type
 set history=1000                    " Long history
 set undofile                        " Enable persistent undo
-set undodir=~/.vim/undo//           " Where to save undo histories
 set undolevels=1000                 " How many undos
 set undoreload=10000                " Number of lines to save for undo
+set undodir=~/.vim/undo//           " Where to save undo histories
 set backupdir=~/.vim/backup//       " Backup directory
 set directory=~/.vim/swap//         " Swap directory
 set autoread                        " Update file when changed outside of vim
@@ -191,6 +194,9 @@ nnoremap <leader>e <C-Y>,
 let g:indentLine_char = '│'
 let g:indentLine_color_term = 237
 
+" Rainbow parens
+let g:rainbow_active = 1 
+
 " React
 let g:jsx_ext_required = 0
 let g:user_emmet_settings = {'javascript' : {'extends' : 'jsx'}}
@@ -210,7 +216,17 @@ hi ALEWarning ctermfg=011
 hi ALEError ctermfg=009
 
 " Autocomplete
-let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+set completeopt+=menuone
+set completeopt+=noselect
+set omnifunc=syntaxcomplete#Complete
+set shortmess+=c   " Shut off completion messages
+let g:fuzzyfunc = 'completor#completefunc'
+
+" Polyglot
+" Disable polyglot's support to use a different package
+let g:polyglot_disabled = ['jsx', 'javascript']
 
 " Signcolumn colors
 hi clear SignColumn
