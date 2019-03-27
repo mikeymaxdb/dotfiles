@@ -27,7 +27,6 @@ Plug 'chemzqm/vim-jsx-improve'         " JSX indentation
 Plug 'flazz/vim-colorschemes'          " Syntax highlighting colors
 Plug 'junegunn/fzf.vim'                " Fast file searching
 Plug 'junegunn/vim-plug'               " Plugin manager
-Plug 'luochen1990/rainbow'             " Color paren pairs
 Plug 'maralla/completor.vim'           " Autocomplete
 Plug 'mattn/emmet-vim'                 " Quick html
 Plug 'michaeljsmith/vim-indent-object' " Selecting by indent level vii vai vaI
@@ -158,6 +157,8 @@ nnoremap <leader>sh <C-w>v<C-w>l
 nnoremap <leader>sv <C-w>s<C-w>l
 " Close split
 nnoremap <leader>sc <C-w>c
+" Swap splits
+nnoremap <leader>ss <C-w>r
 " Navigate splits more easily
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
@@ -187,15 +188,12 @@ nnoremap U :redo<CR>
 nnoremap <leader>a A
 
 " Trigger Emmet
-nnoremap <leader>e <C-Y>,
+nmap <leader>e <C-Y>,
 
 
 " Indentline
 let g:indentLine_char = '│'
 let g:indentLine_color_term = 237
-
-" Rainbow parens
-let g:rainbow_active = 1 
 
 " React
 let g:jsx_ext_required = 0
@@ -223,6 +221,7 @@ set completeopt+=noselect
 set omnifunc=syntaxcomplete#Complete
 set shortmess+=c   " Shut off completion messages
 let g:fuzzyfunc = 'completor#completefunc'
+let g:completor_css_omni_trigger = '([\w-]+|@[\w-]*|[\w-]+:\s*[\w-]*)$'
 
 " Polyglot
 " Disable polyglot's support to use a different package
