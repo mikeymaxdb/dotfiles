@@ -1,7 +1,5 @@
 [user]
     name = mike
     email = mikey.maxdb@gmail.com
-[core]
-    editor = vim
 [color]
     ui = auto

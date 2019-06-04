@@ -10,6 +10,10 @@ export CLICOLOR=1
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/configuration/scripts"
 
+# Set the editor to neovim
+export VISUAL=nvim
+export EDITOR="$VISUAL"
+
 # Don't put duplicate lines or lines starting with space in the history.
 HISTCONTROL=ignoreboth
 
@@ -23,6 +27,9 @@ HISTFILESIZE=2000
 # Check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
+
+# Use vi-style keybindings in the prompt
+set -o vi
 
 # Check if we're in an ssh session
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then

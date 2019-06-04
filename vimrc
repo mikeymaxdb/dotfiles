@@ -23,24 +23,27 @@ au VimResized * :wincmd =              " Resize splits when the window is resize
 call plug#begin('~/.vim/plugged')
 
 Plug 'airblade/vim-gitgutter'          " Gitgutter
+Plug 'ap/vim-css-color'                " Hightlight colors with color
 Plug 'chemzqm/vim-jsx-improve'         " JSX indentation
 Plug 'flazz/vim-colorschemes'          " Syntax highlighting colors
+Plug 'jceb/vim-orgmode'                " Org-mode
 Plug 'junegunn/fzf.vim'                " Fast file searching
 Plug 'junegunn/vim-plug'               " Plugin manager
-Plug 'maralla/completor.vim'           " Autocomplete
+Plug 'mattn/calendar-vim'              " Calendar selection for orgmode
 Plug 'mattn/emmet-vim'                 " Quick html
 Plug 'michaeljsmith/vim-indent-object' " Selecting by indent level vii vai vaI
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 Plug 'scrooloose/nerdtree'             " File tree
 Plug 'sheerun/vim-polyglot'            " Many language packs
 Plug 'terryma/vim-multiple-cursors'    " Edit multiple locations at once <C-n>
+Plug 'tmsvg/pear-tree'                 " Auto pair parens, brackets, quotes
 Plug 'tpope/vim-commentary'            " Comment/uncomment lines
 Plug 'tpope/vim-fugitive'              " Git wrapper
 Plug 'tpope/vim-repeat'                " Enable plugins to repeat with '.'
+Plug 'tpope/vim-speeddating'           " Quickly work with dates
 Plug 'tpope/vim-surround'              " Quickly surround with quotes
-Plug 'w0rp/ale'                        " Linting
 Plug 'wellle/targets.vim'              " More text objects
 Plug 'yggdroot/indentline'             " Vertical line for space indents
-" Plug 'prettier/vim-prettier'           " Auto format files
 
 call plug#end()
 
@@ -79,6 +82,7 @@ set laststatus=2                    " Always show status
 set list                            " Show invisible characters
 set listchars=tab:\|\ ,trail:·,extends:›,precedes:‹ " Show vertical line for tabs
 set fillchars+=vert:│               " Make the split line solid
+set signcolumn=yes                  " Always leave space for git/lint column
 
 " Behavior Settings
 set mouse=a                         " Enable mouse
@@ -89,6 +93,7 @@ set matchtime=3                     " Brace highlight time
 set notimeout                       " Time out on key codes but not mappings.
 set ttimeout                        " Terminal keycode timeount
 set ttimeoutlen=10                  " Terminal timeout length
+set updatetime=300
 set expandtab                       " Use spaces
 set autoindent                      " Auto indent
 set nojoinspaces                    " One space after punctuation
@@ -199,29 +204,20 @@ let g:indentLine_color_term = 237
 let g:jsx_ext_required = 0
 let g:user_emmet_settings = {'javascript' : {'extends' : 'jsx'}}
 
-" Prettier
-" let g:prettier#config#tab_width = 4
-" let g:prettier#config#bracket_spacing = 'true'
-" let g:prettier#config#jsx_bracket_same_line = 'false'
-" let g:prettier#config#arrow_parens = 'avoid'
-" let g:prettier#config#semi = 'false'
-
 " ALE linting
-let g:ale_fixers = {'javascript' : ['eslint']}
 let g:ale_sign_error = 'X'
 let g:ale_sign_warning = '▲'
-hi ALEWarning ctermfg=011
-hi ALEError ctermfg=009
 
 " Autocomplete
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-set completeopt+=menuone
-set completeopt+=noselect
-set omnifunc=syntaxcomplete#Complete
 set shortmess+=c   " Shut off completion messages
-let g:fuzzyfunc = 'completor#completefunc'
-let g:completor_css_omni_trigger = '([\w-]+|@[\w-]*|[\w-]+:\s*[\w-]*)$'
+" set completeopt+=menuone
+" set completeopt+=noselect
+" set omnifunc=syntaxcomplete#Complete
+
+" Pear tree
+let g:pear_tree_ft_disabled = ['scss', 'css']
 
 " Polyglot
 " Disable polyglot's support to use a different package
@@ -233,8 +229,6 @@ hi GitGutterAdd ctermfg=014
 hi GitGutterChange ctermfg=012
 hi GitGutterDelete ctermfg=009
 hi GitGutterChangeDelete ctermfg=012
-hi ALEErrorSign ctermfg=009
-hi ALEWarningSign ctermfg=011
 
 " Linenumbers color
 hi LineNr ctermfg=239

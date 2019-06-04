@@ -1,11 +1,10 @@
 # bash
 # vim: set ft=sh :
 
-alias ls='ls -1Fhp'
-alias l='ls'
-alias ll='ls -l'
+alias l='ls -1Fhp'
+alias ll='l -l'
+alias la='l -lA'
 alias sudo='sudo '
-alias la='ls -lA'
 alias bc='bc -l'
 alias ..='cd ..'
 alias update='sudo apt-get update && sudo apt-get upgrade'
@@ -22,6 +21,8 @@ alias hey='echo yo'
 
 alias mv='mv -i'
 alias cp='cp -i'
+
+alias e='nvim'
 
 # Git aliases
 alias git_branch="git branch 2>/dev/null | grep '*' | sed 's/* \(.*\)/\1/'"
