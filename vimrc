@@ -7,6 +7,11 @@ augroup reload_vimrc
     autocmd BufWritePost $MYVIMRC source $MYVIMRC
 augroup END
 
+augroup tex
+    autocmd!
+    au BufRead,BufNewFile *.tex setlocal columns=80 wrap
+augroup END
+
 " Auto install vim-plug
 if empty(glob('~/.vim/autoload/plug.vim'))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -36,7 +41,6 @@ Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 Plug 'scrooloose/nerdtree'             " File tree
 Plug 'sheerun/vim-polyglot'            " Many language packs
 Plug 'terryma/vim-multiple-cursors'    " Edit multiple locations at once <C-n>
-Plug 'tmsvg/pear-tree'                 " Auto pair parens, brackets, quotes
 Plug 'tpope/vim-commentary'            " Comment/uncomment lines
 Plug 'tpope/vim-fugitive'              " Git wrapper
 Plug 'tpope/vim-repeat'                " Enable plugins to repeat with '.'
@@ -212,12 +216,6 @@ let g:ale_sign_warning = '▲'
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 set shortmess+=c   " Shut off completion messages
-" set completeopt+=menuone
-" set completeopt+=noselect
-" set omnifunc=syntaxcomplete#Complete
-
-" Pear tree
-let g:pear_tree_ft_disabled = ['scss', 'css']
 
 " Polyglot
 " Disable polyglot's support to use a different package

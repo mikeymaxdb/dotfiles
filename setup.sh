@@ -5,21 +5,44 @@ case "${unameOut}" in
     Darwin*)    isMac=true;;
 esac
 
+echo 'Setting up configuration\n'
+
+# ---------------------------
+
 cd ~/configuration
 
+printf 'Creating symlinks ... '
+ln -sf ~/configuration/gitconfig ~/.gitconfig
+ln -sf ~/configuration/tmux.conf ~/.tmux.conf
+ln -sf ~/configuration/vimrc ~/.vimrc
+
 if [ "$isLinux" = true ]; then
-    echo 'Loading Linux setup...'
-    chmod +x ./setup/setup-linux.sh
-    ./setup/setup-linux.sh
-    exit 1
+    ln -sf ~/configuration/bashrc ~/.bashrc
 fi
 
 if [ "$isMac" = true ]; then
-    echo 'Loading Mac setup...'
-    chmod +x ./setup/setup-mac.sh
-    ./setup/setup-mac.sh
-    exit 1
+    ln -sf ~/configuration/bashrc ~/.bash_profile
 fi
+echo 'Done\n'
 
-echo "$unameOut is not supported at this time"
+# ---------------------------
+
+cd ./setup
+chmod +x ./*
+
+echo 'Installing plugins...'
+./gitCompletion.sh
+./tmuxPluginManager.sh
+echo 'Done\n'
+
+# TODO: Add linux setup here (Awesome, conky, etc.)
+
+echo 'Installing packages...'
+if [ "$isMac" = true ]; then
+    ./homebrew.sh
+fi
+echo 'Done\n'
+
+echo 'Configuration set up'
+
 exit 1
