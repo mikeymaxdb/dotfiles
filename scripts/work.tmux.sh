@@ -3,7 +3,7 @@
 changeD(){
     tmux send-keys "cd $1" 'C-m' 'C-l'
 }
-newTriple(){
+newWorkspace(){
     changeD $1
     tmux split-window -h
     changeD $1
@@ -13,19 +13,29 @@ newTriple(){
 
 tmux new-session -d -s work
 
-newTriple '~/Work/GIT/wallspice-client/'
+newWorkspace '~/Work/GIT/wallspice-client/'
 tmux send-keys 'npm start' 'C-m'
 tmux split-window -v
 tmux send-keys 'weechat' 'C-m'
 tmux rename-window 'wallspice'
 
 tmux new-window
-newTriple '~/Work/GIT/app-frontend/'
+newWorkspace '~/Work/GIT/app-frontend/'
 tmux send-keys 'npm run devstartLocal' 'C-m'
 tmux rename-window 'localServer'
 
 tmux new-window
-newTriple '~/Personal/Projects/'
+newWorkspace '~/Work/GIT/acrylic/'
+tmux send-keys './run-local.sh' 'C-m'
+tmux rename-window 'acrylic'
+
+tmux new-window
+newWorkspace '~/Work/GIT/minicad/'
+tmux send-keys './run-local.sh' 'C-m'
+tmux rename-window 'minicad'
+
+tmux new-window
+newWorkspace '~/Personal/Projects/'
 tmux rename-window 'personal'
 
 tmux select-window -t 1
