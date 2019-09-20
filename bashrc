@@ -47,6 +47,10 @@ if [ -f ~/configuration/bash_aliases ]; then
     . ~/configuration/bash_aliases
 fi
 
+if [ -f ~/configuration/git_aliases ]; then
+    . ~/configuration/git_aliases
+fi
+
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
 

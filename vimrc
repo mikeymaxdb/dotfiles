@@ -29,7 +29,7 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'airblade/vim-gitgutter'          " Gitgutter
 Plug 'ap/vim-css-color'                " Hightlight colors with color
-Plug 'chemzqm/vim-jsx-improve'         " JSX indentation
+" Plug 'chemzqm/vim-jsx-improve'         " JSX indentation
 Plug 'flazz/vim-colorschemes'          " Syntax highlighting colors
 Plug 'jceb/vim-orgmode'                " Org-mode
 Plug 'junegunn/fzf.vim'                " Fast file searching
@@ -127,6 +127,9 @@ nnoremap k gk
 command! W w !sudo tee % >/dev/null
 " Yank till eol with Y
 nmap Y y$
+" Put without yank
+vnoremap p "0p
+vnoremap P "0P
 " Quick Save
 nnoremap <Leader><Leader> :update<CR>
 " Clear search highlight on enter
@@ -219,7 +222,7 @@ set shortmess+=c   " Shut off completion messages
 
 " Polyglot
 " Disable polyglot's support to use a different package
-let g:polyglot_disabled = ['jsx', 'javascript']
+" let g:polyglot_disabled = ['jsx', 'javascript']
 
 " Signcolumn colors
 hi clear SignColumn
