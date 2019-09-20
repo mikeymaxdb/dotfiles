@@ -1,5 +1,6 @@
 # bash
 # vim: set ft=sh :
+shopt -s expand_aliases
 
 alias l='ls -1Fhp'
 alias ll='l -l'
@@ -23,6 +24,10 @@ alias mv='mv -i'
 alias cp='cp -i'
 
 alias e='nvim'
+
+if [ -f ~/configuration/git_aliases ]; then
+    . ~/configuration/git_aliases
+fi
 
 # Work aliases
 # alias sshweb='ssh -t test "cd /www/repos/website ; bash"'

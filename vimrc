@@ -19,8 +19,8 @@ if empty(glob('~/.vim/autoload/plug.vim'))
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" FZF location(homebrew)
-set rtp+=/usr/local/opt/fzf
+" Get bash aliases into vim
+let $BASH_ENV = "~/configuration/bash_aliases"
 
 au VimResized * :wincmd =              " Resize splits when the window is resized
 
@@ -29,12 +29,10 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'airblade/vim-gitgutter'          " Gitgutter
 Plug 'ap/vim-css-color'                " Hightlight colors with color
-" Plug 'chemzqm/vim-jsx-improve'         " JSX indentation
 Plug 'flazz/vim-colorschemes'          " Syntax highlighting colors
-Plug 'jceb/vim-orgmode'                " Org-mode
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'                " Fast file searching
 Plug 'junegunn/vim-plug'               " Plugin manager
-Plug 'mattn/calendar-vim'              " Calendar selection for orgmode
 Plug 'mattn/emmet-vim'                 " Quick html
 Plug 'michaeljsmith/vim-indent-object' " Selecting by indent level vii vai vaI
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
@@ -146,21 +144,23 @@ nnoremap <Leader>N :NERDTreeToggle<CR>
 nnoremap <Leader>f :BLines<CR>
 nnoremap <Leader>F :Lines<CR>
 " Search for git files or all files
-nnoremap <Leader>o :GFiles<CR>
+nnoremap <expr> <Leader>o fugitive#head() != '' ? ":GFiles<CR>" : ":Files<CR>"
 nnoremap <Leader>O :Files<CR>
 " Search file contents for word under cursor or in all files
-nnoremap <Leader>g :Rg <C-R><C-W><CR>
+nnoremap <Leader>* :Rg <C-R><C-W><CR>
 nnoremap <Leader>G :Rg<Cr>
 " List loaded buffers
 nnoremap <Leader>b :Buffers<CR>
 
 " GIT
 " List git status
-nnoremap <Leader>us :GitFiles?<CR>
+nnoremap <Leader>gs :GitFiles?<CR>
 " List commit log
-nnoremap <Leader>ul :Commits<CR>
+nnoremap <Leader>gl :Commits<CR>
 " List commit log for current buffer
-nnoremap <Leader>ut :BCommits<CR>
+nnoremap <Leader>gt :BCommits<CR>
+" Add files and start commit
+nnoremap <Leader>gc :!gaa<CR>:Gcommit<CR>
 
 " Splits
 " Side to side split
