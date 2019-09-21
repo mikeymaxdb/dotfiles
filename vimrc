@@ -35,7 +35,7 @@ Plug 'junegunn/fzf.vim'                " Fast file searching
 Plug 'junegunn/vim-plug'               " Plugin manager
 Plug 'mattn/emmet-vim'                 " Quick html
 Plug 'michaeljsmith/vim-indent-object' " Selecting by indent level vii vai vaI
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'scrooloose/nerdtree'             " File tree
 Plug 'sheerun/vim-polyglot'            " Many language packs
 Plug 'terryma/vim-multiple-cursors'    " Edit multiple locations at once <C-n>
@@ -112,6 +112,20 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 set wildignore+=*/node_modules/*,*/bower_components/*
 set wildignore+=*/build/*
 
+if has('nvim')
+    set inccommand=nosplit          " Hightlight replace as you type
+endif
+
+function SwitchToCorresponding(split)
+    let extension = expand('%:e') == 'jsx' ? '.scss' : '.jsx'
+    let fileName = expand('%:r') . extension
+    if a:split
+        execute "vsplit " . fileName
+    else
+        execute "edit " . fileName
+    endif
+endfunction
+
 " Map spacebar to leader
 nmap <space> <leader>
 nmap <space><space> <leader><leader>
@@ -134,6 +148,9 @@ nnoremap <Leader><Leader> :update<CR>
 nnoremap <silent> <CR> :noh<CR><CR>
 " Reindent the file
 nnoremap <Leader>= mzgg=G`z
+" Switch to corresponding file
+nnoremap <Leader>c :call SwitchToCorresponding(0)<CR>
+nnoremap <Leader>C :call SwitchToCorresponding(1)<CR>
 
 " NerdTree
 nnoremap <Leader>n :NERDTreeFind<CR>
@@ -237,6 +254,8 @@ hi LineNr ctermfg=239
 hi VertSplit ctermfg=239
 " Column limit color
 hi ColorColumn ctermbg=234
+" Search color
+hi Search ctermfg=175
 
 " Statusline
 set statusline=

@@ -39,9 +39,27 @@ else
 fi
 
 # Get the current git branch
-alias git_ps1="git branch 2>/dev/null | grep '*' | sed 's/* \(.*\)/ [\1]/'"
+function getGitPrompt {
+    local status="$(git status -s 2> /dev/null)"
+    local branch="$(git rev-parse --abbrev-ref HEAD 2>/dev/null)"
+    local prompt=""
 
-PS1='\[\033[0;34m\]\w\[\033[00;32m\]$(git_ps1)\[\033[00m\] \$$SERV '
+    if [ -n "$branch" ]; then
+        prompt=" ["
+        prompt="$prompt$branch"
+
+        if [ -n "$status" ]; then
+            prompt="$prompt*"
+        fi
+
+        prompt="$prompt]"
+    fi
+
+    echo "${prompt}"
+}
+# alias git_ps1="git branch 2>/dev/null | grep '*' | sed 's/* \(.*\)/ [\1]/'"
+
+PS1='\[\033[0;34m\]\w\[\033[00;32m\]$(getGitPrompt)\[\033[00m\] \$$SERV '
 
 if [ -f ~/configuration/bash_aliases ]; then
     . ~/configuration/bash_aliases
