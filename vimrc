@@ -12,6 +12,12 @@ augroup tex
     au BufRead,BufNewFile *.tex setlocal columns=80 wrap
 augroup END
 
+augroup neovim_terminal
+    autocmd!
+    autocmd TermOpen * startinsert
+    autocmd TermOpen * :set nonumber norelativenumber
+augroup END
+
 " Auto install vim-plug
 if empty(glob('~/.vim/autoload/plug.vim'))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -28,7 +34,6 @@ au VimResized * :wincmd =              " Resize splits when the window is resize
 call plug#begin('~/.vim/plugged')
 
 Plug 'airblade/vim-gitgutter'          " Gitgutter
-Plug 'ap/vim-css-color'                " Hightlight colors with color
 Plug 'flazz/vim-colorschemes'          " Syntax highlighting colors
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'                " Fast file searching
@@ -72,6 +77,8 @@ set splitbelow                      " Window splitting behavior
 set splitright                      " Window splitting behavior
 set shortmess+=aAIsT                " Less initial messaging
 set clipboard=unnamed               " Enable clipboard
+set foldmethod=syntax               " Enable folding by indent
+set nofoldenable                    " Folds open by default
 
 " UI Settings
 set number                          " Line numbers
@@ -119,10 +126,19 @@ endif
 function SwitchToCorresponding(split)
     let extension = expand('%:e') == 'jsx' ? '.scss' : '.jsx'
     let fileName = expand('%:r') . extension
-    if a:split
-        execute "vsplit " . fileName
+    if filereadable(fileName)
+        if a:split
+            if winnr('$') > 1
+                execute "wincmd w"
+                execute "edit " . fileName
+            else
+                execute "vsplit " . fileName
+            endif
+        else
+            execute "edit " . fileName
+        endif
     else
-        execute "edit " . fileName
+        echohl WarningMsg | echomsg 'No corresponding file exists (' . fileName . ')' | echohl None
     endif
 endfunction
 
@@ -149,8 +165,14 @@ nnoremap <silent> <CR> :noh<CR><CR>
 " Reindent the file
 nnoremap <Leader>= mzgg=G`z
 " Switch to corresponding file
-nnoremap <Leader>c :call SwitchToCorresponding(0)<CR>
-nnoremap <Leader>C :call SwitchToCorresponding(1)<CR>
+nnoremap <silent> <Leader>c :call SwitchToCorresponding(0)<CR>
+nnoremap <silent> <Leader>C :call SwitchToCorresponding(1)<CR>
+" Save all buffers
+nnoremap <Leader>w :wa<CR>
+" Toggle fold
+nnoremap <Leader>z za
+" Open all folds
+nnoremap <Leader>Z zR
 
 " NerdTree
 nnoremap <Leader>n :NERDTreeFind<CR>
@@ -205,7 +227,7 @@ nnoremap <leader>q :bp<bar>bd#<CR>
 
 " Comment lines with ctrl + / (vim-commentary)
 nmap <C-_> gcc
-vmap <C-_> gcgv
+vmap <C-_> gc
 
 " Switch between files with backspace
 nnoremap <bs> <c-^>
@@ -219,6 +241,9 @@ nnoremap <leader>a A
 " Trigger Emmet
 nmap <leader>e <C-Y>,
 
+" Open terminal in split
+nmap <Leader>t :split<CR>:terminal<CR>
+
 
 " Indentline
 let g:indentLine_char = '│'
@@ -228,18 +253,9 @@ let g:indentLine_color_term = 237
 let g:jsx_ext_required = 0
 let g:user_emmet_settings = {'javascript' : {'extends' : 'jsx'}}
 
-" ALE linting
-let g:ale_sign_error = 'X'
-let g:ale_sign_warning = '▲'
-
 " Autocomplete
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-set shortmess+=c   " Shut off completion messages
-
-" Polyglot
-" Disable polyglot's support to use a different package
-" let g:polyglot_disabled = ['jsx', 'javascript']
 
 " Signcolumn colors
 hi clear SignColumn
