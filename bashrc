@@ -9,6 +9,7 @@ export CLICOLOR=1
 
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/configuration/scripts"
+[ -f ~/configuration/workPaths.bash ] && source ~/configuration/workPaths.bash
 
 # Set the editor to neovim
 export VISUAL=nvim
