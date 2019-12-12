@@ -40,6 +40,12 @@ Plug 'junegunn/fzf.vim'                " Fast file searching
 Plug 'junegunn/vim-plug'               " Plugin manager
 Plug 'mattn/emmet-vim'                 " Quick html
 Plug 'michaeljsmith/vim-indent-object' " Selecting by indent level vii vai vaI
+Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'scrooloose/nerdtree'             " File tree
 Plug 'sheerun/vim-polyglot'            " Many language packs

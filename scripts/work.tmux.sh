@@ -19,21 +19,22 @@ tmux rename-window 'wallspice'
 
 tmux new-window
 newWorkspace '~/Work/GIT/app-frontend/'
-tmux send-keys 'npm run devstartLocal' 'C-m'
+# tmux send-keys 'npm run devstartLocal' 'C-m'
 tmux rename-window 'localServer'
 
 tmux new-window
 newWorkspace '~/Work/GIT/wallspice-backend/'
+tmux split-window -v
 tmux rename-window 'backend'
 
 tmux new-window
 newWorkspace '~/Work/GIT/acrylic/'
-tmux send-keys './run-local.sh' 'C-m'
+# tmux send-keys './run-local.sh' 'C-m'
 tmux rename-window 'acrylic'
 
 tmux new-window
 newWorkspace '~/Work/GIT/minicad/'
-tmux send-keys './run-local.sh' 'C-m'
+# tmux send-keys './run-local.sh' 'C-m'
 tmux rename-window 'minicad'
 
 tmux new-window
