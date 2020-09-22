@@ -18,12 +18,12 @@ export EDITOR="$VISUAL"
 # Don't put duplicate lines or lines starting with space in the history.
 HISTCONTROL=ignoreboth
 
-# Append to the history file, don't overwrite it
-shopt -s histappend
-
 # For setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=1000
 HISTFILESIZE=2000
+
+# Append to the history file, don't overwrite it
+shopt -s histappend
 
 # Check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -40,27 +40,40 @@ else
 fi
 
 # Get the current git branch
-function getGitPrompt {
+getGitPrompt() {
     local status="$(git status -s 2> /dev/null)"
     local branch="$(git rev-parse --abbrev-ref HEAD 2>/dev/null)"
     local prompt=""
 
     if [ -n "$branch" ]; then
-        prompt=" ["
+        prompt=" ("
         prompt="$prompt$branch"
 
         if [ -n "$status" ]; then
             prompt="$prompt*"
         fi
 
-        prompt="$prompt]"
+        prompt="$prompt)"
     fi
 
     echo "${prompt}"
 }
-# alias git_ps1="git branch 2>/dev/null | grep '*' | sed 's/* \(.*\)/ [\1]/'"
 
-PS1='\[\033[0;34m\]\w\[\033[00;32m\]$(getGitPrompt)\[\033[00m\] \$$SERV '
+DIR_COLOR="\[\033[0;34m\]"
+GIT_COLOR="\[\033[1;35m\]"
+PROMPT_COLOR="\[\033[1;35m\]"
+CLEAR_COLOR="\[\033[0m\]"
+DIRECTORY="\w"
+PROMPT_DECOR="└──"
+HOST="\h"
+PS1_PROMPT="\$$SERV"
+
+PS1="
+${DIR_COLOR}${DIRECTORY}\
+${GIT_COLOR}\$(getGitPrompt)
+${PROMPT_COLOR}${PROMPT_DECOR} \
+${PS1_PROMPT} ${CLEAR_COLOR}\
+"
 
 if [ -f ~/configuration/bash_aliases ]; then
     . ~/configuration/bash_aliases

@@ -20,7 +20,7 @@ tmux rename-window 'wallspice'
 tmux new-window
 newWorkspace '~/Work/GIT/app-frontend/'
 # tmux send-keys 'npm run devstartLocal' 'C-m'
-tmux rename-window 'localServer'
+tmux rename-window 'frontend'
 
 tmux new-window
 newWorkspace '~/Work/GIT/wallspice-backend/'
@@ -33,16 +33,16 @@ newWorkspace '~/Work/GIT/acrylic/'
 tmux rename-window 'acrylic'
 
 tmux new-window
-newWorkspace '~/Work/GIT/minicad/'
-# tmux send-keys './run-local.sh' 'C-m'
-tmux rename-window 'minicad'
+newWorkspace '~/Work/GIT/geomagical-website/client/'
+# tmux send-keys 'npm start' 'C-m'
+tmux rename-window 'website'
 
 tmux new-window
 newWorkspace '~/Work/GIT/wallspice-testing/'
 tmux rename-window 'testing'
 
 tmux new-window
-newWorkspace '~/Personal/Projects/'
+newWorkspace '~'
 tmux rename-window 'personal'
 
 tmux new-window

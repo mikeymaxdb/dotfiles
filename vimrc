@@ -85,6 +85,7 @@ set shortmess+=aAIsT                " Less initial messaging
 set clipboard=unnamed               " Enable clipboard
 set foldmethod=syntax               " Enable folding by indent
 set nofoldenable                    " Folds open by default
+set lazyredraw                      " Don't render everything
 
 " UI Settings
 set number                          " Line numbers
@@ -206,6 +207,8 @@ nnoremap <Leader>gl :Commits<CR>
 nnoremap <Leader>gt :BCommits<CR>
 " Add files and start commit
 nnoremap <Leader>gc :!gaa<CR>:Gcommit<CR>
+" Add all files
+nnoremap <Leader>ga :!gaa<CR>
 
 " Splits
 " Side to side split
@@ -246,6 +249,9 @@ nnoremap <leader>a A
 
 " Trigger Emmet
 nmap <leader>e <C-Y>,
+
+" Reload buffers
+nnoremap <leader>r :bufdo e<CR>
 
 " Open terminal in split
 nmap <Leader>t :split<CR>:terminal<CR>
