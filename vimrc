@@ -34,19 +34,12 @@ au VimResized * :wincmd =              " Resize splits when the window is resize
 call plug#begin('~/.vim/plugged')
 
 Plug 'airblade/vim-gitgutter'          " Gitgutter
-Plug 'flazz/vim-colorschemes'          " Syntax highlighting colors
+Plug 'morhetz/gruvbox'                 " Gruvbox colorscheme
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'                " Fast file searching
 Plug 'junegunn/vim-plug'               " Plugin manager
 Plug 'mattn/emmet-vim'                 " Quick html
 Plug 'michaeljsmith/vim-indent-object' " Selecting by indent level vii vai vaI
-Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'scrooloose/nerdtree'             " File tree
 Plug 'sheerun/vim-polyglot'            " Many language packs
 Plug 'terryma/vim-multiple-cursors'    " Edit multiple locations at once <C-n>
@@ -57,6 +50,16 @@ Plug 'tpope/vim-speeddating'           " Quickly work with dates
 Plug 'tpope/vim-surround'              " Quickly surround with quotes
 Plug 'wellle/targets.vim'              " More text objects
 Plug 'yggdroot/indentline'             " Vertical line for space indents
+
+if has('nvim')
+    Plug 'neovim/nvim-lspconfig'
+    Plug 'nvim-lua/completion-nvim'
+    Plug 'nvim-lua/diagnostic-nvim'
+    " Plug 'nvim-treesitter/nvim-treesitter'
+    " Plug 'nvim-treesitter/completion-treesitter'
+endif
+
+Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
@@ -129,6 +132,25 @@ set wildignore+=*/build/*
 if has('nvim')
     set inccommand=nosplit          " Hightlight replace as you type
 endif
+
+:lua << EOF
+    local nvim_lsp = require('nvim_lsp')
+    local on_attach = function()
+        require'completion'.on_attach()
+        require'diagnostic'.on_attach()
+    end
+
+    local servers = {'tsserver', 'cssls', 'html', 'vimls', 'jsonls'}
+    for _, lsp in ipairs(servers) do
+        nvim_lsp[lsp].setup { on_attach = on_attach }
+    end
+
+    -- require'nvim-treesitter.configs'.setup { ensure_installed = "all", highlight = { enable = true } }
+EOF
+let g:diagnostic_auto_popup_while_jump = 1
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+let g:completion_matching_smart_case = 1
+autocmd CursorHold * lua vim.lsp.util.show_line_diagnostics()
 
 function SwitchToCorresponding(split)
     let extension = expand('%:e') == 'jsx' ? '.scss' : '.jsx'
@@ -257,6 +279,22 @@ nnoremap <leader>r :bufdo e<CR>
 nmap <Leader>t :split<CR>:terminal<CR>
 
 
+" FZF
+let g:fzf_colors =
+            \ { 'fg':      ['fg', 'Normal'],
+            \ 'bg':      ['bg', 'Normal'],
+            \ 'hl':      ['fg', 'Comment'],
+            \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+            \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+            \ 'hl+':     ['fg', 'Statement'],
+            \ 'info':    ['fg', 'PreProc'],
+            \ 'border':  ['fg', 'Ignore'],
+            \ 'prompt':  ['fg', 'Conditional'],
+            \ 'pointer': ['fg', 'Exception'],
+            \ 'marker':  ['fg', 'Keyword'],
+            \ 'spinner': ['fg', 'Label'],
+            \ 'header':  ['fg', 'Comment'] }
+
 " Indentline
 let g:indentLine_char = '│'
 let g:indentLine_color_term = 237
@@ -268,6 +306,8 @@ let g:user_emmet_settings = {'javascript' : {'extends' : 'jsx'}}
 " Autocomplete
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+set completeopt=menuone,noinsert,noselect
+set shortmess+=c
 
 " Signcolumn colors
 hi clear SignColumn
@@ -275,6 +315,9 @@ hi GitGutterAdd ctermfg=014
 hi GitGutterChange ctermfg=012
 hi GitGutterDelete ctermfg=009
 hi GitGutterChangeDelete ctermfg=012
+
+" Nerdtree colors
+hi NERDTreeDir ctermfg=004
 
 " Linenumbers color
 hi LineNr ctermfg=239

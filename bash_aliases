@@ -19,6 +19,7 @@ alias mkdir='mkdir -pv'
 alias batt='pmset -g batt'
 alias battp='batt | grep -o "[0-9]\+%"'
 alias hey='echo yo'
+alias scrcpy='scrcpy --always-on-top --stay-awake --turn-screen-off'
 
 alias mv='mv -i'
 alias cp='cp -i'
