@@ -54,11 +54,12 @@ Plug 'yggdroot/indentline'             " Vertical line for space indents
 if has('nvim')
     Plug 'neovim/nvim-lspconfig'
     Plug 'nvim-lua/completion-nvim'
-    Plug 'nvim-lua/diagnostic-nvim'
+    " Plug 'steelsojka/completion-buffers'
     " Plug 'nvim-treesitter/nvim-treesitter'
     " Plug 'nvim-treesitter/completion-treesitter'
 endif
 
+" Must be last
 Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
@@ -67,6 +68,7 @@ call plug#end()
 syntax enable                       " Syntax highlighting
 set background=dark                 " Using dark background
 colorscheme gruvbox                 " Fav colorscheme
+set notermguicolors
 filetype plugin on                  " Read filetype stuff
 filetype indent on                  " Match file indents
 set encoding=utf8                   " Set utf8 as standard encoding
@@ -133,24 +135,6 @@ if has('nvim')
     set inccommand=nosplit          " Hightlight replace as you type
 endif
 
-:lua << EOF
-    local nvim_lsp = require('nvim_lsp')
-    local on_attach = function()
-        require'completion'.on_attach()
-        require'diagnostic'.on_attach()
-    end
-
-    local servers = {'tsserver', 'cssls', 'html', 'vimls', 'jsonls'}
-    for _, lsp in ipairs(servers) do
-        nvim_lsp[lsp].setup { on_attach = on_attach }
-    end
-
-    -- require'nvim-treesitter.configs'.setup { ensure_installed = "all", highlight = { enable = true } }
-EOF
-let g:diagnostic_auto_popup_while_jump = 1
-let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
-let g:completion_matching_smart_case = 1
-autocmd CursorHold * lua vim.lsp.util.show_line_diagnostics()
 
 function SwitchToCorresponding(split)
     let extension = expand('%:e') == 'jsx' ? '.scss' : '.jsx'
@@ -227,6 +211,12 @@ nnoremap <Leader>gs :GitFiles?<CR>
 nnoremap <Leader>gl :Commits<CR>
 " List commit log for current buffer
 nnoremap <Leader>gt :BCommits<CR>
+" Git blame
+nnoremap <Leader>gb :Git blame<CR>
+" Git diff
+nnoremap <Leader>gd :Git difftool<CR>
+" Git mergetool
+nnoremap <Leader>gm :Git mergetool<CR>
 " Add files and start commit
 nnoremap <Leader>gc :!gaa<CR>:Gcommit<CR>
 " Add all files
@@ -247,6 +237,8 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+" Start calculator
+nnoremap <leader>u a<C-r>=
 
 " Buffers
 " Previous buffer
@@ -280,20 +272,12 @@ nmap <Leader>t :split<CR>:terminal<CR>
 
 
 " FZF
-let g:fzf_colors =
-            \ { 'fg':      ['fg', 'Normal'],
-            \ 'bg':      ['bg', 'Normal'],
-            \ 'hl':      ['fg', 'Comment'],
-            \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-            \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-            \ 'hl+':     ['fg', 'Statement'],
-            \ 'info':    ['fg', 'PreProc'],
-            \ 'border':  ['fg', 'Ignore'],
-            \ 'prompt':  ['fg', 'Conditional'],
-            \ 'pointer': ['fg', 'Exception'],
-            \ 'marker':  ['fg', 'Keyword'],
-            \ 'spinner': ['fg', 'Label'],
-            \ 'header':  ['fg', 'Comment'] }
+function! s:build_quickfix_list(lines)
+  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+  copen
+  cc
+endfunction
+let g:fzf_action = { 'ctrl-q': function('s:build_quickfix_list') }
 
 " Indentline
 let g:indentLine_char = '│'
@@ -304,6 +288,26 @@ let g:jsx_ext_required = 0
 let g:user_emmet_settings = {'javascript' : {'extends' : 'jsx'}}
 
 " Autocomplete
+:lua << EOF
+    local nvim_lsp = require('lspconfig')
+    local on_attach_vim = function(client)
+        require'completion'.on_attach(client)
+    end
+
+    local servers = {'tsserver', 'cssls', 'html', 'vimls', 'jsonls'}
+    for _, lsp in ipairs(servers) do
+        nvim_lsp[lsp].setup { on_attach = on_attach_vim }
+    end
+
+    -- require'nvim-treesitter.configs'.setup { ensure_installed = "all", highlight = { enable = true }, indent = { enable = true } }
+EOF
+" let g:diagnostic_auto_popup_while_jump = 1
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+let g:completion_matching_smart_case = 1
+let g:completion_trigger_on_delete = 1
+let g:completion_trigger_keyword_length = 2
+" autocmd CursorHold * lua vim.lsp.util.show_line_diagnostics()
+
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 set completeopt=menuone,noinsert,noselect

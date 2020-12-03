@@ -23,29 +23,15 @@ newWorkspace '~/Work/GIT/app-frontend/'
 tmux rename-window 'frontend'
 
 tmux new-window
-newWorkspace '~/Work/GIT/wallspice-backend/'
-tmux split-window -v
-tmux rename-window 'backend'
-
-tmux new-window
-newWorkspace '~/Work/GIT/acrylic/'
-# tmux send-keys './run-local.sh' 'C-m'
-tmux rename-window 'acrylic'
-
-tmux new-window
-newWorkspace '~/Work/GIT/geomagical-website/client/'
-# tmux send-keys 'npm start' 'C-m'
-tmux rename-window 'website'
-
-tmux new-window
-newWorkspace '~/Work/GIT/wallspice-testing/'
-tmux rename-window 'testing'
+newWorkspace '~'
+tmux rename-window 'open'
 
 tmux new-window
 newWorkspace '~'
-tmux rename-window 'personal'
+tmux rename-window 'open'
 
 tmux new-window
+newWorkspace '~'
 tmux rename-window 'open'
 
 tmux select-window -t 1

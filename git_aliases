@@ -3,7 +3,7 @@
 shopt -s expand_aliases
 
 DEV_BRANCH='develop'
-RC_BRANCH='staging'
+RC_BRANCH='master'
 
 alias git_branch="git branch 2>/dev/null | grep '*' | sed 's/* \(.*\)/\1/'"
 
