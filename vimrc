@@ -54,7 +54,7 @@ Plug 'yggdroot/indentline'             " Vertical line for space indents
 if has('nvim')
     Plug 'neovim/nvim-lspconfig'
     Plug 'nvim-lua/completion-nvim'
-    " Plug 'steelsojka/completion-buffers'
+    Plug 'steelsojka/completion-buffers'
     " Plug 'nvim-treesitter/nvim-treesitter'
     " Plug 'nvim-treesitter/completion-treesitter'
 endif
@@ -303,9 +303,12 @@ let g:user_emmet_settings = {'javascript' : {'extends' : 'jsx'}}
 EOF
 " let g:diagnostic_auto_popup_while_jump = 1
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+let g:completion_sorting = 'length'
+let g:completion_chain_complete_list = [{'complete_items': ['buffers', 'lsp', 'path']}]
 let g:completion_matching_smart_case = 1
 let g:completion_trigger_on_delete = 1
-let g:completion_trigger_keyword_length = 2
+let g:completion_trigger_keyword_length = 1
+let g:completion_timer_cycle = 20
 " autocmd CursorHold * lua vim.lsp.util.show_line_diagnostics()
 
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
