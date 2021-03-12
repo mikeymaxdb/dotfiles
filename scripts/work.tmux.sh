@@ -18,9 +18,8 @@ tmux send-keys 'npm start' 'C-m'
 tmux rename-window 'wallspice'
 
 tmux new-window
-newWorkspace '~/Work/GIT/app-frontend/'
-# tmux send-keys 'npm run devstartLocal' 'C-m'
-tmux rename-window 'frontend'
+newWorkspace '~'
+tmux rename-window 'open'
 
 tmux new-window
 newWorkspace '~'
