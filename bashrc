@@ -3,7 +3,7 @@
 
 # Enable colors
 export CLICOLOR=1
-export BAT_THEME='gruvbox'
+export BAT_THEME='gruvbox-dark'
 
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/configuration/scripts"

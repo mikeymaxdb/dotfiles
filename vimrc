@@ -12,11 +12,13 @@ augroup tex
     au BufRead,BufNewFile *.tex setlocal columns=80 wrap
 augroup END
 
-augroup neovim_terminal
-    autocmd!
-    autocmd TermOpen * startinsert
-    autocmd TermOpen * :set nonumber norelativenumber
-augroup END
+if has('nvim')
+    augroup neovim_terminal
+        autocmd!
+        autocmd TermOpen * startinsert
+        autocmd TermOpen * :set nonumber norelativenumber
+    augroup END
+endif
 
 " Auto install vim-plug
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -51,7 +53,7 @@ Plug 'tpope/vim-surround'              " Quickly surround with quotes
 Plug 'wellle/targets.vim'              " More text objects
 Plug 'yggdroot/indentline'             " Vertical line for space indents
 
-if has('nvim')
+if has('nvim-0.5')
     Plug 'neovim/nvim-lspconfig'
     Plug 'nvim-lua/completion-nvim'
     Plug 'steelsojka/completion-buffers'
@@ -288,6 +290,7 @@ let g:jsx_ext_required = 0
 let g:user_emmet_settings = {'javascript' : {'extends' : 'jsx'}}
 
 " Autocomplete
+if has('nvim-0.5')
 :lua << EOF
     local nvim_lsp = require('lspconfig')
     local on_attach_vim = function(client)
@@ -301,6 +304,7 @@ let g:user_emmet_settings = {'javascript' : {'extends' : 'jsx'}}
 
     -- require'nvim-treesitter.configs'.setup { ensure_installed = "all", highlight = { enable = true }, indent = { enable = true } }
 EOF
+endif
 " let g:diagnostic_auto_popup_while_jump = 1
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 let g:completion_sorting = 'length'
