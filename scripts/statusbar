@@ -1,0 +1,66 @@
+#!/bin/sh
+
+sep='•'
+
+time() {
+    echo $(date +"%a %b %d %I:%M")
+}
+
+batt() {
+    b=$(acpi -b)
+    level=$(echo "$b" | grep -Po '[0-9]+(?=%)')
+    ac=$(echo "$b" | grep -c "Charging")
+    if [ "$ac" -eq "1" ]; then
+        symb=
+    elif [ $level -ge 75 ]; then
+        symb=
+    elif [ $level -ge 50 ]; then
+        symb=
+    elif [ $level -ge 25 ]; then
+        symb=
+    else
+        symb=
+    fi
+    echo "$symb  $level%"
+}
+
+net() {
+    # echo "$(iw dev wlp0s20f3 link | awk -F: '/SSID/ {print $NF}')"
+    ssid=$(nmcli -t -f name connection show --active)
+
+    if [ -n "$ssid" ]; then
+        echo "  $ssid"
+    else
+        echo "  no conn"
+    fi
+}
+
+vol() {
+    # 
+    level=$(amixer sget Master | awk -F"[][]" '/Mono:/ { print int($2) }')
+    mode=$(amixer sget Master | awk -F"[][]" '/Mono:/ { print $6 }')
+
+    if [ $mode = "off" ]; then
+        echo " --"
+    elif [ $level -gt 50 ]; then
+        echo " $level"
+    else
+        echo " $level"
+    fi
+}
+
+updateStatusBar() {
+    xsetroot -name "$(net) $sep $(vol) $sep $(batt) $sep $(time) "
+}
+
+case ${1:-once} in
+    once)
+        updateStatusBar
+        ;;
+    *)
+        while true; do
+            updateStatusBar
+            sleep $1
+        done
+        ;;
+esac
