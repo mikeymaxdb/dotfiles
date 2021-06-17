@@ -33,7 +33,7 @@ chmod +x ./*
 
 echo 'Installing plugins...'
 ./gitCompletion.sh
-./tmuxPluginManager.sh
+# ./tmuxPluginManager.sh
 echo 'Done\n'
 
 # TODO: Add linux setup here (Awesome, conky, etc.)
