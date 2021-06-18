@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [[ "$2" != "" ]]; then
+    EXP_PATH=$(readlink -f $2)
+else
+    EXP_PATH=""
+fi
+
+cd ~/Pods/$1
+./start.sh $EXP_PATH
