@@ -15,7 +15,7 @@ printf 'Creating symlinks ... '
 ln -sf ~/configuration/gitconfig ~/.gitconfig
 ln -sf ~/configuration/tmux.conf ~/.tmux.conf
 ln -sf ~/configuration/vimrc ~/.vimrc
-ln -sf ~/configuration/nvim ~/.config/nvim
+ln -sf ~/configuration/config/nvim ~/.config/nvim
 
 if [ "$isLinux" = true ]; then
     ln -sf ~/configuration/bashrc ~/.bashrc
@@ -33,7 +33,7 @@ chmod +x ./*
 
 echo 'Installing plugins...'
 ./gitCompletion.sh
-./tmuxPluginManager.sh
+# ./tmuxPluginManager.sh
 echo 'Done\n'
 
 # TODO: Add linux setup here (Awesome, conky, etc.)
