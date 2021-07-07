@@ -12,11 +12,11 @@ batt() {
     ac=$(echo "$b" | grep -c "Charging")
     if [ "$ac" -eq "1" ]; then
         symb=
-    elif [ $level -ge 75 ]; then
+    elif [ $level -ge 65 ]; then
         symb=
-    elif [ $level -ge 50 ]; then
+    elif [ $level -ge 40 ]; then
         symb=
-    elif [ $level -ge 25 ]; then
+    elif [ $level -ge 15 ]; then
         symb=
     else
         symb=

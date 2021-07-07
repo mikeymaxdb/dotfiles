@@ -317,7 +317,7 @@ let g:completion_timer_cycle = 20
 
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-set completeopt=menuone,noinsert,noselect
+set completeopt=menuone,noselect
 set shortmess+=c
 
 " Signcolumn colors
