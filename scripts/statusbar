@@ -36,7 +36,6 @@ net() {
 }
 
 vol() {
-    # 
     # level=$(amixer sget Master | awk -F"[][]" '/Mono:/ { print int($2) }')
     level=$(pactl list sinks | grep '^[[:space:]]Volume:' | head -n $(( 4 )) | tail -n 1 | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,')
 

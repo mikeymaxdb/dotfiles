@@ -6,11 +6,12 @@ xmodmap -e "remove mod1 = Super_L" # Make sure X keeps it out of mod1 group
 # Sreen saver
 xset dpms 180 &
 xss-lock -- slock -m "Enter password" &
-#xautolock -detectsleep -time 3 -locker slock &
 
 # User scripts
-fehbg
-statusbar 20s &
+# fehbg
+# statusbar 20s &
 
 # Start DWM
-exec dwm
+# exec dwm
+
+exec awesome
