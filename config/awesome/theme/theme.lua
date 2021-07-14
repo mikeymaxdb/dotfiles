@@ -7,7 +7,7 @@ local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 
 local gfs = require("gears.filesystem")
-local themes_path = gfs.get_themes_dir()
+local themes_path = gfs.get_configuration_dir()
 
 local theme = {}
 
@@ -15,14 +15,15 @@ local col_cyan = "#078c88"
 local col_pink = "#9e1671"
 local col_blue_dark = "#042542"
 local col_wallpaper = "#282828"
+local col_white = "#dddddd"
 
-theme.font          = "sans 8"
+theme.font          = "DejaVuSansMono 9"
 
 theme.bg_normal     = col_wallpaper
 theme.bg_focus      = col_pink
 theme.bg_urgent     = "#ff0000"
 theme.bg_minimize   = "#444444"
-theme.bg_systray    = theme.bg_normal
+theme.bg_systray    = col_wallpaper
 
 theme.fg_normal     = "#aaaaaa"
 theme.fg_focus      = "#ffffff"
@@ -31,9 +32,16 @@ theme.fg_minimize   = "#ffffff"
 
 theme.useless_gap   = dpi(4)
 theme.border_width  = dpi(2)
+theme.border_radius = dpi(6)
 theme.border_normal = "#444444"
 theme.border_focus  = col_cyan
 theme.border_marked = "#91231c"
+
+theme.bg_bar = "#353535"
+theme.fg_bar = col_cyan
+theme.fg_bar_warning = col_pink
+
+theme.transparent = "#00000000"
 
 -- There are other variable sets
 -- overriding the default one when
@@ -71,22 +79,17 @@ theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
 theme.wallpaper = "~/wallpaper"
 
 -- You can use your own layout icons like this:
-theme.layout_fairh = themes_path.."default/layouts/fairhw.png"
-theme.layout_fairv = themes_path.."default/layouts/fairvw.png"
-theme.layout_floating  = themes_path.."default/layouts/floatingw.png"
-theme.layout_magnifier = themes_path.."default/layouts/magnifierw.png"
-theme.layout_max = themes_path.."default/layouts/maxw.png"
-theme.layout_fullscreen = themes_path.."default/layouts/fullscreenw.png"
-theme.layout_tilebottom = themes_path.."default/layouts/tilebottomw.png"
-theme.layout_tileleft   = themes_path.."default/layouts/tileleftw.png"
-theme.layout_tile = themes_path.."default/layouts/tilew.png"
-theme.layout_tiletop = themes_path.."default/layouts/tiletopw.png"
-theme.layout_spiral  = themes_path.."default/layouts/spiralw.png"
-theme.layout_dwindle = themes_path.."default/layouts/dwindlew.png"
-theme.layout_cornernw = themes_path.."default/layouts/cornernww.png"
-theme.layout_cornerne = themes_path.."default/layouts/cornernew.png"
-theme.layout_cornersw = themes_path.."default/layouts/cornersww.png"
-theme.layout_cornerse = themes_path.."default/layouts/cornersew.png"
+-- iconmonster.com size:32 pad:6
+theme.icon_vol_on = themes_path.."theme/icons/vol_on.png"
+theme.icon_vol_mute = themes_path.."theme/icons/vol_mute.png"
+theme.icon_vol_off = themes_path.."theme/icons/vol_off.png"
+
+theme.icon_wifi = themes_path.."theme/icons/wifi.png"
+
+theme.icon_battery_charging = themes_path.."theme/icons/battery_charging.png"
+theme.icon_battery_full = themes_path.."theme/icons/battery_full.png"
+theme.icon_battery_half = themes_path.."theme/icons/battery_half.png"
+theme.icon_battery_empty = themes_path.."theme/icons/battery_empty.png"
 
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.

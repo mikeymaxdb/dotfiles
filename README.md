@@ -1,2 +1,2 @@
 # Configuration
-Themes, scripts, and configurations. Currently running Void linux, DWM, NeoVim.
+Themes, scripts, and configurations. Currently running Void Linux, AwesomeWM, NeoVim.
