@@ -46,6 +46,8 @@ local muteWidget, muteTimer = awful.widget.watch({ awful.util.shell, "-c", muteC
     end
 end)
 widgets.volumeIcon = volumeIcon
+widgets.volumeTimer = volumeTimer
+widgets.muteTimer = muteTimer
 widgets.volume = volumeWidget
 
 -------------------------

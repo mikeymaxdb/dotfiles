@@ -65,9 +65,9 @@
 #"rxvt"
 #  Control + b:2 + Release
 
-"sudo xbacklight -inc 5"
+"xbacklight -inc 1"
 	XF86MonBrightnessUp
-"sudo xbacklight -dec 5"
+"xbacklight -dec 1"
 	XF86MonBrightnessDown
 # "amixer -q sset Master 3%+ && statusbar"
 # "pactl set-sink-volume 3 +5000 && statusbar"

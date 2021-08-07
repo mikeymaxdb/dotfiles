@@ -42,6 +42,7 @@ end
 -- {{{ Variable definitions
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme/theme.lua")
 
+audioDeviceName = "alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp__sink"
 terminal = "urxvt"
 browser = "firefox"
 modkey = "Mod4"
@@ -166,17 +167,17 @@ globalkeys = gears.table.join(
     -- System
     awful.key({}, "XF86AudioRaiseVolume", function ()
         awful.spawn("pactl set-sink-volume " .. audioDeviceName .. " +5%")
-        volumeTimer:emit_signal("timeout")
+        widgets.volumeTimer:emit_signal("timeout")
     end),
 
     awful.key({}, "XF86AudioLowerVolume", function ()
         awful.spawn("pactl set-sink-volume " .. audioDeviceName .. " -5%")
-        volumeTimer:emit_signal("timeout")
+        widgets.volumeTimer:emit_signal("timeout")
     end),
 
     awful.key({}, "XF86AudioMute", function ()
         awful.spawn("pactl set-sink-mute " .. audioDeviceName .. " toggle")
-        muteTimer:emit_signal("timeout")
+        widgets.muteTimer:emit_signal("timeout")
     end)
 )
 
