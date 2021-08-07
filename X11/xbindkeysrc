@@ -70,14 +70,14 @@
 "sudo xbacklight -dec 5"
 	XF86MonBrightnessDown
 # "amixer -q sset Master 3%+ && statusbar"
-"pactl set-sink-volume 3 +5000 && statusbar"
-	XF86AudioRaiseVolume
+# "pactl set-sink-volume 3 +5000 && statusbar"
+	# XF86AudioRaiseVolume
 # "amixer -q sset Master 3%- && statusbar"
-"pactl set-sink-volume 3 -5000 && statusbar"
-	XF86AudioLowerVolume
+# "pactl set-sink-volume 3 -5000 && statusbar"
+	# XF86AudioLowerVolume
 # "amixer -q sset Master toggle && statusbar"
-"pactl set-sink-mute 3 toggle && statusbar"
-	XF86AudioMute
+# "pactl set-sink-mute 3 toggle && statusbar"
+	# XF86AudioMute
 # "scrot"
     # control+Mod4 + 3
 # "scrot -s"
