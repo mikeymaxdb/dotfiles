@@ -297,9 +297,9 @@ set shortmess+=c
 if has('nvim-0.5')
 :lua << EOF
     local nvim_lsp = require('lspconfig')
-    local on_attach_vim = function(client)
-        require'completion'.on_attach(client)
-    end
+    -- local on_attach_vim = function(client)
+    --    require'completion'.on_attach(client)
+    -- end
 
     local servers = {'tsserver', 'cssls', 'html', 'vimls', 'jsonls'}
     for _, lsp in ipairs(servers) do

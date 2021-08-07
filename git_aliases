@@ -24,7 +24,7 @@ alias gll='gl --numstat -p'
 alias gpu='gpp -u origin "$(git_branch)"'
 alias gpd='gitPatchDev'
 alias gsr='gitSyncFromRC'
-alias gfc='gc "$(git_branch)" && gpp'
+alias gfc='gc "$(git_branch)" --no-verify && gpp'
 alias gdrb='LAST_BRANCH=$(git_branch) && gco develop && git branch -d "$LAST_BRANCH" && git push origin --delete "$LAST_BRANCH"'
 alias gdlb='gitDeleteLocalBranches'
 alias gnb='gitNewRemoteBranch'
@@ -51,7 +51,7 @@ gitNewRemoteBranch(){
     # Create a new local branch
     # and publish to remote repo
     gco -b $1
-    gpu
+    gpu --no-verify # Skip pre-push git hook
 }
 
 gitPatchDev() {
