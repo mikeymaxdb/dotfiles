@@ -7,13 +7,6 @@ xmodmap -e "remove mod1 = Super_L" # Make sure X keeps it out of mod1 group
 xset dpms 180 &
 xss-lock -- slock -m "Enter password" &
 
-# User scripts
-# fehbg
-# statusbar 20s &
-
-# Start DWM
-# exec dwm
-
 xbacklight -set 1
 
 exec awesome
