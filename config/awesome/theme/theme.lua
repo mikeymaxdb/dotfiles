@@ -37,7 +37,7 @@ theme.border_normal = "#444444"
 theme.border_focus  = col_cyan
 theme.border_marked = "#91231c"
 
-theme.bg_bar = "#353535"
+theme.bg_bar = "#555"
 theme.fg_bar = col_cyan
 theme.fg_bar_warning = col_pink
 
