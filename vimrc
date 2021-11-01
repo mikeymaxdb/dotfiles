@@ -55,11 +55,12 @@ Plug 'yggdroot/indentline'             " Vertical line for space indents
 
 if has('nvim-0.5')
     Plug 'neovim/nvim-lspconfig'
-    Plug 'hrsh7th/nvim-compe'
-    " Plug 'nvim-lua/completion-nvim'
-    " Plug 'steelsojka/completion-buffers'
-    " Plug 'nvim-treesitter/nvim-treesitter'
-    " Plug 'nvim-treesitter/completion-treesitter'
+    Plug 'hrsh7th/cmp-nvim-lsp'
+    Plug 'hrsh7th/cmp-buffer'
+    Plug 'hrsh7th/cmp-path'
+    Plug 'hrsh7th/cmp-cmdline'
+    Plug 'hrsh7th/nvim-cmp'
+    " Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 endif
 
 " Must be last
@@ -137,7 +138,6 @@ set wildignore+=*/build/*
 if has('nvim')
     set inccommand=nosplit          " Hightlight replace as you type
 endif
-
 
 function SwitchToCorresponding(split)
     let extension = expand('%:e') == 'jsx' ? '.scss' : '.jsx'
@@ -296,93 +296,48 @@ set shortmess+=c
 
 if has('nvim-0.5')
 :lua << EOF
+    -- Setup neovim lsp
     local nvim_lsp = require('lspconfig')
-    -- local on_attach_vim = function(client)
-    --    require'completion'.on_attach(client)
-    -- end
+    local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
     local servers = {'tsserver', 'cssls', 'html', 'vimls', 'jsonls'}
     for _, lsp in ipairs(servers) do
-        nvim_lsp[lsp].setup { on_attach = on_attach_vim }
+        nvim_lsp[lsp].setup { capabilities = capabilities }
     end
 
-    -- require'nvim-treesitter.configs'.setup { ensure_installed = "all", highlight = { enable = true }, indent = { enable = true } }
-EOF
-endif
+    -- require'nvim-treesitter.configs'.setup { ensure_installed = 'maintained', highlight = { enable = true }, indent = { enable = false } }
 
-" Completion-nvim
-" let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
-" let g:completion_sorting = 'length'
-" let g:completion_chain_complete_list = [{'complete_items': ['buffers', 'lsp', 'path']}]
-" let g:completion_matching_smart_case = 1
-" let g:completion_trigger_on_delete = 1
-" let g:completion_trigger_keyword_length = 1
-" let g:completion_timer_cycle = 20
-" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+    -- Setup nvim-cmp.
+    local cmp = require'cmp'
 
-" Nvim-Compe
-if has('nvim-0.5')
-:lua << EOF
-    require'compe'.setup {
-        enabled = true,
-        autocomplete = true,
-        debug = false,
-        min_length = 1,
-        preselect = 'enable',
-        throttle_time = 80,
-        source_timeout = 200,
-        incomplete_delay = 400,
-        max_abbr_width = 100,
-        max_kind_width = 100,
-        max_menu_width = 100,
-        documentation = true,
-
-        source = {
-            path = true,
-            buffer = true,
-            nvim_lsp = true,
+    cmp.setup({
+        mapping = {
+            ['<CR>'] = cmp.mapping.confirm({ select = true }),
+            ['<Tab>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+            ['<S-Tab>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
         },
-    }
+        sources = cmp.config.sources({
+            { name = 'nvim_lsp' },
+        }, {
+            { name = 'buffer' },
+        })
+    })
 
-    local t = function(str)
-        return vim.api.nvim_replace_termcodes(str, true, true, true)
-    end
+    -- Use buffer source for `/`.
+    cmp.setup.cmdline('/', {
+        sources = {
+            { name = 'buffer' }
+        }
+    })
 
-    local check_back_space = function()
-        local col = vim.fn.col('.') - 1
-        if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
-            return true
-        else
-            return false
-        end
-    end
-
-    -- Use (s-)tab to:
-    --- move to prev/next item in completion menuone
-    --- jump to prev/next snippet's placeholder
-    _G.tab_complete = function()
-        if vim.fn.pumvisible() == 1 then
-            return t "<C-n>"
-        elseif check_back_space() then
-            return t "<Tab>"
-        else
-            return vim.fn['compe#complete']()
-        end
-    end
-
-    _G.s_tab_complete = function()
-        if vim.fn.pumvisible() == 1 then
-            return t "<C-p>"
-        else
-            return t "<S-Tab>"
-        end
-    end
-
-    vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
-    vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
-    vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-    vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+    -- Use cmdline & path source for ':'.
+    cmp.setup.cmdline(':', {
+        sources = cmp.config.sources({
+            { name = 'path' }
+        }, {
+            { name = 'cmdline' }
+        })
+    })
 EOF
 endif
 
