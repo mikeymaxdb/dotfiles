@@ -59,6 +59,8 @@ if has('nvim-0.5')
     Plug 'hrsh7th/cmp-buffer'
     Plug 'hrsh7th/cmp-path'
     Plug 'hrsh7th/cmp-cmdline'
+    Plug 'hrsh7th/cmp-vsnip'
+    Plug 'hrsh7th/vim-vsnip'
     Plug 'hrsh7th/nvim-cmp'
     " Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 endif
@@ -193,6 +195,7 @@ nnoremap <Leader>Z zR
 " NerdTree
 nnoremap <Leader>n :NERDTreeFind<CR>
 nnoremap <Leader>N :NERDTreeToggle<CR>
+let NERDTreeShowHidden=1
 
 " FZF
 " Search in current buffer or all buffers
@@ -311,6 +314,11 @@ if has('nvim-0.5')
     local cmp = require'cmp'
 
     cmp.setup({
+        snippet = {
+            expand = function(args)
+                vim.fn["vsnip#anonymous"](args.body)
+            end,
+        },
         mapping = {
             ['<CR>'] = cmp.mapping.confirm({ select = true }),
             ['<Tab>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
@@ -318,6 +326,7 @@ if has('nvim-0.5')
         },
         sources = cmp.config.sources({
             { name = 'nvim_lsp' },
+            { name = 'vsnip' },
         }, {
             { name = 'buffer' },
         })
