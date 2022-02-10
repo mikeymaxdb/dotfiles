@@ -46,4 +46,4 @@ echo 'Done\n'
 
 echo 'Configuration set up'
 
-exit 1
+exit 0
