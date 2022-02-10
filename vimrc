@@ -21,7 +21,7 @@ if has('nvim')
 endif
 
 " Auto install vim-plug
-let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+let data_dir = has('nvim') ? '~/.config/nvim' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
   silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
@@ -33,7 +33,7 @@ let $BASH_ENV = "~/configuration/bash_aliases"
 au VimResized * :wincmd =              " Resize splits when the window is resized
 
 " Plugin manager vim-plug
-call plug#begin('~/.vim/plugged')
+call plug#begin(data_dir . '/plugged')
 
 Plug 'airblade/vim-gitgutter'          " Gitgutter
 Plug 'morhetz/gruvbox'                 " Gruvbox colorscheme
