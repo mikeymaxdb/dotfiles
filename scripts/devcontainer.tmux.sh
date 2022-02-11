@@ -1,27 +1,19 @@
 #!/bin/sh
 
-changeD(){
-    tmux send-keys "cd $1" 'C-m' 'C-l'
+setup(){
+    tmux send-keys "cd $1" 'C-m' 'bash' 'C-m' 'C-l'
 }
 newWorkspace(){
-    changeD $1
+    setup $1
     tmux split-window -h
-    changeD $1
+    setup $1
     tmux split-window -v
-    changeD $1
+    setup $1
 }
 
 tmux new-session -d -s dev
 
 newWorkspace '~/project'
-tmux rename-window 'open'
-
-tmux new-window
-newWorkspace '~'
-tmux rename-window 'open'
-
-tmux new-window
-newWorkspace '~'
 tmux rename-window 'open'
 
 tmux new-window
