@@ -1,6 +1,6 @@
 # bash
 # vim: set ft=sh :
-shopt -s expand_aliases
+# shopt -s expand_aliases
 
 DEV_BRANCH='develop'
 RC_BRANCH='master'

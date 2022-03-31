@@ -19,15 +19,17 @@ HISTCONTROL=ignoreboth
 HISTSIZE=1000
 HISTFILESIZE=2000
 
-# Append to the history file, don't overwrite it
-shopt -s histappend
+if [ -n "$BASH_VERSION" ]; then
+    # Append to the history file, don't overwrite it
+    shopt -s histappend
 
-# Check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-shopt -s checkwinsize
+    # Check the window size after each command and, if necessary,
+    # update the values of LINES and COLUMNS.
+    shopt -s checkwinsize
 
-# Use vi-style keybindings in the prompt
-# set -o vi
+    # Use vi-style keybindings in the prompt
+    # set -o vi
+fi
 
 # Check if we're in an ssh session
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
@@ -38,7 +40,7 @@ fi
 
 # Get the current git branch
 getGitPrompt() {
-    local status="$(git status -s 2> /dev/null)"
+    local stat="$(git status -s 2> /dev/null)"
     local branch="$(git rev-parse --abbrev-ref HEAD 2>/dev/null)"
     local prompt=""
 
@@ -46,7 +48,7 @@ getGitPrompt() {
         prompt=" ("
         prompt="$prompt$branch"
 
-        if [ -n "$status" ]; then
+        if [ -n "$stat" ]; then
             prompt="$prompt*"
         fi
 
@@ -56,27 +58,36 @@ getGitPrompt() {
     echo "${prompt}"
 }
 
-DIR_COLOR="\[\033[0;34m\]"
-GIT_COLOR="\[\033[1;35m\]"
-PROMPT_COLOR="\[\033[1;35m\]"
-CLEAR_COLOR="\[\033[0m\]"
-DIRECTORY="\w"
 PROMPT_DECOR="└──"
-HOST="\h"
-PS1_PROMPT="\$$SERV"
+NEWLINE=$'\n'
 
-PS1="
-${DIR_COLOR}${DIRECTORY}\
-${GIT_COLOR}\$(getGitPrompt)
-${PROMPT_COLOR}${PROMPT_DECOR} \
-${PS1_PROMPT} ${CLEAR_COLOR}\
-"
+if [ -n "$BASH_VERSION" ]; then
+    DIR_COLOR="\[\033[0;34m\]"
+    GIT_COLOR="\[\033[1;35m\]"
+    PROMPT_COLOR="\[\033[1;35m\]"
+    CLEAR_COLOR="\[\033[0m\]"
+    DIRECTORY="\w"
+    HOST="\h"
+    PS1_PROMPT="\$$SERV"
+
+    PS1="
+        ${DIR_COLOR}${DIRECTORY}\
+        ${GIT_COLOR}\$(getGitPrompt)
+        ${PROMPT_COLOR}${PROMPT_DECOR} \
+        ${PS1_PROMPT} ${CLEAR_COLOR}\
+    "
+
+    [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+elif [ -n "$ZSH_VERSION" ]; then
+    autoload -Uz compinit && compinit
+    setopt PROMPT_SUBST # Expand the PS1 string
+    PS1="${NEWLINE}%F{blue}%/%F{175}\$(getGitPrompt)${NEWLINE}${PROMPT_DECOR} $%f "
+fi
 
 if [ -f ~/configuration/bash_aliases ]; then
     . ~/configuration/bash_aliases
 fi
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
 export FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --preview 'bat --color=always --style=header,grid --line-range :300 {}' --bind ctrl-a:select-all"
 

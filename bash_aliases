@@ -1,6 +1,12 @@
 # bash
 # vim: set ft=sh :
-shopt -s expand_aliases
+# shopt -s expand_aliases
+
+unameOut="$(uname -s)"
+case "${unameOut}" in
+    Linux*)     isLinux=true;;
+    Darwin*)    isMac=true;;
+esac
 
 alias sudo='sudo '
 alias bc='bc -l'
@@ -11,26 +17,27 @@ alias cp='cp -iv'
 alias cat='bat'
 alias startx='startx; exit'
 
-alias l='ls -1Fhp --color --group-directories-first'
+if [ "$isMac" = true ]; then
+    alias l='gls -1Fhp --color --group-directories-first'
+else
+    alias l='ls -1Fhp --color --group-directories-first'
+fi
+
 alias ll='l -lG'
 alias la='ll -A'
 alias ..='cd ..'
-alias update='sudo apt-get update && sudo apt-get upgrade'
-alias install='sudo apt-get install'
-alias untarbz2='tar xvjf'
+
+alias e='nvim'
+
+alias hey='echo yo'
 alias dum='du -h | sort -rh | head -20'
-alias overdrive='sudo mount /dev/sdc2 ~/Usb'
-alias underdrive='sudo umount ~/Usb'
 alias batt='pmset -g batt'
 alias battp='batt | grep -o "[0-9]\+%"'
-alias hey='echo yo'
 alias scrcpy='scrcpy --always-on-top --stay-awake --turn-screen-off'
 alias weather='curl wttr.in'
 alias netCons='lsof -i'
 alias openPorts='netCons | grep LISTEN'
 alias httpserv='python3 -m http.server'
-
-alias e='nvim'
 
 if [ -f ~/configuration/git_aliases ]; then
     . ~/configuration/git_aliases

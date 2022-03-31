@@ -17,13 +17,11 @@ ln -sf ~/configuration/tmux.conf ~/.tmux.conf
 ln -sf ~/configuration/vimrc ~/.vimrc
 ln -sf ~/configuration/config/nvim ~/.config/nvim
 
-if [ "$isLinux" = true ]; then
-    ln -sf ~/configuration/bashrc ~/.bashrc
-fi
+ln -sf ~/configuration/bashrc ~/.bashrc
 
-if [ "$isMac" = true ]; then
-    ln -sf ~/configuration/bashrc ~/.bash_profile
-fi
+# if [ "$isMac" = true ]; then
+#     ln -sf ~/configuration/bashrc ~/.bash_profile
+# fi
 echo 'Done\n'
 
 # ---------------------------
@@ -31,18 +29,18 @@ echo 'Done\n'
 cd ./setup
 chmod +x ./*
 
-echo 'Installing plugins...'
-./gitCompletion.sh
+# echo 'Installing plugins...'
+# ./gitCompletion.sh
 # ./tmuxPluginManager.sh
-echo 'Done\n'
+# echo 'Done\n'
 
 # TODO: Add linux setup here (Awesome, conky, etc.)
 
-echo 'Installing packages...'
-if [ "$isMac" = true ]; then
-    ./homebrew.sh
-fi
-echo 'Done\n'
+# echo 'Installing packages...'
+# if [ "$isMac" = true ]; then
+#     ./homebrew.sh
+# fi
+# echo 'Done\n'
 
 echo 'Configuration set up'
 

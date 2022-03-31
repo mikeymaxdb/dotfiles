@@ -160,6 +160,11 @@ function SwitchToCorresponding(split)
     endif
 endfunction
 
+function! ExecuteMacroOverVisualRange()
+  echo "@".getcmdline()
+  execute ":'<,'>normal @".nr2char(getchar())
+endfunction
+
 " Map spacebar to leader
 nmap <space> <leader>
 nmap <space><space> <leader><leader>
@@ -191,6 +196,8 @@ nnoremap <Leader>w :wa<CR>
 nnoremap <Leader>z za
 " Open all folds
 nnoremap <Leader>Z zR
+" Macro over selection
+xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 
 " NerdTree
 nnoremap <Leader>n :NERDTreeFind<CR>

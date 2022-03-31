@@ -13,7 +13,7 @@ newWorkspace(){
 
 tmux new-session -d -s work
 
-newWorkspace '~/Work/GIT/wallspice-client/'
+newWorkspace '~/Work/sugarcube-client/'
 tmux send-keys 'npm start' 'C-m'
 tmux rename-window 'wallspice'
 

@@ -3,3 +3,6 @@
     email = mikeymaxdb@users.noreply.github.com
 [color]
     ui = auto
+
+[includeIf "gitdir:~/Work/"]
+    path = ~/Work/gitconfig
