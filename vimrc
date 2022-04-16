@@ -357,6 +357,18 @@ if has('nvim-0.5')
 EOF
 endif
 
+" Completion colors
+" hi CmpItemKindText ctermfg=108
+hi CmpItemAbbrMatch ctermfg=208
+hi CmpItemAbbrMatchFuzzy ctermfg=214
+hi CmpItemKindClass ctermfg=167
+hi CmpItemKindConstant ctermfg=109
+hi CmpItemKindDefault ctermfg=229
+hi CmpItemKindFunction ctermfg=108
+hi CmpItemKindKeyword ctermfg=175
+hi CmpItemKindMethod ctermfg=142
+" hi DiagnosticError ctermbg=167
+
 " Signcolumn colors
 hi clear SignColumn
 hi GitGutterAdd ctermfg=014
