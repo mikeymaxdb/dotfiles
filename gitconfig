@@ -3,6 +3,8 @@
     email = mikeymaxdb@users.noreply.github.com
 [color]
     ui = auto
+[merge]
+    conflictstyle = diff3
 
 [includeIf "gitdir:~/Work/"]
     path = ~/Work/gitconfig

@@ -40,7 +40,6 @@ Plug 'morhetz/gruvbox'                 " Gruvbox colorscheme
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'                " Fast file searching
 Plug 'junegunn/vim-plug'               " Plugin manager
-Plug 'mattn/emmet-vim'                 " Quick html
 Plug 'michaeljsmith/vim-indent-object' " Selecting by indent level vii vai vaI
 Plug 'scrooloose/nerdtree'             " File tree
 Plug 'sheerun/vim-polyglot'            " Many language packs
@@ -48,7 +47,6 @@ Plug 'terryma/vim-multiple-cursors'    " Edit multiple locations at once <C-n>
 Plug 'tpope/vim-commentary'            " Comment/uncomment lines
 Plug 'tpope/vim-fugitive'              " Git wrapper
 Plug 'tpope/vim-repeat'                " Enable plugins to repeat with '.'
-Plug 'tpope/vim-speeddating'           " Quickly work with dates
 Plug 'tpope/vim-surround'              " Quickly surround with quotes
 Plug 'wellle/targets.vim'              " More text objects
 Plug 'yggdroot/indentline'             " Vertical line for space indents
