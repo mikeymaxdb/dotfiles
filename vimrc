@@ -135,10 +135,6 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 set wildignore+=*/node_modules/*,*/bower_components/*
 set wildignore+=*/build/*
 
-if has('nvim')
-    set inccommand=nosplit          " Hightlight replace as you type
-endif
-
 function SwitchToCorresponding(split)
     let extension = expand('%:e') == 'jsx' ? '.scss' : '.jsx'
     let fileName = expand('%:r') . extension
@@ -272,9 +268,6 @@ nnoremap U :redo<CR>
 " Easier A
 nnoremap <leader>a A
 
-" Trigger Emmet
-nmap <leader>e <C-Y>,
-
 " Reload buffers
 nnoremap <leader>r :bufdo e<CR>
 
@@ -296,64 +289,11 @@ let g:indentLine_color_term = 237
 
 " React
 let g:jsx_ext_required = 0
-let g:user_emmet_settings = {'javascript' : {'extends' : 'jsx'}}
 
 " Autocomplete
-set completeopt=menuone,noselect
+set completeopt=menu,menuone,noselect
 set shortmess+=c
 
-if has('nvim-0.5')
-:lua << EOF
-    -- Setup neovim lsp
-    local nvim_lsp = require('lspconfig')
-    local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-
-    local servers = {'tsserver', 'cssls', 'html', 'vimls', 'jsonls'}
-    for _, lsp in ipairs(servers) do
-        nvim_lsp[lsp].setup { capabilities = capabilities }
-    end
-
-    -- require'nvim-treesitter.configs'.setup { ensure_installed = 'maintained', highlight = { enable = true }, indent = { enable = false } }
-
-    -- Setup nvim-cmp.
-    local cmp = require'cmp'
-
-    cmp.setup({
-        snippet = {
-            expand = function(args)
-                vim.fn["vsnip#anonymous"](args.body)
-            end,
-        },
-        mapping = {
-            ['<CR>'] = cmp.mapping.confirm({ select = true }),
-            ['<Tab>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-            ['<S-Tab>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-        },
-        sources = cmp.config.sources({
-            { name = 'nvim_lsp' },
-            { name = 'vsnip' },
-        }, {
-            { name = 'buffer' },
-        })
-    })
-
-    -- Use buffer source for `/`.
-    cmp.setup.cmdline('/', {
-        sources = {
-            { name = 'buffer' }
-        }
-    })
-
-    -- Use cmdline & path source for ':'.
-    cmp.setup.cmdline(':', {
-        sources = cmp.config.sources({
-            { name = 'path' }
-        }, {
-            { name = 'cmdline' }
-        })
-    })
-EOF
-endif
 
 " Completion colors
 " hi CmpItemKindText ctermfg=108
