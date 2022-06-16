@@ -203,7 +203,7 @@ let NERDTreeShowHidden=1
 nnoremap <Leader>f :BLines<CR>
 nnoremap <Leader>F :Lines<CR>
 " Search for git files or all files
-nnoremap <expr> <Leader>o fugitive#head() != '' ? ":GFiles<CR>" : ":Files<CR>"
+nnoremap <expr> <Leader>o FugitiveHead() != '' ? ":GFiles<CR>" : ":Files<CR>"
 nnoremap <Leader>O :Files<CR>
 " Search file contents for word under cursor or in all files
 nnoremap <Leader>* :Rg <C-R><C-W><CR>
@@ -337,7 +337,7 @@ set statusline+=\ %f
 set statusline+=\ %M
 set statusline+=%=
 set statusline+=%#uFileT#
-set statusline+=%{fugitive#head()}
+set statusline+=%{FugitiveHead()}
 " set statusline+=\ %Y
 set statusline+=%#uInfo#
 set statusline+=\ %p%%

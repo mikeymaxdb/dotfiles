@@ -71,11 +71,10 @@ if [ -n "$BASH_VERSION" ]; then
     PS1_PROMPT="\$$SERV"
 
     PS1="
-        ${DIR_COLOR}${DIRECTORY}\
-        ${GIT_COLOR}\$(getGitPrompt)
-        ${PROMPT_COLOR}${PROMPT_DECOR} \
-        ${PS1_PROMPT} ${CLEAR_COLOR}\
-    "
+${DIR_COLOR}${DIRECTORY}\
+${GIT_COLOR}\$(getGitPrompt)
+${PROMPT_COLOR}${PROMPT_DECOR} \
+${PS1_PROMPT} ${CLEAR_COLOR}"
 
     [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 elif [ -n "$ZSH_VERSION" ]; then
