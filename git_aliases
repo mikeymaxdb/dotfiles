@@ -2,8 +2,7 @@
 # vim: set ft=sh :
 # shopt -s expand_aliases
 
-DEV_BRANCH='develop'
-RC_BRANCH='master'
+RC_BRANCH='main'
 
 alias git_branch="git branch 2>/dev/null | grep '*' | sed 's/* \(.*\)/\1/'"
 
@@ -24,12 +23,12 @@ alias glo='git log --pretty=format:"%C(green)%h %Cred%d %Creset%s %n%C(yellow)%a
 alias gl='glo -10'
 alias gll='gl --numstat -p'
 alias gpu='gpp -u origin "$(git_branch)"'
-alias gpd='gitPatchDev'
-alias gsr='gitSyncFromRC'
 alias gfc='gc "$(git_branch)" && gppn'
-alias gdrb='LAST_BRANCH=$(git_branch) && gco develop && git branch -d "$LAST_BRANCH" && git push origin --delete "$LAST_BRANCH"'
 alias gdlb='gitDeleteLocalBranches'
 alias gnb='gitNewRemoteBranch'
+alias gr='git rebase main'
+alias gsr='gitSyncRebase'
+alias grc='gaa && git rebase --continue'
 
 gitCheckoutFZF() {
     # Checkout git branch with fzf (including remote branches)
@@ -56,26 +55,14 @@ gitNewRemoteBranch(){
     gpu --no-verify # Skip pre-push git hook
 }
 
-gitPatchDev() {
-    # Merge the current branch into dev
-    local LAST_BRANCH=$(git_branch)
-    gpp
-    gco "$DEV_BRANCH"
-    gp
-    gm "$LAST_BRANCH"
-    gpp
-    gco "$LAST_BRANCH"
-}
-
-gitSyncFromRC() {
+gitSyncRebase() {
     # Pull changes from release branch
     # and merge into current branch
     local LAST_BRANCH=$(git_branch)
     gco "$RC_BRANCH"
     gp
     gco "$LAST_BRANCH"
-    gm "$RC_BRANCH"
-    gpp
+    gr
 }
 
 # Git branch bash completion

@@ -41,7 +41,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'                " Fast file searching
 Plug 'junegunn/vim-plug'               " Plugin manager
 Plug 'michaeljsmith/vim-indent-object' " Selecting by indent level vii vai vaI
-Plug 'scrooloose/nerdtree'             " File tree
 Plug 'sheerun/vim-polyglot'            " Many language packs
 Plug 'terryma/vim-multiple-cursors'    " Edit multiple locations at once <C-n>
 Plug 'tpope/vim-commentary'            " Comment/uncomment lines
@@ -52,6 +51,9 @@ Plug 'wellle/targets.vim'              " More text objects
 Plug 'yggdroot/indentline'             " Vertical line for space indents
 
 if has('nvim-0.5')
+    Plug 'nvim-tree/nvim-web-devicons'
+    Plug 'nvim-tree/nvim-tree.lua'
+
     Plug 'neovim/nvim-lspconfig'
     Plug 'hrsh7th/cmp-nvim-lsp'
     Plug 'hrsh7th/cmp-buffer'
@@ -61,6 +63,8 @@ if has('nvim-0.5')
     Plug 'hrsh7th/vim-vsnip'
     Plug 'hrsh7th/nvim-cmp'
     " Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+else
+    Plug 'scrooloose/nerdtree'             " File tree
 endif
 
 " Must be last
@@ -193,10 +197,16 @@ nnoremap <Leader>Z zR
 " Macro over selection
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 
-" NerdTree
-nnoremap <Leader>n :NERDTreeFind<CR>
-nnoremap <Leader>N :NERDTreeToggle<CR>
-let NERDTreeShowHidden=1
+" Project tree
+if has('nvim-0.5')
+    " nvim-tree in lua setup
+    nnoremap <Leader>n :NvimTreeFindFile<CR>
+    nnoremap <Leader>N :NvimTreeToggle<CR>
+else
+    nnoremap <Leader>n :NERDTreeFind<CR>
+    nnoremap <Leader>N :NERDTreeToggle<CR>
+    let NERDTreeShowHidden=1
+endif
 
 " FZF
 " Search in current buffer or all buffers
@@ -316,6 +326,12 @@ hi GitGutterChangeDelete ctermfg=012
 
 " Nerdtree colors
 hi NERDTreeDir ctermfg=004
+
+" NvimTree colors
+hi NvimTreeFolderName ctermfg=004
+hi NvimTreeOpenedFolderName ctermfg=004
+hi NvimTreeFolderIcon ctermfg=013
+hi NvimTreeGitDirty ctermfg=011
 
 " Linenumbers color
 hi LineNr ctermfg=239
