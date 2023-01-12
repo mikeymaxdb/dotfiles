@@ -1,81 +1,12 @@
 set nocompatible
 filetype off
 
-" Reload vimrc when edited
-augroup reload_vimrc
-    autocmd!
-    autocmd BufWritePost $MYVIMRC source $MYVIMRC
-augroup END
-
-augroup tex
-    autocmd!
-    au BufRead,BufNewFile *.tex setlocal columns=80 wrap
-augroup END
-
-if has('nvim')
-    augroup neovim_terminal
-        autocmd!
-        autocmd TermOpen * startinsert
-        autocmd TermOpen * :set nonumber norelativenumber
-    augroup END
-endif
-
-" Auto install vim-plug
-let data_dir = has('nvim') ? '~/.config/nvim' : '~/.vim'
-if empty(glob(data_dir . '/autoload/plug.vim'))
-  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
 " Get bash aliases into vim
 let $BASH_ENV = "~/configuration/bash_aliases"
 
 au VimResized * :wincmd =              " Resize splits when the window is resized
 
-" Plugin manager vim-plug
-call plug#begin(data_dir . '/plugged')
-
-Plug 'airblade/vim-gitgutter'          " Gitgutter
-Plug 'morhetz/gruvbox'                 " Gruvbox colorscheme
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'                " Fast file searching
-Plug 'junegunn/vim-plug'               " Plugin manager
-Plug 'michaeljsmith/vim-indent-object' " Selecting by indent level vii vai vaI
-Plug 'sheerun/vim-polyglot'            " Many language packs
-Plug 'terryma/vim-multiple-cursors'    " Edit multiple locations at once <C-n>
-Plug 'tpope/vim-commentary'            " Comment/uncomment lines
-Plug 'tpope/vim-fugitive'              " Git wrapper
-Plug 'tpope/vim-repeat'                " Enable plugins to repeat with '.'
-Plug 'tpope/vim-surround'              " Quickly surround with quotes
-Plug 'wellle/targets.vim'              " More text objects
-Plug 'yggdroot/indentline'             " Vertical line for space indents
-
-if has('nvim-0.5')
-    Plug 'nvim-tree/nvim-web-devicons'
-    Plug 'nvim-tree/nvim-tree.lua'
-
-    Plug 'neovim/nvim-lspconfig'
-    Plug 'hrsh7th/cmp-nvim-lsp'
-    Plug 'hrsh7th/cmp-buffer'
-    Plug 'hrsh7th/cmp-path'
-    Plug 'hrsh7th/cmp-cmdline'
-    Plug 'hrsh7th/cmp-vsnip'
-    Plug 'hrsh7th/vim-vsnip'
-    Plug 'hrsh7th/nvim-cmp'
-    " Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
-else
-    Plug 'scrooloose/nerdtree'             " File tree
-endif
-
-" Must be last
-Plug 'ryanoasis/vim-devicons'
-
-call plug#end()
-
 " App Settings
-syntax enable                       " Syntax highlighting
-set background=dark                 " Using dark background
-colorscheme gruvbox                 " Fav colorscheme
 set notermguicolors
 filetype plugin on                  " Read filetype stuff
 filetype indent on                  " Match file indents

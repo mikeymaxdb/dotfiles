@@ -1,0 +1,7 @@
+require('plugins')
+require('settings')
+require('tree')
+require('lsp')
+require('completion')
+require('treesitter')
+vim.cmd('source ~/.vimrc')
