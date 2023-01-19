@@ -75,40 +75,10 @@ function! ExecuteMacroOverVisualRange()
   execute ":'<,'>normal @".nr2char(getchar())
 endfunction
 
-" Map spacebar to leader
-nmap <space> <leader>
-nmap <space><space> <leader><leader>
-xmap <space> <leader>
-
-" Move using display lines
-nnoremap j gj
-nnoremap k gk
-
 " Add saving with sudo
 command! W w !sudo tee % >/dev/null
-" Yank till eol with Y
-nmap Y y$
-" Put without yank
-vnoremap p "0p
-vnoremap P "0P
-" Quick Save
-nnoremap <Leader><Leader> :update<CR>
-" Clear search highlight on enter
-nnoremap <silent> <CR> :noh<CR><CR>
-" Reindent the file
-nnoremap <Leader>= mzgg=G`z
-" Save all buffers
-nnoremap <Leader>w :wa<CR>
-" Toggle fold
-nnoremap <Leader>z za
-" Open all folds
-nnoremap <Leader>Z zR
 " Macro over selection
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
-
-" Project tree
-nnoremap <Leader>n :NvimTreeFindFile<CR>
-nnoremap <Leader>N :NvimTreeToggle<CR>
 
 " GIT
 " List git status
@@ -137,35 +107,13 @@ nnoremap <leader>sv <C-w>s<C-w>l
 nnoremap <leader>sc <C-w>c
 " Swap splits
 nnoremap <leader>ss <C-w>r
-" Navigate splits more easily
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-
-" Start calculator
-nnoremap <leader>u a<C-r>=
-
-" Buffers
-" Previous buffer
-nnoremap <c-p> :bprevious<CR>
-" Next buffer
-nnoremap <c-n> :bnext<CR>
-" Close buffer
-nnoremap <leader>q :bp<bar>bd#<CR>
 
 " Comment lines with ctrl + / (vim-commentary)
 nmap <C-_> gcc
 vmap <C-_> gc
 
-" Switch between files with backspace
-nnoremap <bs> <c-^>
-
 " Un-undo with shift + u
 nnoremap U :redo<CR>
-
-" Easier A
-nnoremap <leader>a A
 
 " Reload buffers
 nnoremap <leader>r :bufdo e<CR>
