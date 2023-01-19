@@ -1,7 +1,6 @@
 require('plugins')
 require('settings')
-require('tree')
 require('lsp')
 require('completion')
-require('treesitter')
+require('fuzzy')
 vim.cmd('source ~/.vimrc')

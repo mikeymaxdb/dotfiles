@@ -7,7 +7,7 @@ let $BASH_ENV = "~/configuration/bash_aliases"
 au VimResized * :wincmd =              " Resize splits when the window is resized
 
 " App Settings
-set notermguicolors
+set termguicolors
 filetype plugin on                  " Read filetype stuff
 filetype indent on                  " Match file indents
 set encoding=utf8                   " Set utf8 as standard encoding
@@ -70,25 +70,6 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 set wildignore+=*/node_modules/*,*/bower_components/*
 set wildignore+=*/build/*
 
-function SwitchToCorresponding(split)
-    let extension = expand('%:e') == 'jsx' ? '.scss' : '.jsx'
-    let fileName = expand('%:r') . extension
-    if filereadable(fileName)
-        if a:split
-            if winnr('$') > 1
-                execute "wincmd w"
-                execute "edit " . fileName
-            else
-                execute "vsplit " . fileName
-            endif
-        else
-            execute "edit " . fileName
-        endif
-    else
-        echohl WarningMsg | echomsg 'No corresponding file exists (' . fileName . ')' | echohl None
-    endif
-endfunction
-
 function! ExecuteMacroOverVisualRange()
   echo "@".getcmdline()
   execute ":'<,'>normal @".nr2char(getchar())
@@ -116,9 +97,6 @@ nnoremap <Leader><Leader> :update<CR>
 nnoremap <silent> <CR> :noh<CR><CR>
 " Reindent the file
 nnoremap <Leader>= mzgg=G`z
-" Switch to corresponding file
-nnoremap <silent> <Leader>c :call SwitchToCorresponding(0)<CR>
-nnoremap <silent> <Leader>C :call SwitchToCorresponding(1)<CR>
 " Save all buffers
 nnoremap <Leader>w :wa<CR>
 " Toggle fold
@@ -129,28 +107,8 @@ nnoremap <Leader>Z zR
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 
 " Project tree
-if has('nvim-0.5')
-    " nvim-tree in lua setup
-    nnoremap <Leader>n :NvimTreeFindFile<CR>
-    nnoremap <Leader>N :NvimTreeToggle<CR>
-else
-    nnoremap <Leader>n :NERDTreeFind<CR>
-    nnoremap <Leader>N :NERDTreeToggle<CR>
-    let NERDTreeShowHidden=1
-endif
-
-" FZF
-" Search in current buffer or all buffers
-nnoremap <Leader>f :BLines<CR>
-nnoremap <Leader>F :Lines<CR>
-" Search for git files or all files
-nnoremap <expr> <Leader>o FugitiveHead() != '' ? ":GFiles<CR>" : ":Files<CR>"
-nnoremap <Leader>O :Files<CR>
-" Search file contents for word under cursor or in all files
-nnoremap <Leader>* :Rg <C-R><C-W><CR>
-nnoremap <Leader>G :Rg<Cr>
-" List loaded buffers
-nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>n :NvimTreeFindFile<CR>
+nnoremap <Leader>N :NvimTreeToggle<CR>
 
 " GIT
 " List git status
@@ -212,90 +170,9 @@ nnoremap <leader>a A
 " Reload buffers
 nnoremap <leader>r :bufdo e<CR>
 
-" Open terminal in split
-nmap <Leader>t :split<CR>:terminal<CR>
-
-
-" FZF
-function! s:build_quickfix_list(lines)
-  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
-  copen
-  cc
-endfunction
-let g:fzf_action = { 'ctrl-q': function('s:build_quickfix_list') }
-
-" Indentline
-let g:indentLine_char = '│'
-let g:indentLine_color_term = 237
-
 " React
 let g:jsx_ext_required = 0
 
 " Autocomplete
 set completeopt=menu,menuone,noselect
 set shortmess+=c
-
-
-" Completion colors
-" hi CmpItemKindText ctermfg=108
-hi CmpItemAbbrMatch ctermfg=208
-hi CmpItemAbbrMatchFuzzy ctermfg=214
-hi CmpItemKindClass ctermfg=167
-hi CmpItemKindConstant ctermfg=109
-hi CmpItemKindDefault ctermfg=229
-hi CmpItemKindFunction ctermfg=108
-hi CmpItemKindKeyword ctermfg=175
-hi CmpItemKindMethod ctermfg=142
-" hi DiagnosticError ctermbg=167
-
-" Signcolumn colors
-hi clear SignColumn
-hi GitGutterAdd ctermfg=014
-hi GitGutterChange ctermfg=012
-hi GitGutterDelete ctermfg=009
-hi GitGutterChangeDelete ctermfg=012
-
-" Nerdtree colors
-hi NERDTreeDir ctermfg=004
-
-" NvimTree colors
-hi NvimTreeFolderName ctermfg=004
-hi NvimTreeOpenedFolderName ctermfg=004
-hi NvimTreeFolderIcon ctermfg=013
-hi NvimTreeGitDirty ctermfg=011
-
-" Linenumbers color
-hi LineNr ctermfg=239
-" Split color
-hi VertSplit ctermfg=239
-" Column limit color
-hi ColorColumn ctermbg=234
-" Search color
-hi Search ctermfg=175
-
-" Statusline
-set statusline=
-set statusline+=%#uMode#
-set statusline+=\ %{toupper(mode())}
-set statusline+=\ 
-set statusline+=%#uDir#
-set statusline+=\ %r
-set statusline+=\ %f
-set statusline+=\ %M
-set statusline+=%=
-set statusline+=%#uFileT#
-set statusline+=%{FugitiveHead()}
-" set statusline+=\ %Y
-set statusline+=%#uInfo#
-set statusline+=\ %p%%
-set statusline+=\ %l/%L:%c
-set statusline+=\ 
-" Statusline colors
-hi uMode ctermfg=000 ctermbg=010
-hi uInfo ctermfg=013 ctermbg=237
-hi uBuff ctermfg=229 ctermbg=239
-hi uDir ctermfg=15 ctermbg=237
-hi uFileT ctermfg=14 ctermbg=237
-" Change mode color when entering/exiting insert mode
-au InsertEnter * hi uMode ctermfg=015 ctermbg=004
-au InsertLeave * hi uMode ctermfg=000 ctermbg=010
