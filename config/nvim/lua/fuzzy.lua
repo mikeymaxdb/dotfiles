@@ -17,7 +17,9 @@ require('telescope').setup({
 })
 
 -- Use find files if not in a git repo
-local projectFiles = function()
+local M = {}
+
+M.projectFiles = function()
   local opts = {} -- define here if you want to define something
   vim.fn.system('git rev-parse --is-inside-work-tree')
   if vim.v.shell_error == 0 then
@@ -27,13 +29,7 @@ local projectFiles = function()
   end
 end
 
--- Keymap
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>o', projectFiles, {})
-vim.keymap.set('n', '<leader>*', builtin.grep_string, {})
-vim.keymap.set('n', '<leader>G', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>t', builtin.treesitter, {})
-vim.keymap.set('n', '<leader>l', builtin.lsp_definitions, {})
+return M
 
 -- " FZF
 -- " Search in current buffer or all buffers

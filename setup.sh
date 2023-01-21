@@ -14,7 +14,6 @@ cd ~/configuration
 printf 'Creating symlinks ... '
 ln -sf ~/configuration/gitconfig ~/.gitconfig
 ln -sf ~/configuration/tmux.conf ~/.tmux.conf
-ln -sf ~/configuration/vimrc ~/.vimrc
 ln -sf ~/configuration/config/nvim ~/.config/nvim
 
 ln -sf ~/configuration/bashrc ~/.bashrc
