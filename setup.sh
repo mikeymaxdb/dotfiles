@@ -11,6 +11,12 @@ echo 'Setting up configuration\n'
 
 cd ~/configuration
 
+# NPM
+# mkdir "${HOME}/.npm
+# npm config set prefix "${HOME}/.npm
+# add .npm/bin to path
+# https://github.com/sindresorhus/guides/blob/main/npm-global-without-sudo.md
+
 printf 'Creating symlinks ... '
 ln -sf ~/configuration/gitconfig ~/.gitconfig
 ln -sf ~/configuration/tmux.conf ~/.tmux.conf

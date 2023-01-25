@@ -30,7 +30,7 @@ end
 -- Setup treesitter
 require'nvim-treesitter.configs'.setup {
     ensure_installed = {
-        'gitignore',
+        -- 'gitignore',
         'javascript',
         'jsdoc',
         'jsonc',

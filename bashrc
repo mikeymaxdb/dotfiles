@@ -7,6 +7,7 @@ export BAT_THEME='gruvbox-dark'
 
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/configuration/scripts"
+export PATH="$PATH:$HOME/.npm/bin"
 
 # Set the editor to neovim
 export VISUAL=nvim

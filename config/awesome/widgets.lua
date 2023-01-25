@@ -38,7 +38,7 @@ local volumeIcon= wibox.widget {
     widget = wibox.widget.imagebox,
 }
 local volumeWidget, volumeTimer = awful.widget.watch({ awful.util.shell, "-c", volumeCommand }, 30, function(widget, stdout)
-    widget:set_text(" " .. tonumber(stdout) .. "%")
+    widget:set_text(" " .. tonumber(stdout or "") .. "%")
 end)
 local muteWidget, muteTimer = awful.widget.watch({ awful.util.shell, "-c", muteCommand }, 30, function(widget, stdout)
     if (stdout == "[off]\n") then volumeIcon:set_image(beautiful.icon_vol_mute)
