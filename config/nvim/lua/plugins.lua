@@ -16,9 +16,14 @@ require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'              -- Package manager
 
     -- UI
-    use 'airblade/vim-gitgutter'              -- Gitgutter
     use 'nvim-lualine/lualine.nvim'           -- Statusline
     use 'lukas-reineke/indent-blankline.nvim' -- Vertical indent lines
+    use {                                     -- Git gutter
+        'lewis6991/gitsigns.nvim',
+        config = function()
+            require('gitsigns').setup()
+        end
+    }
 
     -- Functionality
     use 'michaeljsmith/vim-indent-object'     -- Selecting by indent level vii vai vaI
@@ -31,25 +36,23 @@ require('packer').startup(function(use)
 
     -- Colorscheme
     -- use 'ellisonleao/gruvbox.nvim'
-    -- use 'shaunsingh/nord.nvim'
+    -- use 'AlexvZyl/nordic.nvim'
     use 'folke/tokyonight.nvim'
 
     -- Tools
     use {
         'nvim-tree/nvim-tree.lua',
-        requires = {
-            'nvim-tree/nvim-web-devicons'
-        }
+        requires = 'nvim-tree/nvim-web-devicons'
     }
 
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.x',
-        requires = { {'nvim-lua/plenary.nvim'} }
+        requires = 'nvim-lua/plenary.nvim'
     }
 
     use {
         'folke/trouble.nvim',
-        requires = 'kyazdani42/nvim-web-devicons',
+        requires = 'nvim-tree/nvim-web-devicons',
     }
 
     -- LSP

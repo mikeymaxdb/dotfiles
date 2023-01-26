@@ -148,6 +148,7 @@ vim.opt.tabstop = 4                              -- Tab size
 vim.opt.smarttab = true                          -- Smart tab size
 vim.opt.ignorecase = true                        -- Ignore case when searching
 vim.opt.smartcase = true                         -- Smart case-sensitivity
+vim.opt.updatetime = 250                         -- Faster CursorHold for popups
 
 -- local ExecuteMacroOverVisualRange = function()
 --     -- echo "@".getcmdline()
