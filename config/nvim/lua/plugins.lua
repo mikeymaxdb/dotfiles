@@ -36,7 +36,7 @@ require('packer').startup(function(use)
 
     -- Colorscheme
     -- use 'ellisonleao/gruvbox.nvim'
-    -- use 'AlexvZyl/nordic.nvim'
+    use 'AlexvZyl/nordic.nvim'
     use 'folke/tokyonight.nvim'
 
     -- Tools
