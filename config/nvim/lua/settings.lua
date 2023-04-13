@@ -9,6 +9,14 @@ C-s Start completion (insert mode)
 -- Keymap
 local tele = require('telescope.builtin')
 local teleProjectFiles = require('fuzzy').projectFiles
+function fuzzyFindContents()
+    tele.grep_string({
+        path_display = { 'smart' },
+        only_sort_text = true,
+        word_match = "-w",
+        search = '',
+    })
+end
 
 vim.keymap.set('n', '<space>', '<leader>', { remap = true }) -- Space leader
 vim.keymap.set('x', '<space>', '<leader>', { remap = true })
@@ -35,7 +43,8 @@ vim.keymap.set('n', '<leader><leader>', ':update<cr>')    -- Quick save
 vim.keymap.set('n', '<leader>*', tele.grep_string)        -- Search current word
 vim.keymap.set('n', '<leader>=', 'mzgg=G`z')              -- Reindent buffer
 vim.keymap.set('n', '<leader>a', 'A')                     -- Easy A
-vim.keymap.set('n', '<leader>G', tele.live_grep)          -- Search text
+-- vim.keymap.set('n', '<leader>G', tele.live_grep)          -- Search text
+vim.keymap.set('n', '<leader>G', fuzzyFindContents)          -- Search text
 vim.keymap.set('n', '<leader>l', tele.lsp_definitions)    -- Search LSP definitions
 vim.keymap.set('n', '<leader>n', ':NvimTreeFindFile<cr>') -- Find file in file tree
 vim.keymap.set('n', '<leader>N', ':NvimTreeToggle<cr>')   -- Toggle file tree
@@ -91,6 +100,9 @@ vim.api.nvim_create_autocmd('User', {
     end
 })
 
+-- Allow comments in JSON files by setting jsonc filetype
+vim.api.nvim_exec([[ autocmd BufNewFile,BufRead *.json setlocal filetype=jsonc ]], false)
+
 -- Resize splits on window resize
 vim.api.nvim_create_autocmd(
     { 'VimResized' },
@@ -144,8 +156,9 @@ vim.opt.autoindent = true                        -- Auto indent
 vim.opt.joinspaces = false                       -- One space after punctuation
 vim.opt.softtabstop = 4                          -- Tab size
 vim.opt.shiftwidth = 4                           -- Tab size
-vim.opt.tabstop = 4                              -- Tab size
+vim.opt.tabstop = 4                              -- Tab size for tab characters
 vim.opt.smarttab = true                          -- Smart tab size
+vim.opt.smartindent = true
 vim.opt.ignorecase = true                        -- Ignore case when searching
 vim.opt.smartcase = true                         -- Smart case-sensitivity
 vim.opt.updatetime = 250                         -- Faster CursorHold for popups

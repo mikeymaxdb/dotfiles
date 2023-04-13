@@ -32,6 +32,7 @@ require('packer').startup(function(use)
     use 'tpope/vim-fugitive'                  -- Git wrapper
     use 'tpope/vim-repeat'                    -- Enable plugins to repeat with '.'
     use 'tpope/vim-surround'                  -- Quickly surround with quotes
+    use 'tpope/vim-sleuth'                    -- Smart indentation
     use 'wellle/targets.vim'                  -- More text objects
 
     -- Colorscheme
