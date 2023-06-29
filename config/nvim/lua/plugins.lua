@@ -52,6 +52,11 @@ require('packer').startup(function(use)
     }
 
     use {
+        'ibhagwan/fzf-lua',
+        requires = 'nvim-tree/nvim-web-devicons'
+    }
+
+    use {
         'folke/trouble.nvim',
         requires = 'nvim-tree/nvim-web-devicons',
     }
@@ -75,15 +80,7 @@ end)
 -- File browser
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
-require('nvim-tree').setup({
-    view = {
-        mappings = {
-            list = {
-                { key = '<2-LeftMouse>', action = 'edit_no_picker' },
-            },
-        },
-    },
-})
+require('nvim-tree').setup()
 
 -- Statusline
 require('lualine').setup({

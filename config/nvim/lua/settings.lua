@@ -40,15 +40,19 @@ vim.keymap.set('n', '<c-_>', 'gcc', { remap = true })     -- Comment line (C-/)
 vim.keymap.set('v', '<c-_>', 'gc', { remap = true })      -- Comment selection (C-/)
 
 vim.keymap.set('n', '<leader><leader>', ':update<cr>')    -- Quick save
-vim.keymap.set('n', '<leader>*', tele.grep_string)        -- Search current word
+-- vim.keymap.set('n', '<leader>*', tele.grep_string)        -- Search current word
+vim.keymap.set("n", "<leader>*", "<cmd>lua require('fzf-lua').grep_cword({search=''})<CR>", { silent = true })
 vim.keymap.set('n', '<leader>=', 'mzgg=G`z')              -- Reindent buffer
 vim.keymap.set('n', '<leader>a', 'A')                     -- Easy A
 -- vim.keymap.set('n', '<leader>G', tele.live_grep)          -- Search text
-vim.keymap.set('n', '<leader>G', fuzzyFindContents)          -- Search text
+-- vim.keymap.set('n', '<leader>G', fuzzyFindContents)          -- Search text
+-- vim.keymap.set("n", "<leader>G", "<cmd>lua require('fzf-lua').live_grep_native()<CR>", { silent = true })
+vim.keymap.set("n", "<leader>G", "<cmd>lua require('fzf-lua').grep({search=''})<CR>", { silent = true })
 vim.keymap.set('n', '<leader>l', tele.lsp_definitions)    -- Search LSP definitions
 vim.keymap.set('n', '<leader>n', ':NvimTreeFindFile<cr>') -- Find file in file tree
 vim.keymap.set('n', '<leader>N', ':NvimTreeToggle<cr>')   -- Toggle file tree
-vim.keymap.set('n', '<leader>o', teleProjectFiles)        -- Search files
+-- vim.keymap.set('n', '<leader>o', teleProjectFiles)        -- Search files
+vim.keymap.set("n", "<leader>o", "<cmd>lua require('fzf-lua').files()<CR>", { silent = true })
 vim.keymap.set('n', '<leader>q', ':bp<bar>bd#<cr>')       -- Close buffer
 vim.keymap.set('n', '<leader>r', ':bufdo e<cr>')          -- Reload all buffers
 vim.keymap.set('n', '<leader>t', tele.treesitter)         -- Search Treesitter
