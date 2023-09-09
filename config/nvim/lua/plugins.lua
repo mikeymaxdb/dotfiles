@@ -1,86 +1,64 @@
 -- Auto install
-local ensure_packer = function()
-    local fn = vim.fn
-    local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-    if fn.empty(fn.glob(install_path)) > 0 then
-        fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-        vim.cmd [[packadd packer.nvim]]
-        return true
-    end
-    return false
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
 end
+vim.opt.rtp:prepend(lazypath)
 
-local packer_bootstrap = ensure_packer()
-
-require('packer').startup(function(use)
-    use 'wbthomason/packer.nvim'              -- Package manager
-
+require('lazy').setup({
     -- UI
-    use 'nvim-lualine/lualine.nvim'           -- Statusline
-    use 'lukas-reineke/indent-blankline.nvim' -- Vertical indent lines
-    use {                                     -- Git gutter
-        'lewis6991/gitsigns.nvim',
+    'nvim-lualine/lualine.nvim',           -- Statusline
+    'lukas-reineke/indent-blankline.nvim', -- Vertical indent lines
+    {
+        'lewis6991/gitsigns.nvim',             -- Git gutter
         config = function()
             require('gitsigns').setup()
-        end
-    }
+        end,
+    },
+    'nvim-tree/nvim-web-devicons',         -- File icons
 
     -- Functionality
-    use 'michaeljsmith/vim-indent-object'     -- Selecting by indent level vii vai vaI
-    use 'terryma/vim-multiple-cursors'        -- Edit multiple locations at once <C-n>
-    use 'tpope/vim-commentary'                -- Comment/uncomment lines
-    use 'tpope/vim-fugitive'                  -- Git wrapper
-    use 'tpope/vim-repeat'                    -- Enable plugins to repeat with '.'
-    use 'tpope/vim-surround'                  -- Quickly surround with quotes
-    use 'tpope/vim-sleuth'                    -- Smart indentation
-    use 'wellle/targets.vim'                  -- More text objects
+    'michaeljsmith/vim-indent-object',     -- Selecting by indent level vii vai vaI
+    'terryma/vim-multiple-cursors',        -- Edit multiple locations at once <C-n>
+    'tpope/vim-commentary',                -- Comment/uncomment lines
+    'tpope/vim-fugitive',                  -- Git wrapper
+    'tpope/vim-repeat',                    -- Enable plugins to repeat with '.'
+    'tpope/vim-surround',                  -- Quickly surround with quotes
+    'tpope/vim-sleuth',                    -- Smart indentation
+    'wellle/targets.vim',                  -- More text objects
 
-    -- Colorscheme
-    -- use 'ellisonleao/gruvbox.nvim'
-    use 'AlexvZyl/nordic.nvim'
-    use 'folke/tokyonight.nvim'
+    -- Colorschemes
+    'AlexvZyl/nordic.nvim',                -- Warmer nordic
+    'folke/tokyonight.nvim',               -- Neon tokyo
 
     -- Tools
-    use {
-        'nvim-tree/nvim-tree.lua',
-        requires = 'nvim-tree/nvim-web-devicons'
-    }
-
-    use {
-        'nvim-telescope/telescope.nvim', tag = '0.1.x',
-        requires = 'nvim-lua/plenary.nvim'
-    }
-
-    use {
-        'ibhagwan/fzf-lua',
-        requires = 'nvim-tree/nvim-web-devicons'
-    }
-
-    use {
-        'folke/trouble.nvim',
-        requires = 'nvim-tree/nvim-web-devicons',
-    }
+    {
+    'nvim-tree/nvim-tree.lua',             -- File browser
+        config = function()
+            require('nvim-tree').setup()
+        end,
+    },
+    'ibhagwan/fzf-lua',                    -- Fuzzy finder
+    'folke/trouble.nvim',                  -- Advanced quick fix
 
     -- LSP
-    use 'neovim/nvim-lspconfig'
-    use 'hrsh7th/cmp-nvim-lsp'
-    use 'hrsh7th/cmp-buffer'
-    use 'hrsh7th/cmp-path'
-    use 'hrsh7th/cmp-cmdline'
-    use 'hrsh7th/cmp-vsnip'
-    use 'hrsh7th/vim-vsnip'
-    use 'hrsh7th/nvim-cmp'
-    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
-
-    if packer_bootstrap then
-        require('packer').sync()
-    end
-end)
-
--- File browser
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-require('nvim-tree').setup()
+    'neovim/nvim-lspconfig',
+    'hrsh7th/cmp-nvim-lsp',
+    'hrsh7th/cmp-buffer',
+    'hrsh7th/cmp-path',
+    'hrsh7th/cmp-cmdline',
+    'hrsh7th/cmp-vsnip',
+    'hrsh7th/vim-vsnip',
+    'hrsh7th/nvim-cmp',
+    'nvim-treesitter/nvim-treesitter'
+})
 
 -- Statusline
 require('lualine').setup({

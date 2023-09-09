@@ -7,16 +7,6 @@ C-s Start completion (insert mode)
 --]]
 
 -- Keymap
-local tele = require('telescope.builtin')
-local teleProjectFiles = require('fuzzy').projectFiles
-function fuzzyFindContents()
-    tele.grep_string({
-        path_display = { 'smart' },
-        only_sort_text = true,
-        word_match = "-w",
-        search = '',
-    })
-end
 
 vim.keymap.set('n', '<space>', '<leader>', { remap = true }) -- Space leader
 vim.keymap.set('x', '<space>', '<leader>', { remap = true })
@@ -40,22 +30,17 @@ vim.keymap.set('n', '<c-_>', 'gcc', { remap = true })     -- Comment line (C-/)
 vim.keymap.set('v', '<c-_>', 'gc', { remap = true })      -- Comment selection (C-/)
 
 vim.keymap.set('n', '<leader><leader>', ':update<cr>')    -- Quick save
--- vim.keymap.set('n', '<leader>*', tele.grep_string)        -- Search current word
-vim.keymap.set("n", "<leader>*", "<cmd>lua require('fzf-lua').grep_cword({search=''})<CR>", { silent = true })
+vim.keymap.set("n", "<leader>*", "<cmd>lua require('fzf-lua').grep_cword()<CR>", { silent = true }) -- Search for current word
 vim.keymap.set('n', '<leader>=', 'mzgg=G`z')              -- Reindent buffer
 vim.keymap.set('n', '<leader>a', 'A')                     -- Easy A
--- vim.keymap.set('n', '<leader>G', tele.live_grep)          -- Search text
--- vim.keymap.set('n', '<leader>G', fuzzyFindContents)          -- Search text
--- vim.keymap.set("n", "<leader>G", "<cmd>lua require('fzf-lua').live_grep_native()<CR>", { silent = true })
-vim.keymap.set("n", "<leader>G", "<cmd>lua require('fzf-lua').grep({search=''})<CR>", { silent = true })
-vim.keymap.set('n', '<leader>l', tele.lsp_definitions)    -- Search LSP definitions
+vim.keymap.set("n", "<leader>b", "<cmd>lua require('fzf-lua').lines()<CR>", { silent = true })           -- Search open buffers
+vim.keymap.set("n", "<leader>f", "<cmd>lua require('fzf-lua').blines()<CR>", { silent = true })          -- Search current buffer
+vim.keymap.set("n", "<leader>G", "<cmd>lua require('fzf-lua').grep({search=''})<CR>", { silent = true }) -- Search file contents
 vim.keymap.set('n', '<leader>n', ':NvimTreeFindFile<cr>') -- Find file in file tree
 vim.keymap.set('n', '<leader>N', ':NvimTreeToggle<cr>')   -- Toggle file tree
--- vim.keymap.set('n', '<leader>o', teleProjectFiles)        -- Search files
-vim.keymap.set("n", "<leader>o", "<cmd>lua require('fzf-lua').files()<CR>", { silent = true })
+vim.keymap.set("n", "<leader>o", "<cmd>lua require('fzf-lua').files()<CR>", { silent = true }) -- Search file names
 vim.keymap.set('n', '<leader>q', ':bp<bar>bd#<cr>')       -- Close buffer
 vim.keymap.set('n', '<leader>r', ':bufdo e<cr>')          -- Reload all buffers
-vim.keymap.set('n', '<leader>t', tele.treesitter)         -- Search Treesitter
 vim.keymap.set('n', '<leader>u', 'a<c-r>=')               -- Calculator
 vim.keymap.set('n', '<leader>w', ':wa<cr>')               -- Save all buffers
 vim.keymap.set('n', '<leader>z', 'za')                    -- Toggle fold
@@ -69,9 +54,9 @@ vim.keymap.set('n', '<leader>ss', '<c-w>r')               -- Split swap
 
 -- Git
 vim.keymap.set('n', '<leader>ga', ':!gaa<cr>')            -- Git add all
-vim.keymap.set('n', '<leader>gs', tele.git_status)        -- Git status
-vim.keymap.set('n', '<leader>gl', tele.git_commits)       -- Git log
-vim.keymap.set('n', '<leader>gt', tele.git_bcommits)      -- Git buffer commits
+vim.keymap.set("n", "<leader>gs", "<cmd>lua require('fzf-lua').git_status()<CR>", { silent = true })   -- Git status
+vim.keymap.set("n", "<leader>gl", "<cmd>lua require('fzf-lua').git_commits()<CR>", { silent = true })  -- Git log
+vim.keymap.set("n", "<leader>gt", "<cmd>lua require('fzf-lua').git_bcommits()<CR>", { silent = true }) -- Git file log
 vim.keymap.set('n', '<leader>gb', ':Git blame<cr>')       -- Git blame
 vim.keymap.set('n', '<leader>gd', ':Git difftool<cr>')    -- Git diff
 vim.keymap.set('n', '<leader>gm', ':Git mergetool<cr>')   -- Git mergetool
@@ -114,8 +99,14 @@ vim.api.nvim_create_autocmd(
 )
 
 -- Color overrides
-vim.api.nvim_set_hl(0, 'Search', { bg = 'Purple' })
-vim.api.nvim_set_hl(0, 'NvimTreeGitDirty', { fg = 'Yellow' })
+vim.api.nvim_create_autocmd('ColorScheme', {
+    pattern = '*',
+    callback = function ()
+        vim.api.nvim_set_hl(0, 'Search', { bg = '#cc0088', fg = 'White' })
+        vim.api.nvim_set_hl(0, 'IncSearch', { bg = '#0088cc', fg = 'White' })
+        vim.api.nvim_set_hl(0, 'NvimTreeGitDirty', { fg = 'Yellow' })
+    end
+})
 
 -- Settings
 

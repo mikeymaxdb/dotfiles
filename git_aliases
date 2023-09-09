@@ -2,32 +2,36 @@
 # vim: set ft=sh :
 # shopt -s expand_aliases
 
-RC_BRANCH='main'
+MAIN_BRANCH='main'
 
 alias git_branch="git branch 2>/dev/null | grep '*' | sed 's/* \(.*\)/\1/'"
 
-alias ga='git add .'
-alias gc='ga && git commit -am'
-alias gs='git status -s'
-alias gd='git diff'
-alias gp='git pull --no-edit'
-alias gpp='git push'
-alias gppn='gpp --no-verify'
-alias gppf='gppn --force-with-lease'
-alias gb='git branch -a'
-alias gm='git merge --no-edit'
-alias gco='git checkout'
-alias gcoo='gitCheckoutFZF'
+alias gb='git branch -a'        # Branch list
+alias gs='git status -s'        # Status short
+alias gd='git diff'             # Diff shortcut
+alias ga='git add .'            # Add all files
+alias gc='ga && git commit -am' # Commit all files with message
+alias gr='git rebase'           # Rebase shortcut
+alias gp='git pull --no-edit'   # Pull shortcut
+alias gpp='git push'            # Push shortcut
+alias gppn='gpp --no-verify'    # Push with no husky hooks
+alias gppf='gppn --force-with-lease' # Push force with check
+alias gm='git merge --no-edit'  # Merge in branch
+alias gco='git checkout'        # Checkout branch
+alias gcoo='gitCheckoutFZF'     # Checkout branch with fzf fuzzy find
+# Log long with custom format
 alias glo='git log --pretty=format:"%C(green)%h %Cred%d %Creset%s %n%C(yellow)%ad%Cblue %cn%n" --decorate --date=relative --graph'
-alias gl='glo -10'
-alias gll='gl --numstat -p'
-alias gpu='gpp -u origin "$(git_branch)"'
-alias gfc='gc "$(git_branch)" && gppn'
-alias gdlb='gitDeleteLocalBranches'
-alias gnb='gitNewRemoteBranch'
-alias gr='gitSyncRebase'
-alias grc='ga && git rebase --continue'
-alias grf='gppf'
+alias gl='glo -10'              # Log short
+alias gll='gl --numstat -p'     # Log with diffs
+alias gpu='gpp -u origin "$(git_branch)"' # Push local branch to remote
+alias gfc='gc "$(git_branch)" && gppn'    # First commit using name of branch as commit message
+alias gdlb='gitDeleteLocalBranches'       # Delete local branches that were deleted in remote
+alias gnb='gitNewRemoteBranch'            # New branch on remote
+
+# Rebasing
+alias grm='gitRebaseMain'               # Rebase on main
+alias grc='ga && git rebase --continue' # Rebase continue
+alias grf='gppf'                        # Rebase finish
 
 gitCheckoutFZF() {
     # Checkout git branch with fzf (including remote branches)
@@ -54,11 +58,11 @@ gitNewRemoteBranch(){
     gpu --no-verify # Skip pre-push git hook
 }
 
-gitSyncRebase() {
+gitRebaseMain() {
     # Pull changes from release branch
-    # and merge into current branch
-    git fetch origin "$RC_BRANCH":"$RC_BRANCH"
-    git rebase "$RC_BRANCH"
+    # and rebase current branch on release branch
+    git fetch origin "$MAIN_BRANCH":"$MAIN_BRANCH"
+    git rebase "$MAIN_BRANCH"
 }
 
 # Git branch bash completion
