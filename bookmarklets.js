@@ -19,3 +19,10 @@ javascript:(function(){
     });
     urls.forEach((url) => window.open(url, '_blank'));
 })();
+
+javascript:(function(){
+    /* Converts the page to dark mode */
+    var sheet = window.document.styleSheets[0];
+    sheet.insertRule('body { filter: invert() saturate(.5) hue-rotate(180deg); background-color: #333; }', sheet.cssRules.length);
+    sheet.insertRule('img,svg { filter: invert() saturate(2) hue-rotate(180deg); }', sheet.cssRules.length);
+})();
