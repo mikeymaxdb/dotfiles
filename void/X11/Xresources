@@ -3,7 +3,7 @@ Xcursor.size:  16
 URxvt*.transparent: false
 URxvt*.shading: 40
 ! URxvt.font: xft:DejaVu Sans Mono:pixelsize=12
-URxvt.font: xft:DejaVuSansMono Nerd Font Mono:pixelsize=12
+URxvt.font: xft:DejaVuSansMono Nerd Font Mono:pixelsize=14
 URxvt.perl-ext-common: vtwheel
 URxvt*scrollBar: false
 URxvt*internalBorder: 10
