@@ -15,7 +15,7 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
     -- UI
     'nvim-lualine/lualine.nvim',           -- Statusline
-    'lukas-reineke/indent-blankline.nvim', -- Vertical indent lines
+    { 'lukas-reineke/indent-blankline.nvim', main = "ibl", opts = { scope = { enabled = true }}}, -- Vertical indent lines
     {
         'lewis6991/gitsigns.nvim',             -- Git gutter
         config = function()
@@ -79,15 +79,4 @@ require('lualine').setup({
         lualine_y = {'filetype'},
         lualine_z = {'%l/%L:%c'}
     }
-})
-
--- Vertical indent lines
-vim.cmd [[highlight IndentBlanklineIndent1 guifg=#333333]]
-vim.cmd [[highlight IndentBlanklineContextChar guifg=LightMagenta]]
-require('indent_blankline').setup({
-    char = '│',
-    show_current_context = true,
-    char_highlight_list = {
-        'IndentBlanklineIndent1',
-    },
 })
