@@ -131,6 +131,7 @@ vim.opt.termguicolors = true                     -- More colors
 vim.opt.background = 'dark'                      -- Dark colorscheme
 vim.cmd('colorscheme tokyonight-night')          -- Set colorscheme
 vim.opt.number = true                            -- Line numbers
+-- vim.opt.relativenumber = true                    -- Show distance from current line instead
 vim.opt.showmode = false                         -- Only have the mode in the statusline
 vim.opt.showmatch = true                         -- Highlight matching brace
 vim.opt.incsearch = true                         -- Highlight search as you type

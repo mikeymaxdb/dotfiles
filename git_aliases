@@ -33,6 +33,9 @@ alias grm='gitRebaseMain'               # Rebase on main
 alias grc='ga && git rebase --continue' # Rebase continue
 alias grf='gppf'                        # Rebase finish
 
+# Python
+alias pv='source .venv/bin/activate' # Activate python venv
+
 gitCheckoutFZF() {
     # Checkout git branch with fzf (including remote branches)
     local branches branch

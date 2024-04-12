@@ -42,6 +42,7 @@ local servers = {
     'eslint',
     'html',
     'jsonls',
+    'pyright',
     'tsserver',
     'vimls',
 }
@@ -65,6 +66,7 @@ require'nvim-treesitter.configs'.setup {
         'jsonc',
         'lua',
         'markdown',
+        'python',
         'scss',
         'tsx',
         'typescript',
