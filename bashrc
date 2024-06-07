@@ -8,6 +8,7 @@ export BAT_THEME='gruvbox-dark'
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/configuration/scripts"
 export PATH="$PATH:$HOME/.npm/bin"
+export PATH="$PATH:$HOME/.local/bin"
 
 # Set the editor to neovim
 export VISUAL=nvim
@@ -82,6 +83,7 @@ elif [ -n "$ZSH_VERSION" ]; then
     autoload -Uz compinit && compinit
     setopt PROMPT_SUBST # Expand the PS1 string
     PS1="${NEWLINE}%F{blue}%/%F{175}\$(getGitPrompt)${NEWLINE}${PROMPT_DECOR} $%f "
+    eval "$(direnv hook zsh)"
 fi
 
 if [ -f ~/configuration/bash_aliases ]; then

@@ -1,40 +1,38 @@
 #!/bin/sh
 
-changeD(){
+sessionName='(>^ ^)>'
+configPath="$HOME/Work/workspaces.txt"
+
+changeDirectory(){
     tmux send-keys "cd $1" 'C-m' 'C-l'
 }
+
 newWorkspace(){
-    changeD $1
+    changeDirectory $1
     tmux split-window -h
-    changeD $1
+    changeDirectory $1
     tmux split-window -v
-    changeD $1
+    changeDirectory $1
+    tmux split-window -v
+    changeDirectory $1
 }
 
-tmux new-session -d -s work
+tmux new-session -d -s "$sessionName"
 
-newWorkspace '~/Work/sugarcube-client/'
-tmux send-keys 'npm start' 'C-m'
-tmux rename-window 'wallspice'
+while read workspace; do
+    name=$(echo $workspace | cut -f 1 -d ' ')
+    directory=$(echo $workspace | cut -f 2 -d ' ')
 
-tmux new-window
-newWorkspace '~'
-tmux rename-window 'open'
+    echo "Creating workspace $name in $directory"
 
-tmux new-window
-newWorkspace '~'
-tmux rename-window 'open'
+    newWorkspace "$directory"
+    tmux rename-window "$name"
+    tmux new-window
+done < "$configPath"
 
-tmux new-window
-newWorkspace '~'
-tmux rename-window 'open'
-
-tmux new-window
-newWorkspace '~'
-tmux rename-window 'open'
+tmux kill-window
 
 tmux select-window -t 1
 tmux select-pane -t 1
-tmux send-keys 'e' 'C-m'
 
-tmux -2 attach-session -t work
+tmux -2 attach-session -t "$sessionName"
