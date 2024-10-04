@@ -1,6 +1,6 @@
 #!/bin/sh
 
-sessionName='(>^ ^)>'
+sessionName='work'
 configPath="$HOME/Work/workspaces.txt"
 
 changeDirectory(){

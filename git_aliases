@@ -14,17 +14,19 @@ alias gc='ga && git commit -am' # Commit all files with message
 alias gr='git rebase'           # Rebase shortcut
 alias gp='git pull --no-edit'   # Pull shortcut
 alias gpp='git push'            # Push shortcut
-alias gppn='gpp --no-verify'    # Push with no husky hooks
 alias gppf='gppn --force-with-lease' # Push force with check
 alias gm='git merge --no-edit'  # Merge in branch
 alias gco='git checkout'        # Checkout branch
 alias gcoo='gitCheckoutFZF'     # Checkout branch with fzf fuzzy find
+alias gsy='git stash'           # Git stash (yank)
+alias gsp='git stash pop'       # Git stash (put)
+alias gpk='git cherry-pick'     # Cherry-pick shortcut
 # Log long with custom format
 alias glo='git log --pretty=format:"%C(green)%h %Cred%d %Creset%s %n%C(yellow)%ad%Cblue %cn%n" --decorate --date=relative --graph'
 alias gl='glo -10'              # Log short
 alias gll='gl --numstat -p'     # Log with diffs
 alias gpu='gpp -u origin "$(git_branch)"' # Push local branch to remote
-alias gfc='gc "$(git_branch)" && gppn'    # First commit using name of branch as commit message
+alias gfc='gc "$(git_branch)" && gpp'     # First commit using name of branch as commit message
 alias gdlb='gitDeleteLocalBranches'       # Delete local branches that were deleted in remote
 alias gnb='gitNewRemoteBranch'            # New branch on remote
 
@@ -58,7 +60,7 @@ gitNewRemoteBranch(){
     # Create a new local branch
     # and publish to remote repo
     gco -b $1
-    gpu --no-verify # Skip pre-push git hook
+    gpu
 }
 
 gitRebaseMain() {

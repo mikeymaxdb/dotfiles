@@ -82,7 +82,7 @@ ${PS1_PROMPT} ${CLEAR_COLOR}"
 elif [ -n "$ZSH_VERSION" ]; then
     autoload -Uz compinit && compinit
     setopt PROMPT_SUBST # Expand the PS1 string
-    PS1="${NEWLINE}%F{blue}%/%F{175}\$(getGitPrompt)${NEWLINE}${PROMPT_DECOR} $%f "
+    PS1="${NEWLINE}%F{blue}%~%F{175}\$(getGitPrompt)${NEWLINE}${PROMPT_DECOR} $%f "
     eval "$(direnv hook zsh)"
 fi
 

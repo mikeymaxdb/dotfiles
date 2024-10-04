@@ -43,7 +43,7 @@ local servers = {
     'html',
     'jsonls',
     'pyright',
-    'tsserver',
+    'ts_ls',
     'vimls',
 }
 for _, lsp in ipairs(servers) do
