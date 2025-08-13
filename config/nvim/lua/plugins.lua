@@ -47,6 +47,14 @@ require('lazy').setup({
     },
     'ibhagwan/fzf-lua',                    -- Fuzzy finder
     'folke/trouble.nvim',                  -- Advanced quick fix
+    {
+        'olimorris/codecompanion.nvim',    -- AI
+        dependencies = {
+            'nvim-lua/plenary.nvim',
+            'nvim-treesitter/nvim-treesitter',
+        },
+        config = true
+    },
 
     -- LSP
     'neovim/nvim-lspconfig',
@@ -92,4 +100,26 @@ require('ibl').setup({
     indent = {
         highlight = { 'IndentBlankLineIndent1' }
     }
+})
+
+-- Code companion
+require('secrets')
+require("codecompanion").setup({
+    strategies = {
+        chat = {
+            adapter = 'anthropic',
+        },
+        inline = {
+            adapter = 'anthropic',
+        },
+    },
+    adapters = {
+        anthropic = function()
+            return require('codecompanion.adapters').extend('anthropic', {
+                env = {
+                    api_key = ANTHROPIC_KEY
+                },
+            })
+        end,
+    },
 })

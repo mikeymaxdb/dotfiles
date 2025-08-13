@@ -16,6 +16,7 @@ alias mv='mv -iv'
 alias cp='cp -iv'
 alias cat='bat'
 alias startx='startx; exit'
+alias cc='claude'
 
 if [ "$isMac" = true ]; then
     alias l='gls -1Fhp --color --group-directories-first'

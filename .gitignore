@@ -1,4 +1,5 @@
 .DS_Store
+config/nvim/lua/secrets.lua
 config/nvim/autoload
 config/nvim/plugged
 config/nvim/plugin

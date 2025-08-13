@@ -7,7 +7,6 @@ C-s Start completion (insert mode)
 --]]
 
 -- Keymap
-
 vim.keymap.set('n', '<space>', '<leader>', { remap = true }) -- Space leader
 vim.keymap.set('x', '<space>', '<leader>', { remap = true })
 vim.keymap.set('n', '<space><space>', '<leader><leader>', { remap = true })
@@ -30,7 +29,7 @@ vim.keymap.set('n', '<c-_>', 'gcc', { remap = true })     -- Comment line (C-/)
 vim.keymap.set('v', '<c-_>', 'gc', { remap = true })      -- Comment selection (C-/)
 
 vim.keymap.set('n', '<leader><leader>', ':update<cr>')    -- Quick save
-vim.keymap.set("n", "<leader>*", "<cmd>lua require('fzf-lua').grep_cword()<CR>", { silent = true }) -- Search for current word
+vim.keymap.set("n", '<leader>*', "<cmd>lua require('fzf-lua').grep_cword()<CR>", { silent = true }) -- Search for current word
 vim.keymap.set('n', '<leader>=', 'mzgg=G`z')              -- Reindent buffer
 vim.keymap.set('n', '<leader>a', 'A')                     -- Easy A
 vim.keymap.set("n", "<leader>b", "<cmd>lua require('fzf-lua').lines()<CR>", { silent = true })           -- Search open buffers
@@ -54,9 +53,9 @@ vim.keymap.set('n', '<leader>ss', '<c-w>r')               -- Split swap
 
 -- Git
 vim.keymap.set('n', '<leader>ga', ':!gaa<cr>')            -- Git add all
-vim.keymap.set("n", "<leader>gs", "<cmd>lua require('fzf-lua').git_status()<CR>", { silent = true })   -- Git status
-vim.keymap.set("n", "<leader>gl", "<cmd>lua require('fzf-lua').git_commits()<CR>", { silent = true })  -- Git log
-vim.keymap.set("n", "<leader>gt", "<cmd>lua require('fzf-lua').git_bcommits()<CR>", { silent = true }) -- Git file log
+vim.keymap.set("n", '<leader>gs', "<cmd>lua require('fzf-lua').git_status()<CR>", { silent = true })   -- Git status
+vim.keymap.set("n", '<leader>gl', "<cmd>lua require('fzf-lua').git_commits()<CR>", { silent = true })  -- Git log
+vim.keymap.set("n", '<leader>gt', "<cmd>lua require('fzf-lua').git_bcommits()<CR>", { silent = true }) -- Git file log
 vim.keymap.set('n', '<leader>gb', ':Git blame<cr>')       -- Git blame
 vim.keymap.set('n', '<leader>gd', ':Git difftool<cr>')    -- Git diff
 vim.keymap.set('n', '<leader>gm', ':Git mergetool<cr>')   -- Git mergetool
@@ -68,6 +67,17 @@ vim.keymap.set('n', '<leader>xd', '<cmd>TroubleToggle document_diagnostics<cr>')
 vim.keymap.set('n', '<leader>xl', '<cmd>TroubleToggle loclist<cr>')
 vim.keymap.set('n', '<leader>xq', '<cmd>TroubleToggle quickfix<cr>')
 vim.keymap.set('n', 'gR', '<cmd>TroubleToggle lsp_references<cr>')
+
+-- JSON
+vim.keymap.set("v", "<leader>js", [[:'<, '>!python3 -c "import sys, json; print(json.dumps(json.load(sys.stdin), indent=2, sort_keys=True))"<cr>]])
+
+-- CodeCompanion
+vim.api.nvim_set_keymap('n', '<leader>ca', '<cmd>CodeCompanionActions<cr>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<leader>ca', '<cmd>CodeCompanionActions<cr>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>cc', '<cmd>CodeCompanionChat Toggle<cr>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<leader>cc', '<cmd>CodeCompanionChat Toggle<cr>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<leader>cs', '<cmd>CodeCompanionChat Add<cr>', { noremap = true, silent = true })
+vim.cmd([[cab cc CodeCompanion]]) -- Expand 'cc' into 'CodeCompanion' in the command line
 
 -- LSP actions
 vim.api.nvim_create_autocmd('User', {
