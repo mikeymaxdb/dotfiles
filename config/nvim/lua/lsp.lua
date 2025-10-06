@@ -1,5 +1,4 @@
 -- Setup neovim lsp
-local lspconfig = require('lspconfig')
 local lsp_defaults = {
     flags = {
         debounce_text_changes = 150,
@@ -26,11 +25,11 @@ local lsp_defaults = {
 }
 
 -- Inject configs
-lspconfig.util.default_config = vim.tbl_deep_extend(
-    'force',
-    lspconfig.util.default_config,
-    lsp_defaults
-)
+-- vim.lsp.util.default_config = vim.tbl_deep_extend(
+--     'force',
+--     vim.lsp.util.default_config,
+--     lsp_defaults
+-- )
 
 vim.diagnostic.config({
     -- virtual_text = false,
@@ -47,7 +46,8 @@ local servers = {
     'vimls',
 }
 for _, lsp in ipairs(servers) do
-    lspconfig[lsp].setup({})
+    -- vim.lsp.config(lsp)
+    vim.lsp.enable(lsp)
 end
 
 -- Nicer icons in gutter
