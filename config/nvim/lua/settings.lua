@@ -80,9 +80,7 @@ vim.api.nvim_set_keymap('v', '<leader>cs', '<cmd>CodeCompanionChat Add<cr>', { n
 vim.cmd([[cab cc CodeCompanion]]) -- Expand 'cc' into 'CodeCompanion' in the command line
 
 -- LSP actions
-vim.api.nvim_create_autocmd('User', {
-    pattern = 'LspAttached',
-    desc = 'LSP actions',
+vim.api.nvim_create_autocmd('LspAttach', {
     callback = function()
         local bufmap = function(mode, lhs, rhs)
             local opts = {buffer = true}

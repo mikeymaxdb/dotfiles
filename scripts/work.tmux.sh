@@ -1,7 +1,7 @@
 #!/bin/sh
 
-sessionName='work'
-configPath="$HOME/Work/workspaces.txt"
+sessionName='dev'
+configPath="$HOME/Personal/projects/workspaces.txt"
 
 changeDirectory(){
     tmux send-keys "cd $1" 'C-m' 'C-l'
