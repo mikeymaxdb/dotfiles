@@ -35,7 +35,6 @@ require('lazy').setup({
     'wellle/targets.vim',                  -- More text objects
 
     -- Colorschemes
-    'AlexvZyl/nordic.nvim',                -- Warmer nordic
     'folke/tokyonight.nvim',               -- Neon tokyo
 
     -- Tools

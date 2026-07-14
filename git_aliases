@@ -15,6 +15,7 @@ alias gr='git rebase'           # Rebase shortcut
 alias gp='git pull --no-edit'   # Pull shortcut
 alias gpp='git push'            # Push shortcut
 alias gppf='gpp --force-with-lease' # Push force with check
+alias gpt='gpp --follow-tags'   # Push commits and include tags
 alias gm='git merge --no-edit'  # Merge in branch
 alias gco='git checkout'        # Checkout branch
 alias gcoo='gitCheckoutFZF'     # Checkout branch with fzf fuzzy find
