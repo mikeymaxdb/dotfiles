@@ -47,28 +47,31 @@ local servers = {
     'html',
     'jsonls',
     'pyright',
-    'ts_ls',
+    -- 'ts_ls',
+    'tsgo',
     'vimls',
+    'oxlint',
 }
 for _, lsp in ipairs(servers) do
     vim.lsp.enable(lsp)
 end
 
 -- Setup treesitter
-require'nvim-treesitter.configs'.setup {
-    ensure_installed = {
-        -- 'gitignore',
-        'javascript',
-        'jsdoc',
-        'jsonc',
-        'lua',
-        'markdown',
-        'python',
-        'scss',
-        'tsx',
-        'typescript',
-        'vim',
-    },
+require'nvim-treesitter'.setup {
+    install_dir = vim.fn.stdpath('data') .. '/site',
     highlight = { enable = true },
     indent = { enable = true }
+}
+
+require('nvim-treesitter').install {
+    'javascript',
+    'jsdoc',
+    'json',
+    'lua',
+    'markdown',
+    'python',
+    'scss',
+    'tsx',
+    'typescript',
+    'vim',
 }
