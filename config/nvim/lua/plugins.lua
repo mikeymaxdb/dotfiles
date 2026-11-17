@@ -1,70 +1,47 @@
--- Auto install
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
-end
-vim.opt.rtp:prepend(lazypath)
-
-require('lazy').setup({
+vim.pack.add({
     -- UI
-    'nvim-lualine/lualine.nvim',           -- Statusline
-    'lukas-reineke/indent-blankline.nvim', -- Vertical indent lines
-    {
-        'lewis6991/gitsigns.nvim',             -- Git gutter
-        config = function()
-            require('gitsigns').setup()
-        end,
-    },
-    'nvim-tree/nvim-web-devicons',         -- File icons
-
-    -- Functionality
-    'michaeljsmith/vim-indent-object',     -- Selecting by indent level vii vai vaI
-    'terryma/vim-multiple-cursors',        -- Edit multiple locations at once <C-n>
-    'tpope/vim-commentary',                -- Comment/uncomment lines
-    'tpope/vim-fugitive',                  -- Git wrapper
-    'tpope/vim-repeat',                    -- Enable plugins to repeat with '.'
-    'tpope/vim-surround',                  -- Quickly surround with quotes
-    'tpope/vim-sleuth',                    -- Smart indentation
-    'wellle/targets.vim',                  -- More text objects
+    'https://github.com/nvim-lualine/lualine.nvim',           -- Statusline
+    'https://github.com/lukas-reineke/indent-blankline.nvim', -- Vertical indent lines
+    'https://github.com/lewis6991/gitsigns.nvim',             -- Git gutter
+    'https://github.com/nvim-tree/nvim-web-devicons',         -- File icons
 
     -- Colorschemes
-    'folke/tokyonight.nvim',               -- Neon tokyo
+    'https://github.com/folke/tokyonight.nvim',               -- Neon tokyo
+
+    -- Functionality
+    'https://github.com/michaeljsmith/vim-indent-object',     -- Selecting by indent level vii vai vaI
+    'https://github.com/terryma/vim-multiple-cursors',        -- Edit multiple locations at once <C-n>
+    'https://github.com/tpope/vim-commentary',                -- Comment/uncomment lines
+    'https://github.com/tpope/vim-fugitive',                  -- Git wrapper
+    'https://github.com/tpope/vim-repeat',                    -- Enable plugins to repeat with '.'
+    'https://github.com/tpope/vim-surround',                  -- Quickly surround with quotes
+    'https://github.com/tpope/vim-sleuth',                    -- Smart indentation
+    'https://github.com/wellle/targets.vim',                  -- More text objects
 
     -- Tools
-    {
-    'nvim-tree/nvim-tree.lua',             -- File browser
-        config = function()
-            require('nvim-tree').setup()
-        end,
-    },
-    'ibhagwan/fzf-lua',                    -- Fuzzy finder
-    'folke/trouble.nvim',                  -- Advanced quick fix
-    {
-        'olimorris/codecompanion.nvim',    -- AI
-        dependencies = {
-            'nvim-lua/plenary.nvim',
-            'nvim-treesitter/nvim-treesitter',
-        },
-        config = true
-    },
+    'https://github.com/nvim-tree/nvim-tree.lua',             -- File browser
+    'https://github.com/ibhagwan/fzf-lua',                    -- Fuzzy finder
+    'https://github.com/folke/trouble.nvim',                  -- Advanced quick fix
 
     -- LSP
-    'neovim/nvim-lspconfig',
-    'hrsh7th/cmp-nvim-lsp',
-    'hrsh7th/cmp-buffer',
-    'hrsh7th/cmp-path',
-    'hrsh7th/cmp-cmdline',
-    'hrsh7th/cmp-vsnip',
-    'hrsh7th/vim-vsnip',
-    'hrsh7th/nvim-cmp',
-    'nvim-treesitter/nvim-treesitter'
+    'https://github.com/neovim/nvim-lspconfig',
+    'https://github.com/hrsh7th/cmp-nvim-lsp',
+    'https://github.com/hrsh7th/cmp-buffer',
+    'https://github.com/hrsh7th/cmp-path',
+    'https://github.com/hrsh7th/cmp-cmdline',
+    'https://github.com/hrsh7th/cmp-vsnip',
+    'https://github.com/hrsh7th/vim-vsnip',
+    'https://github.com/hrsh7th/nvim-cmp',
+    'https://github.com/nvim-treesitter/nvim-treesitter'
+})
+
+require('nvim-tree').setup()
+
+require('trouble').setup()
+
+require('gitsigns').setup({
+    linehl = false,
+    numhl = false,
 })
 
 -- Statusline
@@ -99,28 +76,4 @@ require('ibl').setup({
     indent = {
         highlight = { 'IndentBlankLineIndent1' }
     }
-})
-
--- Code companion
-require('secrets')
-require("codecompanion").setup({
-    strategies = {
-        chat = {
-            adapter = 'anthropic',
-        },
-        inline = {
-            adapter = 'anthropic',
-        },
-    },
-    adapters = {
-        http = {
-            anthropic = function()
-                return require('codecompanion.adapters').extend('anthropic', {
-                    env = {
-                        api_key = ANTHROPIC_KEY
-                    },
-                })
-            end,
-        },
-    },
 })

@@ -46,11 +46,10 @@ local servers = {
     'eslint',
     'html',
     'jsonls',
-    'pyright',
-    -- 'ts_ls',
-    'tsgo',
-    'vimls',
     'oxlint',
+    'pyright',
+    'tsc',
+    'vimls',
 }
 for _, lsp in ipairs(servers) do
     vim.lsp.enable(lsp)

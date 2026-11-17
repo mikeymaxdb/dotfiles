@@ -1,7 +1,6 @@
 --[[ Cheatsheet
 
 C-n Multi-line edit
-C-q Open selected search results in Trouble
 C-s Start completion (insert mode)
 
 --]]
@@ -29,15 +28,15 @@ vim.keymap.set('n', '<c-_>', 'gcc', { remap = true })     -- Comment line (C-/)
 vim.keymap.set('v', '<c-_>', 'gc', { remap = true })      -- Comment selection (C-/)
 
 vim.keymap.set('n', '<leader><leader>', ':update<cr>')    -- Quick save
-vim.keymap.set("n", '<leader>*', "<cmd>lua require('fzf-lua').grep_cword()<CR>", { silent = true }) -- Search for current word
 vim.keymap.set('n', '<leader>=', 'mzgg=G`z')              -- Reindent buffer
 vim.keymap.set('n', '<leader>a', 'A')                     -- Easy A
+vim.keymap.set("n", '<leader>*', "<cmd>lua require('fzf-lua').grep_cword()<CR>", { silent = true })      -- Search for current word
 vim.keymap.set("n", "<leader>b", "<cmd>lua require('fzf-lua').lines()<CR>", { silent = true })           -- Search open buffers
 vim.keymap.set("n", "<leader>f", "<cmd>lua require('fzf-lua').blines()<CR>", { silent = true })          -- Search current buffer
 vim.keymap.set("n", "<leader>G", "<cmd>lua require('fzf-lua').grep({search=''})<CR>", { silent = true }) -- Search file contents
+vim.keymap.set("n", "<leader>o", "<cmd>lua require('fzf-lua').files()<CR>", { silent = true })           -- Search file names
 vim.keymap.set('n', '<leader>n', ':NvimTreeFindFile<cr>') -- Find file in file tree
 vim.keymap.set('n', '<leader>N', ':NvimTreeToggle<cr>')   -- Toggle file tree
-vim.keymap.set("n", "<leader>o", "<cmd>lua require('fzf-lua').files()<CR>", { silent = true }) -- Search file names
 vim.keymap.set('n', '<leader>q', ':bp<bar>bd#<cr>')       -- Close buffer
 vim.keymap.set('n', '<leader>r', ':bufdo e<cr>')          -- Reload all buffers
 vim.keymap.set('n', '<leader>u', 'a<c-r>=')               -- Calculator
@@ -59,25 +58,20 @@ vim.keymap.set("n", '<leader>gt', "<cmd>lua require('fzf-lua').git_bcommits()<CR
 vim.keymap.set('n', '<leader>gb', ':Git blame<cr>')       -- Git blame
 vim.keymap.set('n', '<leader>gd', ':Git difftool<cr>')    -- Git diff
 vim.keymap.set('n', '<leader>gm', ':Git mergetool<cr>')   -- Git mergetool
+vim.keymap.set('n', '<leader>gh', function()              -- Toggle highlighting
+    vim.cmd('Gitsigns toggle_linehl')
+    vim.cmd('Gitsigns toggle_numhl')
+end)
 
 -- Trouble
-vim.keymap.set('n', '<leader>xx', '<cmd>TroubleToggle<cr>')
-vim.keymap.set('n', '<leader>xw', '<cmd>TroubleToggle workspace_diagnostics<cr>')
-vim.keymap.set('n', '<leader>xd', '<cmd>TroubleToggle document_diagnostics<cr>')
-vim.keymap.set('n', '<leader>xl', '<cmd>TroubleToggle loclist<cr>')
-vim.keymap.set('n', '<leader>xq', '<cmd>TroubleToggle quickfix<cr>')
-vim.keymap.set('n', 'gR', '<cmd>TroubleToggle lsp_references<cr>')
+vim.keymap.set('n', '<leader>xx', '<cmd>Trouble diagnostics toggle<cr>')
+vim.keymap.set('n', '<leader>xd', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>')
+vim.keymap.set('n', '<leader>xl', '<cmd>Trouble loclist toggle<cr>')
+vim.keymap.set('n', '<leader>xq', '<cmd>Trouble qflist toggle<cr>')
+vim.keymap.set('n', 'gR', '<cmd>Trouble lsp_references toggle<cr>')
 
 -- JSON
 vim.keymap.set("v", "<leader>js", [[:'<, '>!python3 -c "import sys, json; print(json.dumps(json.load(sys.stdin), indent=2, sort_keys=True))"<cr>]])
-
--- CodeCompanion
-vim.api.nvim_set_keymap('n', '<leader>ca', '<cmd>CodeCompanionActions<cr>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<leader>ca', '<cmd>CodeCompanionActions<cr>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>cc', '<cmd>CodeCompanionChat Toggle<cr>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<leader>cc', '<cmd>CodeCompanionChat Toggle<cr>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<leader>cs', '<cmd>CodeCompanionChat Add<cr>', { noremap = true, silent = true })
-vim.cmd([[cab cc CodeCompanion]]) -- Expand 'cc' into 'CodeCompanion' in the command line
 
 -- LSP actions
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -89,7 +83,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
         bufmap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')            -- Displays hover information about the symbol under the cursor
         bufmap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>')      -- Jump to the definition
-        bufmap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>')     -- Jump to declaration
         bufmap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>')  -- Lists all the implementations for the symbol under the cursor
         bufmap('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>') -- Jumps to the definition of the type symbol
         bufmap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>')      -- Lists all the references 
@@ -139,7 +132,6 @@ vim.opt.termguicolors = true                     -- More colors
 vim.opt.background = 'dark'                      -- Dark colorscheme
 vim.cmd('colorscheme tokyonight-night')          -- Set colorscheme
 vim.opt.number = true                            -- Line numbers
--- vim.opt.relativenumber = true                    -- Show distance from current line instead
 vim.opt.showmode = false                         -- Only have the mode in the statusline
 vim.opt.showmatch = true                         -- Highlight matching brace
 vim.opt.incsearch = true                         -- Highlight search as you type
@@ -166,6 +158,11 @@ vim.opt.smartindent = true
 vim.opt.ignorecase = true                        -- Ignore case when searching
 vim.opt.smartcase = true                         -- Smart case-sensitivity
 vim.opt.updatetime = 250                         -- Faster CursorHold for popups
+
+-- Reload buffer if file changed externally
+vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter', 'CursorHold' }, {
+  command = 'checktime',
+})
 
 -- local ExecuteMacroOverVisualRange = function()
 --     -- echo "@".getcmdline()
