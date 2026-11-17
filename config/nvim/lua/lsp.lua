@@ -5,11 +5,24 @@ vim.lsp.config('*', {
     },
 })
 
+local has_float = function()
+    return vim.iter(vim.api.nvim_tabpage_list_wins(0)):any(function(win)
+        return vim.api.nvim_win_get_config(win).relative ~= ''
+    end)
+end
+
 vim.api.nvim_create_autocmd('LspAttach', {
-    callback = function()
+    callback = function(args)
         -- Open diagnostic window when cursor is on an error
+        local group = vim.api.nvim_create_augroup('diagnostic_float_' .. args.buf, { clear = true })
         vim.api.nvim_create_autocmd('CursorHold', {
+            group = group,
+            buffer = args.buf,
             callback = function()
+                -- Do not cover an open float (e.g. hover from K)
+                if has_float() then
+                    return
+                end
                 local opts = {
                     focusable = false,
                     close_events = { 'BufLeave', 'CursorMoved', 'InsertEnter', 'FocusLost' },

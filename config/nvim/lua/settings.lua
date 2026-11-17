@@ -139,6 +139,7 @@ vim.opt.hlsearch = true                          -- Highlight search results
 vim.opt.list = true                              -- Show invisible characters
 vim.opt.listchars = { trail = '·' }              -- Show trailing spaces
 vim.opt.signcolumn = 'yes'                       -- Always leave space for git/lint column
+vim.opt.winborder = 'rounded'                    -- Add border to all popups
 
 -- Behavior settings
 vim.opt.scrolloff = 3                            -- Keep cursor away from the top/bottom
