@@ -56,8 +56,7 @@ vim.keymap.set("n", '<leader>gs', "<cmd>lua require('fzf-lua').git_status()<CR>"
 vim.keymap.set("n", '<leader>gl', "<cmd>lua require('fzf-lua').git_commits()<CR>", { silent = true })  -- Git log
 vim.keymap.set("n", '<leader>gt', "<cmd>lua require('fzf-lua').git_bcommits()<CR>", { silent = true }) -- Git file log
 vim.keymap.set('n', '<leader>gb', ':Git blame<cr>')       -- Git blame
-vim.keymap.set('n', '<leader>gd', ':Git difftool<cr>')    -- Git diff
-vim.keymap.set('n', '<leader>gm', ':Git mergetool<cr>')   -- Git mergetool
+vim.keymap.set('n', '<leader>gd', ':Gitsigns diff<cr>')    -- Git diff
 vim.keymap.set('n', '<leader>gh', function()              -- Toggle highlighting
     vim.cmd('Gitsigns toggle_linehl')
     vim.cmd('Gitsigns toggle_numhl')

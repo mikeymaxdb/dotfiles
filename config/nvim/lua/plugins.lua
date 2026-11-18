@@ -24,25 +24,21 @@ vim.pack.add({
     'https://github.com/folke/trouble.nvim',                  -- Advanced quick fix
 
     -- LSP
-    'https://github.com/neovim/nvim-lspconfig',
-    'https://github.com/hrsh7th/cmp-nvim-lsp',
-    'https://github.com/hrsh7th/cmp-buffer',
-    'https://github.com/hrsh7th/cmp-path',
-    'https://github.com/hrsh7th/cmp-cmdline',
-    'https://github.com/hrsh7th/cmp-vsnip',
-    'https://github.com/hrsh7th/vim-vsnip',
-    'https://github.com/hrsh7th/nvim-cmp',
-    'https://github.com/nvim-treesitter/nvim-treesitter'
+    'https://github.com/saghen/blink.lib',                    -- Completion lib
+    'https://github.com/saghen/blink.cmp',                    -- Completion
+    'https://github.com/neovim/nvim-lspconfig',               -- LSP server configs
+    'https://github.com/nvim-treesitter/nvim-treesitter',
 })
 
+-- Some plugins require a setup()
 require('nvim-tree').setup()
-
 require('trouble').setup()
+require('gitsigns').setup()
 
-require('gitsigns').setup({
-    linehl = false,
-    numhl = false,
-})
+-- Build blink.cmp's rust library (skipped when one exists for the current commit)
+-- The macOS 27 strip step writes a misaligned LINKEDIT string pool that dyld rejects
+vim.env.CARGO_PROFILE_RELEASE_STRIP = 'none'
+require('blink.cmp').build():pwait()
 
 -- Statusline
 require('lualine').setup({

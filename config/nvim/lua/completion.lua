@@ -1,43 +1,44 @@
--- Setup nvim-cmp.
-local cmp = require'cmp'
-
-cmp.setup({
-    snippet = {
-        expand = function(args)
-            vim.fn['vsnip#anonymous'](args.body)
-        end,
+-- Setup blink.cmp (v2)
+-- Cmdline completion (buffer for '/', cmdline for ':') and LSP capabilities are enabled by default
+require('blink.cmp').setup({
+    keymap = {
+        preset = 'none',
+        ['<C-s>'] =  { 'show', 'show_documentation', 'hide_documentation', 'fallback' },
+        ['<Tab>'] =  { 'accept', 'fallback' },
+        ['<CR>'] =   { 'accept', 'fallback' },
+        ['<Up>'] =   { 'select_prev', 'snippet_backward', 'fallback' },
+        ['<Down>'] = { 'select_next', 'snippet_forward', 'fallback' },
+        ['<C-y>'] =  { 'show_signature', 'hide_signature', 'fallback' },
+        ['<C-e>'] =  { 'cancel', 'fallback' },
     },
-    mapping = {
-        ['<CR>'] = cmp.mapping.confirm({ select = true }),
-        ['<Tab>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-        ['<S-Tab>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-        ['<C-s>'] = cmp.mapping.complete(),
+    signature = {
+        enabled = true,
     },
-    sources = cmp.config.sources({
-        { name = 'nvim_lsp' },
-        { name = 'vsnip' },
-    }, {
-            { name = 'buffer' },
-        }),
-    window = {
-        documentation = cmp.config.window.bordered(),
-        completion = cmp.config.window.bordered(),
+    completion = {
+        menu = {
+            border = 'rounded',
+            draw = {
+                columns = {
+                    { "label", "label_description", gap = 1 },
+                    { "kind_icon", "kind" , gap = 1 }
+                },
+            }
+        },
+        documentation = {
+            auto_show = true,
+            window = {
+                border = 'rounded',
+            },
+        },
+        ghost_text = {
+            enabled = true,
+        },
     },
-})
-
--- Use buffer source for `/`.
-cmp.setup.cmdline('/', {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = {
-        { name = 'buffer' }
-    }
-})
-
--- Use cmdline & path source for ':'.
-cmp.setup.cmdline(':', {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources(
-        {{ name = 'path' }},
-        {{ name = 'cmdline' }}
-    )
+    cmdline = {
+        keymap = {
+            preset = 'inherit',
+            ['<CR>'] = { 'fallback' },
+        },
+        completion = { menu = { auto_show = true } },
+    },
 })
